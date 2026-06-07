@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 import { useDraftChat } from "../../lib/hooks/useDraftChat";
 
-const SESSION_KEY = "kathgpt-session-started";
+const SESSION_KEY = "kathagpt-session-started";
 
 function shouldSkipLaunchRedirect(pathname: string) {
   return (

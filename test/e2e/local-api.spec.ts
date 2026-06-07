@@ -28,7 +28,7 @@ test.describe("Rust local API", () => {
     expect(res.ok()).toBeTruthy();
     const body = await res.json();
     expect(body.firstName).toBe("John");
-    expect(body.email).toMatch(/@kathgpt\.local$/);
+    expect(body.email).toMatch(/@kathagpt\.local$/);
   });
 
   test("provider keys status lists all providers", async ({ request }) => {

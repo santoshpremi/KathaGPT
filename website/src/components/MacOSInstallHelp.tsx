@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { assetUrl } from "../lib/site";
 
-const INSTALL_SCRIPT = `hdiutil attach ~/Downloads/KathGPT_0.1.0_aarch64.dmg -nobrowse -readonly && \\
-VOL=$(ls -d /Volumes/KathGPT* | head -1) && \\
-ditto "$VOL/KathGPT.app" /Applications/KathGPT.app && \\
-xattr -cr /Applications/KathGPT.app && \\
+const INSTALL_SCRIPT = `hdiutil attach ~/Downloads/KathaGPT_0.1.0_aarch64.dmg -nobrowse -readonly && \\
+VOL=$(ls -d /Volumes/KathaGPT* | head -1) && \\
+ditto "$VOL/KathaGPT.app" /Applications/KathaGPT.app && \\
+xattr -cr /Applications/KathaGPT.app && \\
 hdiutil detach "$VOL" -quiet && \\
-open /Applications/KathGPT.app`;
+open /Applications/KathaGPT.app`;
 
-const QUICK_FIX = "xattr -cr /Applications/KathGPT.app && open -a KathGPT";
+const QUICK_FIX = "xattr -cr /Applications/KathaGPT.app && open -a KathaGPT";
 
 export function MacOSInstallHelp() {
   const [copied, setCopied] = useState<"script" | "quick" | null>(null);
@@ -54,7 +54,7 @@ export function MacOSInstallHelp() {
         Option B — already dragged to Applications?
       </p>
       <p className="mt-1 text-sm text-stone-600">
-        Run this in Terminal, then open KathGPT again:
+        Run this in Terminal, then open KathaGPT again:
       </p>
       <div className="relative mt-2">
         <pre className="overflow-x-auto rounded-xl border border-stone-200 bg-stone-50 p-3 text-xs text-stone-800">
@@ -71,7 +71,7 @@ export function MacOSInstallHelp() {
 
       <p className="mt-5 text-sm font-medium text-stone-900">Option C — manual</p>
       <p className="mt-1 text-sm text-stone-600">
-        Right-click <strong className="text-stone-800">KathGPT.app</strong> in
+        Right-click <strong className="text-stone-800">KathaGPT.app</strong> in
         Applications → <strong className="text-stone-800">Open</strong> →{" "}
         <strong className="text-stone-800">Open</strong> again.
       </p>

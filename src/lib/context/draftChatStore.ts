@@ -25,7 +25,7 @@ export const useDraftChatStore = create(
       isDraft: (chatId) => get().draftIds.includes(chatId),
     }),
     {
-      name: "kathgpt-draft-chats",
+      name: "kathagpt-draft-chats",
       storage: createJSONStorage(() => sessionStorage),
     },
   ),

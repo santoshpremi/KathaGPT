@@ -22,11 +22,11 @@ import { useContactInfo } from "../../lib/api/localHooks";
 import { useModals } from "../../router";
 import { IntercomAppWrapper, IntercomButton } from "./IntercomButton";
 
-import { KATHGPT_GITHUB_REPO, SUPPORT_EMAIL } from "../../shared/constants/contact";
+import { KATHAGPT_GITHUB_REPO, SUPPORT_EMAIL } from "../../shared/constants/contact";
 
-const KATHGPT_README = `https://github.com/${KATHGPT_GITHUB_REPO}/blob/main/README.md`;
-const KATHGPT_FEATURES = `https://github.com/${KATHGPT_GITHUB_REPO}/blob/main/docs/LOCAL_EDITION_FEATURES.md`;
-const KATHGPT_MIGRATION = `https://github.com/${KATHGPT_GITHUB_REPO}/blob/main/docs/LOCAL_EDITION_MIGRATION_PLAN.md`;
+const KATHAGPT_README = `https://github.com/${KATHAGPT_GITHUB_REPO}/blob/main/README.md`;
+const KATHAGPT_FEATURES = `https://github.com/${KATHAGPT_GITHUB_REPO}/blob/main/docs/LOCAL_EDITION_FEATURES.md`;
+const KATHAGPT_MIGRATION = `https://github.com/${KATHAGPT_GITHUB_REPO}/blob/main/docs/LOCAL_EDITION_MIGRATION_PLAN.md`;
 
 const INTERCOM_ENABLED = false;
 
@@ -80,17 +80,17 @@ export function HelpCenterModal({
           </Typography>
           <Stack direction="row" gap={2} alignItems="center">
             <HelpCenterResourceLink
-              href={KATHGPT_README}
+              href={KATHAGPT_README}
               icon={<Article />}
               text={t("documentation")}
             />
             <HelpCenterResourceLink
-              href={KATHGPT_FEATURES}
+              href={KATHAGPT_FEATURES}
               icon={<PlayCircle />}
               text={t("workflows")}
             />
             <HelpCenterResourceLink
-              href={KATHGPT_MIGRATION}
+              href={KATHAGPT_MIGRATION}
               text={t("aiTools")}
               icon={<AutoAwesome />}
             />

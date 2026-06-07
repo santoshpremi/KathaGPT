@@ -1,15 +1,15 @@
 import type { ComponentProps } from "react";
 import logoExtended from "../../assets/logo_extended.svg";
 import logoMark from "../../assets/logo.svg";
-import { KathGPTBrand } from "./KathGPTBrand";
+import { KathaGPTBrand } from "./KathaGPTBrand";
 import { useOrganization } from "../../lib/api/organization";
 import { DelayedLoader } from "../util/DelayedLoader";
 
-export function kathgptLogo({ ...props }: ComponentProps<"img">) {
+export function kathagptLogo({ ...props }: ComponentProps<"img">) {
   return (
     <img
       src={logoMark}
-      alt="KathGPT Logo"
+      alt="KathaGPT Logo"
       {...props}
       style={{
         objectFit: "contain",
@@ -37,7 +37,7 @@ export function BrandedLogo({
 
   if (!customBrandedFallback) {
     return (
-      <KathGPTBrand
+      <KathaGPTBrand
         compact={variant === "avatar"}
         style={props.style}
         className={props.className}
@@ -50,7 +50,7 @@ export function BrandedLogo({
 
   return (
     <img
-      alt="KathGPT Logo"
+      alt="KathaGPT Logo"
       {...props}
       src={source}
       style={{
@@ -70,7 +70,7 @@ export function CustomLogoWithFallback(
 
   return (
     <img
-      alt="KathGPT Logo"
+      alt="KathaGPT Logo"
       src={source}
       {...props}
       style={{
@@ -85,7 +85,7 @@ export function DefaultLogo(props: ComponentProps<"img">) {
   return (
     <img
       src={logoMark}
-      alt="KathGPT Logo"
+      alt="KathaGPT Logo"
       {...props}
       style={{
         objectFit: "contain",

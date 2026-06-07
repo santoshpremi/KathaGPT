@@ -65,7 +65,7 @@ async fn fetch_openrouter(pool: &SqlitePool) -> anyhow::Result<Vec<ProviderModel
         .get("https://openrouter.ai/api/v1/models")
         .bearer_auth(&key)
         .header("HTTP-Referer", "http://localhost:17890")
-        .header("X-Title", "KathGPT")
+        .header("X-Title", "KathaGPT")
         .send()
         .await?;
 

@@ -26,7 +26,7 @@ pub fn run() {
     tracing_subscriber::fmt()
         .with_env_filter(
             EnvFilter::from_default_env()
-                .add_directive("kathgpt_local=info".parse().unwrap())
+                .add_directive("kathagpt_local=info".parse().unwrap())
                 .add_directive("sqlx=warn".parse().unwrap()),
         )
         .init();
@@ -35,7 +35,7 @@ pub fn run() {
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![get_api_port, save_translated_file])
         .setup(|app| {
-            let open_item = MenuItem::with_id(app, "open", "Open KathGPT", true, None::<&str>)?;
+            let open_item = MenuItem::with_id(app, "open", "Open KathaGPT", true, None::<&str>)?;
             let quit_item = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
             let tray_menu = Menu::with_items(app, &[&open_item, &quit_item])?;
 
@@ -47,7 +47,7 @@ pub fn run() {
             let _tray = TrayIconBuilder::new()
                 .icon(icon)
                 .menu(&tray_menu)
-                .tooltip("KathGPT")
+                .tooltip("KathaGPT")
                 .on_menu_event(|app, event| match event.id.as_ref() {
                     "open" => show_main_window(app),
                     "quit" => app.exit(0),
@@ -92,7 +92,7 @@ async fn start_backend(handle: &tauri::AppHandle) -> anyhow::Result<()> {
 
     let port = server::start(state).await?;
     API_PORT.store(port, Ordering::SeqCst);
-    info!("KathGPT Local backend ready on port {port}");
+    info!("KathaGPT Local backend ready on port {port}");
     Ok(())
 }
 

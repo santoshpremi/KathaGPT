@@ -3,7 +3,7 @@ import { test, expect } from "./fixtures";
 const ORG_ID = "org_cm8yflh26064xmw01zbalts9c";
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:5173";
 
-test.describe("KathGPT user flow", () => {
+test.describe("KathaGPT user flow", () => {
   test("home redirects to a chat without error screen", async ({ page }) => {
     const criticalErrors: string[] = [];
     page.on("console", (msg) => {

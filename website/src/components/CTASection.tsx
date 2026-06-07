@@ -10,7 +10,7 @@ export function CTASection() {
             Ready to run AI on your terms?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-stone-400">
-            Download KathGPT for free. No account, no subscription — just your
+            Download KathaGPT for free. No account, no subscription — just your
             API keys and a fast Rust-powered desktop app.
           </p>
 

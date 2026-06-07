@@ -1,19 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="KathGPT">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="KathaGPT">
   <defs>
-    <linearGradient id="kathgpt-sky" x1="6" y1="42" x2="42" y2="6" gradientUnits="userSpaceOnUse">
+    <linearGradient id="kathagpt-sky" x1="6" y1="42" x2="42" y2="6" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#312e81"/>
       <stop offset="45%" stop-color="#0891b2"/>
       <stop offset="100%" stop-color="#10b981"/>
     </linearGradient>
-    <linearGradient id="kathgpt-glow" x1="18" y1="10" x2="34" y2="30" gradientUnits="userSpaceOnUse">
+    <linearGradient id="kathagpt-glow" x1="18" y1="10" x2="34" y2="30" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
       <stop offset="100%" stop-color="#ecfeff" stop-opacity="0.85"/>
     </linearGradient>
   </defs>
-  <rect width="48" height="48" rx="14" fill="url(#kathgpt-sky)"/>
+  <rect width="48" height="48" rx="14" fill="url(#kathagpt-sky)"/>
   <path
     fill="none"
-    stroke="url(#kathgpt-glow)"
+    stroke="url(#kathagpt-glow)"
     stroke-width="2.4"
     stroke-linecap="round"
     stroke-linejoin="round"

@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    kathgpt_local_lib::run();
+    kathagpt_local_lib::run();
 }

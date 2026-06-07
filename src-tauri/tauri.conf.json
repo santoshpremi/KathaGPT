@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "KathGPT",
+  "productName": "KathaGPT",
   "version": "0.1.0",
-  "identifier": "com.kathgpt.local",
+  "identifier": "com.kathagpt.local",
   "build": {
     "beforeDevCommand": "pnpm run dev:tauri-prep",
     "devUrl": "http://localhost:5173",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "KathGPT",
+        "title": "KathaGPT",
         "width": 1280,
         "height": 800,
         "minWidth": 900,

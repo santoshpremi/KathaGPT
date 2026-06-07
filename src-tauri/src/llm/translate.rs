@@ -40,7 +40,7 @@ pub async fn translate_text(
             "openai/gpt-4o-mini",
             vec![
                 ("HTTP-Referer", "http://localhost:17890"),
-                ("X-Title", "KathGPT"),
+                ("X-Title", "KathaGPT"),
             ],
         )
     } else {
@@ -118,7 +118,7 @@ pub async fn translate_document_text(
             "openai/gpt-4o-mini",
             vec![
                 ("HTTP-Referer", "http://localhost:17890"),
-                ("X-Title", "KathGPT"),
+                ("X-Title", "KathaGPT"),
             ],
         )
     } else {

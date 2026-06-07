@@ -1,23 +1,23 @@
-# KathGPT Local Edition
+# KathaGPT Local Edition
 
 **Fast, private AI chat on your machine — powered by Rust.** Bring your own API key; conversations, workflows, and settings stay on your device.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![GitHub](https://img.shields.io/github/stars/santoshpremi/KathGPT?style=social)](https://github.com/santoshpremi/KathGPT)
+[![GitHub](https://img.shields.io/github/stars/santoshpremi/KathaGPT?style=social)](https://github.com/santoshpremi/KathaGPT)
 
 | | |
 |---|---|
 | **Version** | 0.1.0 |
 | **Stack** | React · **Rust (Axum)** · Tauri v2 · SQLite |
 | **Platforms** | macOS · Windows · Linux |
-| **Repo** | [github.com/santoshpremi/KathGPT](https://github.com/santoshpremi/KathGPT) |
+| **Repo** | [github.com/santoshpremi/KathaGPT](https://github.com/santoshpremi/KathaGPT) |
 | **Website** | [Marketing site](website/) · deploy via GitHub Pages |
 
 ---
 
 ## Powered by Rust
 
-KathGPT’s backend is **100% Rust** — the old Node.js server is gone. One native core handles everything that matters for speed and privacy:
+KathaGPT’s backend is **100% Rust** — the old Node.js server is gone. One native core handles everything that matters for speed and privacy:
 
 | Benefit | How |
 |---------|-----|
@@ -30,7 +30,7 @@ KathGPT’s backend is **100% Rust** — the old Node.js server is gone. One nat
 
 ```
 ┌─────────────────────────────────────────────┐
-│  KathGPT.app / .exe / .AppImage             │
+│  KathaGPT.app / .exe / .AppImage             │
 │  ┌───────────────────────────────────────┐  │
 │  │  Tauri (Rust)                         │  │
 │  │  • Native window + system tray        │  │
@@ -45,7 +45,7 @@ KathGPT’s backend is **100% Rust** — the old Node.js server is gone. One nat
 
 ---
 
-## Why KathGPT?
+## Why KathaGPT?
 
 - **Local-first** — Chats and app data live in SQLite on your machine, not on a remote server.
 - **BYOK** — Connect OpenRouter, OpenAI, Anthropic, Gemini, or Perplexity with keys you control.
@@ -79,8 +79,8 @@ For desktop builds, install [Tauri prerequisites](https://v2.tauri.app/start/pre
 ### 1. Install & run
 
 ```bash
-git clone https://github.com/santoshpremi/KathGPT.git
-cd KathGPT
+git clone https://github.com/santoshpremi/KathaGPT.git
+cd KathaGPT
 pnpm install
 ./start-dev.sh          # or: pnpm dev
 ```
@@ -104,14 +104,14 @@ pnpm tauri:dev          # dev with native window
 pnpm tauri:build        # production installer (.dmg / .msi / .AppImage)
 ```
 
-**macOS install (unsigned build):** Download from [the website](https://santoshpremi.github.io/KathGPT/) or build locally. If macOS shows *“could not verify”*, the browser added a quarantine flag — this is expected without Apple notarization ($99/yr Developer ID).
+**macOS install (unsigned build):** Download from [the website](https://santoshpremi.github.io/KathaGPT/) or build locally. If macOS shows *“could not verify”*, the browser added a quarantine flag — this is expected without Apple notarization ($99/yr Developer ID).
 
-1. **Terminal (recommended):** After downloading the `.dmg` to `~/Downloads`, run the one-liner on the [download page](https://santoshpremi.github.io/KathGPT/#download), or:
+1. **Terminal (recommended):** After downloading the `.dmg` to `~/Downloads`, run the one-liner on the [download page](https://santoshpremi.github.io/KathaGPT/#download), or:
    ```bash
    ./scripts/install-macos.sh
    ```
-2. **Already in Applications?** `xattr -cr /Applications/KathGPT.app && open -a KathGPT`
-3. **Manual:** Right-click **KathGPT.app** → **Open** → **Open** again.
+2. **Already in Applications?** `xattr -cr /Applications/KathaGPT.app && open -a KathaGPT`
+3. **Manual:** Right-click **KathaGPT.app** → **Open** → **Open** again.
 
 To ship notarized builds from CI, add GitHub secrets: `APPLE_CERTIFICATE`, `APPLE_CERTIFICATE_PASSWORD`, `APPLE_SIGNING_IDENTITY`, `APPLE_ID`, `APPLE_PASSWORD`, `APPLE_TEAM_ID`.
 
@@ -137,16 +137,16 @@ To ship notarized builds from CI, add GitHub secrets: `APPLE_CERTIFICATE`, `APPL
 
 | OS | Path |
 |----|------|
-| macOS | `~/Library/Application Support/KathGPT/kathgpt.db` |
-| Windows | `%APPDATA%\KathGPT\kathgpt.db` |
-| Linux | `~/.local/share/KathGPT/kathgpt.db` |
+| macOS | `~/Library/Application Support/KathaGPT/kathagpt.db` |
+| Windows | `%APPDATA%\KathaGPT\kathagpt.db` |
+| Linux | `~/.local/share/KathaGPT/kathagpt.db` |
 
 Health check: `GET http://127.0.0.1:17890/api/local/health`
 
 ### Project layout
 
 ```
-KathGPT/
+KathaGPT/
 ├── src/                 # React UI (Vite + MUI)
 ├── src-tauri/           # Rust API, LLM routing, SQLite, Tauri shell
 ├── website/             # Marketing landing page (separate Vite app)
@@ -254,7 +254,7 @@ CI runs Rust checks (`.github/workflows/rust.yml`), Playwright (`.github/workflo
 
 The landing page lives in `website/` — Rust performance section, features, FAQ, and GitHub Releases download buttons.
 
-**Live site (after Pages deploy):** `https://santoshpremi.github.io/KathGPT/`
+**Live site (after Pages deploy):** `https://santoshpremi.github.io/KathaGPT/`
 
 ```bash
 pnpm website:dev        # http://localhost:5174
@@ -270,7 +270,7 @@ Set `VITE_GITHUB_REPO=owner/repo` in `website/.env` (see `website/.env.example`)
 
 1. Run `pnpm test:e2e` on `main`.
 2. Tag: `git tag v0.1.0 && git push origin v0.1.0` — CI builds macOS (ARM + Intel), Windows, and Linux installers.
-3. Confirm [GitHub Releases](https://github.com/santoshpremi/KathGPT/releases) has `.dmg` / `.msi` / `.AppImage` assets.
+3. Confirm [GitHub Releases](https://github.com/santoshpremi/KathaGPT/releases) has `.dmg` / `.msi` / `.AppImage` assets.
 4. Verify the Pages site shows working download buttons.
 
 ---

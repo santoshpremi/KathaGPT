@@ -158,7 +158,7 @@ async fn fetch_openrouter_image_models(pool: &SqlitePool) -> anyhow::Result<Vec<
         .get("https://openrouter.ai/api/v1/models")
         .bearer_auth(&key)
         .header("HTTP-Referer", "http://localhost:17890")
-        .header("X-Title", "KathGPT")
+        .header("X-Title", "KathaGPT")
         .send()
         .await?;
 
@@ -256,7 +256,7 @@ async fn generate_openrouter(
         .post("https://openrouter.ai/api/v1/chat/completions")
         .bearer_auth(&key)
         .header("HTTP-Referer", "http://localhost:17890")
-        .header("X-Title", "KathGPT")
+        .header("X-Title", "KathaGPT")
         .json(&body)
         .send()
         .await?;
@@ -386,7 +386,7 @@ pub async fn improve_prompt(pool: &SqlitePool, prompt: &str) -> anyhow::Result<S
             "openai/gpt-4o-mini",
             vec![
                 ("HTTP-Referer", "http://localhost:17890"),
-                ("X-Title", "KathGPT"),
+                ("X-Title", "KathaGPT"),
             ],
         )
     } else {

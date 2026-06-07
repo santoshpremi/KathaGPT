@@ -1,6 +1,6 @@
 import type { HTMLProps } from "react";
 import type { ModelOverride } from "@backend/api/chat/chatTypes";
-import kathgptIcon from "../assets/logo.svg";
+import kathagptIcon from "../assets/logo.svg";
 import claudeIcon from "../assets/modelicons/openai.png";
 import googleIcon from "../assets/modelicons/openai.png";
 import openaiIcon from "../assets/modelicons/openai.png";
@@ -19,7 +19,7 @@ export function ModelIcon({
   const model = modelName.toLowerCase();
 
   if (modelName === "automatic") {
-    src = kathgptIcon;
+    src = kathagptIcon;
   } else if (model.includes("llama")) {
     src = nebiusIcon;
   } else if (model.includes("deepseek")) {

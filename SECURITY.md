@@ -1,6 +1,6 @@
 # Security Policy
 
-KathGPT Local Edition is a **local-first** desktop app. Your chats, workflows, and settings are stored on your machine. The app talks to external LLM providers only when you send a message or use a tool that requires it.
+KathaGPT Local Edition is a **local-first** desktop app. Your chats, workflows, and settings are stored on your machine. The app talks to external LLM providers only when you send a message or use a tool that requires it.
 
 This document describes what data leaves your device, how secrets are handled, and how to report security issues.
 
@@ -12,7 +12,7 @@ This document describes what data leaves your device, how secrets are handled, a
 |---------|-----------|
 | 0.1.x   | ✅ Active |
 
-Security fixes are published for the latest **0.1.x** release. Upgrade via [GitHub Releases](https://github.com/santoshpremi/KathGPT/releases).
+Security fixes are published for the latest **0.1.x** release. Upgrade via [GitHub Releases](https://github.com/santoshpremi/KathaGPT/releases).
 
 ---
 
@@ -22,11 +22,11 @@ Security fixes are published for the latest **0.1.x** release. Upgrade via [GitH
 |---------|------|-------------|
 | **LLM API requests** | Chat, workflows, image generation, translation, research | Providers you configure (OpenRouter, OpenAI, Anthropic, Gemini, Perplexity) over **HTTPS** |
 | **Model catalog** | Optional OpenRouter model list fetch | `openrouter.ai` |
-| **Nothing else by default** | — | No cloud sync, no KathGPT-hosted backend |
+| **Nothing else by default** | — | No cloud sync, no KathaGPT-hosted backend |
 
 ### Not sent by default
 
-- Chat history to KathGPT servers (there are none)
+- Chat history to KathaGPT servers (there are none)
 - Telemetry / error reporting (Sentry removed in local edition)
 - Product analytics (Plausible component exists but is **not mounted** in the local app)
 
@@ -40,7 +40,7 @@ The **marketing website** (`website/`) is a separate static site. It may fetch G
 |-------|----------|-------|
 | SQLite database | OS app-data directory | Chats, messages, workflows, settings |
 | API keys (UI-saved) | `provider_keys` table in SQLite | See [API key storage](#api-key-storage) |
-| Master encryption key | OS keychain (`com.kathgpt.local`) or `.master-key` file fallback | Used when keys are stored with `enc:` prefix |
+| Master encryption key | OS keychain (`com.kathagpt.local`) or `.master-key` file fallback | Used when keys are stored with `enc:` prefix |
 | Dev `.env` keys | Project `.env` (gitignored) | Optional fallback for local development |
 | Tool session history | App-data JSON files | Per-tool history (research, translator, etc.) |
 
@@ -48,9 +48,9 @@ The **marketing website** (`website/`) is a separate static site. It may fetch G
 
 | OS | App data directory |
 |----|--------------------|
-| macOS | `~/Library/Application Support/KathGPT/` |
-| Windows | `%APPDATA%\KathGPT\` |
-| Linux | `~/.local/share/KathGPT/` |
+| macOS | `~/Library/Application Support/KathaGPT/` |
+| Windows | `%APPDATA%\KathaGPT\` |
+| Linux | `~/.local/share/KathaGPT/` |
 
 Back up or wipe data with **Settings → Export / Import** (`/api/local/data/export` and `/data/import`).
 
@@ -58,7 +58,7 @@ Back up or wipe data with **Settings → Export / Import** (`/api/local/data/exp
 
 ## API key storage
 
-KathGPT supports five providers: **OpenRouter**, **OpenAI**, **Anthropic**, **Gemini**, and **Perplexity**.
+KathaGPT supports five providers: **OpenRouter**, **OpenAI**, **Anthropic**, **Gemini**, and **Perplexity**.
 
 Keys can come from two places:
 
@@ -104,14 +104,14 @@ No arbitrary third-party scripts are loaded in the packaged app.
 
 **In scope**
 
-- Local user with filesystem access reading `kathgpt.db` or `.env`
+- Local user with filesystem access reading `kathagpt.db` or `.env`
 - Malware on the same machine accessing loopback API or app-data
 - Misconfigured port forwarding exposing `127.0.0.1:17890` (user responsibility)
 - Prompt injection / untrusted document content in chat (user + provider responsibility)
 
 **Out of scope (by design)**
 
-- KathGPT-operated cloud breach (no KathGPT cloud backend)
+- KathaGPT-operated cloud breach (no KathaGPT cloud backend)
 - Cross-user isolation (single-user local app)
 - Provider-side data handling (governed by each LLM provider’s policies)
 
@@ -119,8 +119,8 @@ No arbitrary third-party scripts are loaded in the packaged app.
 
 ## Security best practices for users
 
-1. **Use official builds** from [GitHub Releases](https://github.com/santoshpremi/KathGPT/releases) or build from source yourself.
-2. **Do not commit** `.env` or share your `kathgpt.db` backup publicly.
+1. **Use official builds** from [GitHub Releases](https://github.com/santoshpremi/KathaGPT/releases) or build from source yourself.
+2. **Do not commit** `.env` or share your `kathagpt.db` backup publicly.
 3. **Rotate API keys** if you suspect exposure; remove keys via Settings → API Keys.
 4. **Review provider policies** — message content is sent to the LLM provider you select.
 5. **Keep the app updated** to the latest 0.1.x patch release.
@@ -133,7 +133,7 @@ No arbitrary third-party scripts are loaded in the packaged app.
 
 ### Preferred: GitHub private security advisory
 
-1. Go to [github.com/santoshpremi/KathGPT/security/advisories](https://github.com/santoshpremi/KathGPT/security/advisories)
+1. Go to [github.com/santoshpremi/KathaGPT/security/advisories](https://github.com/santoshpremi/KathaGPT/security/advisories)
 2. Click **Report a vulnerability**
 3. Include steps to reproduce, impact, and affected version
 

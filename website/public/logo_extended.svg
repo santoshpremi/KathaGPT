@@ -1,24 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" role="img" aria-label="KathGPT">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" role="img" aria-label="KathaGPT">
   <defs>
-    <linearGradient id="kathgpt-sky-ext" x1="6" y1="42" x2="42" y2="6" gradientUnits="userSpaceOnUse">
+    <linearGradient id="kathagpt-sky-ext" x1="6" y1="42" x2="42" y2="6" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#312e81"/>
       <stop offset="45%" stop-color="#0891b2"/>
       <stop offset="100%" stop-color="#10b981"/>
     </linearGradient>
-    <linearGradient id="kathgpt-glow-ext" x1="18" y1="10" x2="34" y2="30" gradientUnits="userSpaceOnUse">
+    <linearGradient id="kathagpt-glow-ext" x1="18" y1="10" x2="34" y2="30" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
       <stop offset="100%" stop-color="#ecfeff" stop-opacity="0.85"/>
     </linearGradient>
-    <linearGradient id="kathgpt-word" x1="58" y1="12" x2="210" y2="36" gradientUnits="userSpaceOnUse">
+    <linearGradient id="kathagpt-word" x1="58" y1="12" x2="210" y2="36" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#1e1b4b"/>
       <stop offset="55%" stop-color="#0e7490"/>
       <stop offset="100%" stop-color="#047857"/>
     </linearGradient>
   </defs>
-  <rect width="48" height="48" rx="14" fill="url(#kathgpt-sky-ext)"/>
+  <rect width="48" height="48" rx="14" fill="url(#kathagpt-sky-ext)"/>
   <path
     fill="none"
-    stroke="url(#kathgpt-glow-ext)"
+    stroke="url(#kathagpt-glow-ext)"
     stroke-width="2.4"
     stroke-linecap="round"
     stroke-linejoin="round"
@@ -30,10 +30,10 @@
   <text
     x="58"
     y="31"
-    fill="url(#kathgpt-word)"
+    fill="url(#kathagpt-word)"
     font-family="system-ui, -apple-system, Segoe UI, sans-serif"
     font-size="22"
     font-weight="700"
     letter-spacing="-0.03em"
-  >KathGPT</text>
+  >KathaGPT</text>
 </svg>

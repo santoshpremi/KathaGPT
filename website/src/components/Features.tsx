@@ -54,12 +54,12 @@ export function Features() {
     <section id="features" className="border-b border-stone-200 bg-white py-24">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="section-label">Why KathGPT</p>
+          <p className="section-label">Why KathaGPT</p>
           <h2 className="section-title mt-3">
             Everything you need, nothing you don&apos;t
           </h2>
           <p className="section-body mt-4">
-            KathGPT Local Edition is built for individuals who want powerful AI
+            KathaGPT Local Edition is built for individuals who want powerful AI
             without giving up ownership of their data.
           </p>
         </div>

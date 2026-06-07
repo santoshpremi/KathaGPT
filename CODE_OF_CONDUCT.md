@@ -2,7 +2,7 @@
 
 ## Our Pledge
 
-We pledge to make participation in the KathGPT project a harassment-free experience for everyone.
+We pledge to make participation in the KathaGPT project a harassment-free experience for everyone.
 
 ## Our Standards
 
@@ -13,7 +13,7 @@ We pledge to make participation in the KathGPT project a harassment-free experie
 
 ## Enforcement
 
-Report unacceptable behavior to security@kathgpt.local.
+Report unacceptable behavior to security@kathagpt.local.
 
 ## Attribution
 

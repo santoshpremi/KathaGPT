@@ -9,7 +9,7 @@ export function DownloadSection() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <p className="section-label">Get started</p>
-          <h2 className="section-title mt-3">Download KathGPT</h2>
+          <h2 className="section-title mt-3">Download KathaGPT</h2>
           <p className="section-body mt-4">
             macOS builds are ready for Apple Silicon and Intel. Linux AppImage
             is available below. Windows is coming soon.

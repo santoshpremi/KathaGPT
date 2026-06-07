@@ -14,7 +14,7 @@ export interface TranslatorHistoryEntry extends ToolHistoryBase {
   targetText: string;
 }
 
-const STORAGE_KEY = "kathgpt-translator-history";
+const STORAGE_KEY = "kathagpt-translator-history";
 
 export function loadTranslatorHistory() {
   return loadToolHistory<TranslatorHistoryEntry>(STORAGE_KEY);

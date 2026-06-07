@@ -15,7 +15,7 @@ export default function OnboardingPage() {
   const { mutateAsync: testKey, isPending: testing } = useTestProviderConnection();
 
   const finish = () => {
-    localStorage.setItem("kathgpt_onboarded", "true");
+    localStorage.setItem("kathagpt_onboarded", "true");
     void navigate("/:organizationId", {
       params: { organizationId: DEV_ORG_ID },
       replace: true,
@@ -53,7 +53,7 @@ export default function OnboardingPage() {
         {step === 0 && (
           <>
             <Typography level="h3" className="!mb-2">
-              Welcome to KathGPT
+              Welcome to KathaGPT
             </Typography>
             <Typography level="body-md" className="!mb-6">
               Private AI chat on your machine. Your data stays local — only LLM

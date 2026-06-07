@@ -63,6 +63,6 @@ async function waitForApiPort(): Promise<number> {
   }
 
   throw new Error(
-    "KathGPT local API did not start. Quit other dev servers and reopen the app.",
+    "KathaGPT local API did not start. Quit other dev servers and reopen the app.",
   );
 }

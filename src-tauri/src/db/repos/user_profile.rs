@@ -13,9 +13,9 @@ pub async fn ensure_seed(pool: &SqlitePool) -> anyhow::Result<()> {
         sqlx::query(
             "UPDATE user_profile SET email = ? WHERE id = ? AND email = ?",
         )
-        .bind("user@kathgpt.local")
+        .bind("user@kathagpt.local")
         .bind(DEFAULT_USER_ID)
-        .bind("legacy@kathgpt.local")
+        .bind("legacy@kathagpt.local")
         .execute(pool)
         .await?;
         return Ok(());
@@ -29,7 +29,7 @@ pub async fn ensure_seed(pool: &SqlitePool) -> anyhow::Result<()> {
     .bind(DEFAULT_USER_ID)
     .bind("John")
     .bind("Doe")
-    .bind("user@kathgpt.local")
+    .bind("user@kathagpt.local")
     .bind("en")
     .bind("gpt-4o-mini")
     .bind(1)

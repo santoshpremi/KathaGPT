@@ -36,7 +36,7 @@ pub async fn stream_completion(
                     &slug,
                     options,
                     Some(("HTTP-Referer", "http://localhost:17890")),
-                    Some(("X-Title", "KathGPT")),
+                    Some(("X-Title", "KathaGPT")),
                 )
                 .await?)
             }

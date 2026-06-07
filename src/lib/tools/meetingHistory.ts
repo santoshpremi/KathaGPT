@@ -14,7 +14,7 @@ export interface MeetingHistoryEntry extends ToolHistoryBase {
   action: MeetingAction;
 }
 
-const STORAGE_KEY = "kathgpt-meeting-history";
+const STORAGE_KEY = "kathagpt-meeting-history";
 
 export function loadMeetingHistory() {
   return loadToolHistory<MeetingHistoryEntry>(STORAGE_KEY);

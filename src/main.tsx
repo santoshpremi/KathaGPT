@@ -17,12 +17,12 @@ async function initializeApp() {
   } catch (err) {
     console.error("Failed to initialize app:", err);
     const hint = isTauriApp()
-      ? "Quit any other KathGPT or dev server, then reopen the app."
+      ? "Quit any other KathaGPT or dev server, then reopen the app."
       : "Make sure the local API is running (pnpm run dev).";
     root.innerHTML = `
       <div style="display:flex;height:100vh;align-items:center;justify-content:center;font-family:system-ui,sans-serif;padding:2rem;text-align:center;">
         <div>
-          <h2 style="margin:0 0 0.5rem">KathGPT could not start</h2>
+          <h2 style="margin:0 0 0.5rem">KathaGPT could not start</h2>
           <p style="color:#666;margin:0 0 1rem">${hint}</p>
           <p style="color:#999;font-size:0.875rem;margin:0">${String(err)}</p>
         </div>

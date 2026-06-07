@@ -142,7 +142,7 @@ pub async fn run_research(
                 .post("https://openrouter.ai/api/v1/chat/completions")
                 .bearer_auth(&key)
                 .header("HTTP-Referer", "http://localhost:17890")
-                .header("X-Title", "KathGPT")
+                .header("X-Title", "KathaGPT")
                 .json(&openai_compatible_body(&slug, system_prompt, &messages, max_tokens))
                 .send()
                 .await?;

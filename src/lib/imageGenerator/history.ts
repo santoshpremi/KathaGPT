@@ -15,7 +15,7 @@ export interface ImageHistoryEntry extends ToolHistoryBase {
   images: string[];
 }
 
-const STORAGE_KEY = "kathgpt-image-history";
+const STORAGE_KEY = "kathagpt-image-history";
 
 export function loadImageHistory(): ImageHistoryEntry[] {
   return loadToolHistory<ImageHistoryEntry>(STORAGE_KEY);

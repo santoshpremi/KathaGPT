@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a problem with KathGPT Local Edition
+about: Report a problem with KathaGPT Local Edition
 title: "[Bug] "
 labels: bug
 ---
@@ -15,7 +15,7 @@ labels: bug
 
 **Environment**
 - OS:
-- KathGPT version:
+- KathaGPT version:
 - Node/Rust (dev only):
 
 **Logs / screenshots**

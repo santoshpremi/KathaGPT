@@ -1,4 +1,4 @@
-# KathGPT Local Edition — Full Migration Plan
+# KathaGPT Local Edition — Full Migration Plan
 
 **Architecture target:** Full Rust backend + React frontend + Tauri shell  
 **Product goal:** Open-source, one-click install (Windows / macOS / Linux), API-key-only setup, 100% local data on the user's machine  
@@ -8,7 +8,7 @@
 
 ## 1. Executive summary
 
-KathGPT today is already close to a local-first app:
+KathaGPT today is already close to a local-first app:
 
 | Layer | Today | Target |
 |-------|-------|--------|
@@ -27,7 +27,7 @@ The migration is **incremental**: Rust backend grows module-by-module while Reac
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  KathGPT.app / KathGPT.exe                                  │
+│  KathaGPT.app / KathaGPT.exe                                  │
 │  ┌───────────────────────────────────────────────────────┐  │
 │  │  Tauri shell (Rust)                                   │  │
 │  │  • Window / tray / deep links                         │  │
@@ -55,11 +55,11 @@ The migration is **incremental**: Rust backend grows module-by-module while Reac
 
 | OS | Path |
 |----|------|
-| macOS | `~/Library/Application Support/KathGPT/` |
-| Windows | `%APPDATA%\KathGPT\` |
-| Linux | `~/.local/share/KathGPT/` |
+| macOS | `~/Library/Application Support/KathaGPT/` |
+| Windows | `%APPDATA%\KathaGPT\` |
+| Linux | `~/.local/share/KathaGPT/` |
 
-Contents: `kathgpt.db` (SQLite), `logs/`, optional `exports/`.
+Contents: `kathagpt.db` (SQLite), `logs/`, optional `exports/`.
 
 ---
 
@@ -183,7 +183,7 @@ This mirrors how tRPC splits streaming today (`unstable_httpBatchStreamLink` vs 
 ## 5. Target repository structure
 
 ```
-KathGPT/
+KathaGPT/
 ├── src/                          # React frontend (keep)
 ├── src-tauri/                    # NEW — Tauri + Rust backend
 │   ├── Cargo.toml
@@ -335,7 +335,7 @@ CREATE TABLE api_keys (
 );
 ```
 
-**Migration from JSON:** One-time import tool (`kathgpt import-legacy --from .data/dev-store.json`) on first launch if old file detected.
+**Migration from JSON:** One-time import tool (`kathagpt import-legacy --from .data/dev-store.json`) on first launch if old file detected.
 
 ---
 
@@ -704,4 +704,4 @@ src/lib/api/trpc/                  → src/lib/api/client/ (rspc or fetch+SSE)
 ---
 
 *Document version: 1.0 — 2026-06-06*  
-*Maintainer: KathGPT core team*
+*Maintainer: KathaGPT core team*

@@ -1,14 +1,14 @@
 export const SITE = {
-  name: "KathGPT",
+  name: "KathaGPT",
   tagline: "Fast, private AI — powered by Rust",
   description:
     "A native desktop app with a Rust backend. Connect OpenRouter, Perplexity, GPT, Claude, Gemini, or your own provider — and keep every conversation on your device.",
-  githubRepo: import.meta.env.VITE_GITHUB_REPO ?? "santoshpremi/KathGPT",
+  githubRepo: import.meta.env.VITE_GITHUB_REPO ?? "santoshpremi/KathaGPT",
   license: "MIT",
   version: "0.1.0",
 } as const;
 
-/** Public asset path — respects Vite base (e.g. /KathGPT/ on GitHub Pages). */
+/** Public asset path — respects Vite base (e.g. /KathaGPT/ on GitHub Pages). */
 export function assetUrl(path: string): string {
   const base = import.meta.env.BASE_URL;
   return `${base}${path.replace(/^\//, "")}`;
@@ -131,7 +131,7 @@ function scoreAsset(name: string, platform: PlatformDownload): number {
   for (const ext of platform.extensions) {
     if (lower.endsWith(ext.toLowerCase())) score += 20;
   }
-  if (lower.includes("kathgpt")) score += 5;
+  if (lower.includes("kathagpt")) score += 5;
 
   return score;
 }

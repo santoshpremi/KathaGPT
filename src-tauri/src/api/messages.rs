@@ -138,7 +138,7 @@ async fn stream_message(
         || history.iter().any(|m| !m.attachment_ids.is_empty());
 
     let mut system_parts = vec![
-        "You are KathGPT, a helpful enterprise AI assistant.".to_string(),
+        "You are KathaGPT, a helpful enterprise AI assistant.".to_string(),
         if !language.is_empty() {
             format!("Respond in {language}.")
         } else {

@@ -566,7 +566,7 @@ export function ImageGenerator() {
                     size="sm"
                     variant="soft"
                     startDecorator={<Download />}
-                    onClick={() => downloadImage(url, `kathgpt-image-${i + 1}.png`)}
+                    onClick={() => downloadImage(url, `kathagpt-image-${i + 1}.png`)}
                     sx={{
                       position: "absolute",
                       right: 8,

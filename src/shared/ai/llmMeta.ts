@@ -26,7 +26,7 @@ export type AIProviders =
   | "Perplexity"
   | "Microsoft"
   | "Google"
-  | "KathGPT"
+  | "KathaGPT"
   | "Nebius";
 
 /**

@@ -2,13 +2,13 @@ use directories::ProjectDirs;
 use std::path::PathBuf;
 
 const APP_QUALIFIER: &str = "com";
-const APP_ORG: &str = "KathGPT";
-const APP_NAME: &str = "KathGPT";
+const APP_ORG: &str = "KathaGPT";
+const APP_NAME: &str = "KathaGPT";
 
 /// OS-specific application data directory.
-/// macOS: ~/Library/Application Support/KathGPT/
-/// Windows: %APPDATA%\KathGPT\
-/// Linux: ~/.local/share/KathGPT/
+/// macOS: ~/Library/Application Support/KathaGPT/
+/// Windows: %APPDATA%\KathaGPT\
+/// Linux: ~/.local/share/KathaGPT/
 pub fn app_data_dir() -> anyhow::Result<PathBuf> {
     let dirs = ProjectDirs::from(APP_QUALIFIER, APP_ORG, APP_NAME)
         .ok_or_else(|| anyhow::anyhow!("Could not resolve application data directory"))?;
@@ -16,7 +16,7 @@ pub fn app_data_dir() -> anyhow::Result<PathBuf> {
 }
 
 pub fn database_path() -> anyhow::Result<PathBuf> {
-    Ok(app_data_dir()?.join("kathgpt.db"))
+    Ok(app_data_dir()?.join("kathagpt.db"))
 }
 
 /// Default Axum listen port for the embedded local API server.

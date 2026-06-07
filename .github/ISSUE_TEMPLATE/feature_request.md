@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for KathGPT
+about: Suggest an idea for KathaGPT
 title: "[Feature] "
 labels: enhancement
 ---

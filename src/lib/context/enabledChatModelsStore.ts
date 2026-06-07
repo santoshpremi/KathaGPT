@@ -43,7 +43,7 @@ export const useEnabledChatModelsStore = create<EnabledChatModelsStore>()(
       getLabel: (modelId) => get().providerLabels[modelId],
     }),
     {
-      name: "kathgpt-enabled-chat-models",
+      name: "kathagpt-enabled-chat-models",
       version: 2,
       migrate: (persisted) => {
         const state = persisted as {

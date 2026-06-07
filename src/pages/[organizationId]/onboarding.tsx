@@ -24,7 +24,7 @@ export default function OnboardingPage() {
     <div className="flex h-full w-full items-center justify-center p-6">
       <Card className="!max-w-lg !p-8 !text-center">
         <Typography level="h3" className="!mb-2">
-          Welcome to KathGPT
+          Welcome to KathaGPT
         </Typography>
         <Typography level="body-md" className="!mb-6">
           Get started with AI-powered chat, workflows, and tools for your team.

@@ -1,7 +1,7 @@
-# KathGPT Local Edition — Feature Matrix
+# KathaGPT Local Edition — Feature Matrix
 
 **Edition:** Local (single-user, API-key-only)  
-**Data:** 100% on-device SQLite (`~/Library/Application Support/KathGPT/kathgpt.db`)
+**Data:** 100% on-device SQLite (`~/Library/Application Support/KathaGPT/kathagpt.db`)
 
 ## Ships in v1
 

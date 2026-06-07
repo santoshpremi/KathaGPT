@@ -141,7 +141,7 @@ export function UserMenuList({
       ))}
       <ListDivider sx={{ mb: 0 }} className="!bg-gray-100" />
       <Typography level="body-xs" className="p-1" textAlign="center">
-        KathGPT Local Edition
+        KathaGPT Local Edition
       </Typography>
     </Menu>
   );

@@ -19,7 +19,7 @@ export function AppWindow({
         <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
         <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
         <span className="h-2.5 w-2.5 rounded-full bg-stone-300" />
-        <span className="ml-3 text-xs font-medium text-stone-500">KathGPT</span>
+        <span className="ml-3 text-xs font-medium text-stone-500">KathaGPT</span>
       </div>
       <div className="relative bg-stone-100">
         <img

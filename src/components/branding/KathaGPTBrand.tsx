@@ -2,20 +2,20 @@ import type { ComponentProps } from "react";
 import logoMark from "../../assets/logo.svg";
 import { cn } from "../../lib/cn";
 
-type KathGPTBrandProps = {
+type KathaGPTBrandProps = {
   compact?: boolean;
   className?: string;
   markClassName?: string;
   nameClassName?: string;
 } & ComponentProps<"div">;
 
-export function KathGPTBrand({
+export function KathaGPTBrand({
   compact = false,
   className,
   markClassName,
   nameClassName,
   ...props
-}: KathGPTBrandProps) {
+}: KathaGPTBrandProps) {
   return (
     <div
       className={cn("flex min-w-0 items-center gap-2.5", className)}
@@ -34,7 +34,7 @@ export function KathGPTBrand({
             nameClassName,
           )}
         >
-          KathGPT
+          KathaGPT
         </span>
       )}
     </div>

@@ -21,7 +21,7 @@ import {
   SIDEBAR_ID,
   SIDEBAR_NEW_CHAT_BUTTON_ID,
 } from "../../lib/testIds";
-import { KathGPTBrand } from "../branding/KathGPTBrand";
+import { KathaGPTBrand } from "../branding/KathaGPTBrand";
 import SidebarSectionWithHistory from "./tree/SidebarSectionWithHistory";
 import ToolsList from "./ToolsList";
 import { CollapsableButton } from "./CollapsableButton";
@@ -93,7 +93,7 @@ export function Sidebar({
             params={{ organizationId: organization?.id ?? "" }}
             className="min-w-0 flex-1 overflow-hidden"
           >
-            <KathGPTBrand
+            <KathaGPTBrand
               compact={!isSidebarOpen}
               markClassName={isSidebarOpen ? "h-8 w-8" : "h-7 w-7"}
             />

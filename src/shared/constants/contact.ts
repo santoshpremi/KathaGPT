@@ -1,3 +1,3 @@
 export const SUPPORT_EMAIL = "santoshadhikaripremi@gmail.com";
 
-export const KATHGPT_GITHUB_REPO = "santoshpremi/KathGPT";
+export const KATHAGPT_GITHUB_REPO = "santoshpremi/KathaGPT";

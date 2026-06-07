@@ -2379,7 +2379,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "kathgpt-local"
+name = "kathagpt-local"
 version = "0.1.0"
 dependencies = [
  "aes-gcm",

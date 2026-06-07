@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { archiveDirtyToolSessions } from "../../lib/tools/archiveToolSession";
 
-const FLUSH_KEY = "kathgpt-tool-flush-ts";
+const FLUSH_KEY = "kathagpt-tool-flush-ts";
 const FLUSH_COOLDOWN_MS = 3000;
 
 /** Archives unsaved tool work to history when the app/tab closes. */

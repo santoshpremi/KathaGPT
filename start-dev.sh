@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-echo "Starting KathGPT Development Server..."
+echo "Starting KathaGPT Development Server..."
 
 # Use Node 20+ (Vite 6 requires crypto.hash, available in Node >= 20.12)
 if [ -s "$HOME/.nvm/nvm.sh" ]; then

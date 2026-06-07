@@ -39,7 +39,7 @@ export function TechStack() {
             Performance you can feel, privacy you can trust
           </h2>
           <p className="section-body mt-4">
-            KathGPT replaced a Node.js backend with a single Rust core — embedded in
+            KathaGPT replaced a Node.js backend with a single Rust core — embedded in
             the desktop app and bound to localhost. Less overhead, faster I/O, same
             powerful AI features.
           </p>

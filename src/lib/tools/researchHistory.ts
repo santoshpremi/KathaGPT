@@ -21,7 +21,7 @@ export interface ResearchHistoryEntry extends ToolHistoryBase {
   turns: ResearchHistoryTurn[];
 }
 
-const STORAGE_KEY = "kathgpt-research-history";
+const STORAGE_KEY = "kathagpt-research-history";
 
 export function loadResearchHistory() {
   return loadToolHistory<ResearchHistoryEntry>(STORAGE_KEY);

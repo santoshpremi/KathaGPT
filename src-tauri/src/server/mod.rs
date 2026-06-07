@@ -56,7 +56,7 @@ pub async fn start(state: AppState) -> anyhow::Result<u16> {
         };
 
         let bound_port = listener.local_addr()?.port();
-        info!("KathGPT local API listening on http://127.0.0.1:{bound_port}");
+        info!("KathaGPT local API listening on http://127.0.0.1:{bound_port}");
 
         tokio::spawn(async move {
             if let Err(err) = axum::serve(listener, app).await {
@@ -128,7 +128,7 @@ async fn status() -> impl IntoResponse {
         StatusCode::OK,
         [(header::CONTENT_TYPE, "application/json")],
         Json(StatusResponse {
-            product: "KathGPT",
+            product: "KathaGPT",
             edition: "local",
             api_port: DEFAULT_API_PORT,
             ready: true,

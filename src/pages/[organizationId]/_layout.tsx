@@ -33,7 +33,7 @@ export default function OrganizationLayout() {
     useOrganizationQuery();
 
   useEffect(() => {
-    document.title = organization?.customTitle ?? "KathGPT";
+    document.title = organization?.customTitle ?? "KathaGPT";
   }, [organization?.customTitle]);
 
   const theme = useTheme();

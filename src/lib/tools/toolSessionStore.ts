@@ -113,7 +113,7 @@ export const useToolSessionStore = create(
         set({ meeting: null, meetingDirty: false, meetingBaseline: null }),
     }),
     {
-      name: "kathgpt-tool-sessions",
+      name: "kathagpt-tool-sessions",
       storage: createJSONStorage(() => sessionStorage),
       partialize: (state) => ({
         image: state.image,

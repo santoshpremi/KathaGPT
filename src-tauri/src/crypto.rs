@@ -6,7 +6,7 @@ use anyhow::{anyhow, Context};
 use base64::{engine::general_purpose::STANDARD as B64, Engine};
 use rand::RngCore;
 
-const SERVICE: &str = "com.kathgpt.local";
+const SERVICE: &str = "com.kathagpt.local";
 const USER: &str = "master-key";
 
 fn try_keyring_key() -> anyhow::Result<[u8; 32]> {

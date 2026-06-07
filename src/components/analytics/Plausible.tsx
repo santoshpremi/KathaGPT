@@ -45,7 +45,7 @@ export function Plausible() {
       const eventData: AnalyticsEvent = {
         n: eventName,
         u: window.location.href,
-        d: "app.kathgpt.local",
+        d: "app.kathagpt.local",
         r: document.referrer || null,
       };
 

@@ -11,7 +11,7 @@ export interface SavedPrompt extends ToolHistoryBase {
   variables: string[];
 }
 
-const STORAGE_KEY = "kathgpt-prompt-library";
+const STORAGE_KEY = "kathagpt-prompt-library";
 
 export function loadSavedPrompts(): SavedPrompt[] {
   return loadToolHistory<SavedPrompt>(STORAGE_KEY);

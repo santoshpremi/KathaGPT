@@ -4,19 +4,19 @@
 
 use tracing::info;
 use tracing_subscriber::EnvFilter;
-use kathgpt_local_lib::{config, db, server};
+use kathagpt_local_lib::{config, db, server};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt()
         .with_env_filter(
             EnvFilter::from_default_env()
-                .add_directive("kathgpt_local=info".parse().unwrap())
+                .add_directive("kathagpt_local=info".parse().unwrap())
                 .add_directive("api_server=info".parse().unwrap()),
         )
         .init();
 
-    info!("Starting KathGPT API server (standalone mode)");
+    info!("Starting KathaGPT API server (standalone mode)");
     info!("Data dir: {}", config::app_data_dir()?.display());
 
     let pool = db::init_pool().await?;

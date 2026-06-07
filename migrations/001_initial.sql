@@ -1,4 +1,4 @@
--- KathGPT Local Edition — initial schema (v1)
+-- KathaGPT Local Edition — initial schema (v1)
 
 CREATE TABLE IF NOT EXISTS settings (
     key   TEXT PRIMARY KEY,

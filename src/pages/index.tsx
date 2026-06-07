@@ -26,7 +26,7 @@ function OrganizationRedirect() {
       try {
         const keys = await rustFetch<ProviderKeyStatus[]>("/provider-keys/status");
         const hasKey = keys.some((k) => k.configured);
-        const onboarded = localStorage.getItem("kathgpt_onboarded") === "true";
+        const onboarded = localStorage.getItem("kathagpt_onboarded") === "true";
 
         if (!cancelled) {
           if (!hasKey && !onboarded) {

@@ -533,7 +533,7 @@
     "description": "Connect LLM providers to power chat. OpenRouter is recommended — it routes to many models with one key. You can also add direct keys for OpenAI, Anthropic, Gemini, or Perplexity.",
     "providerSection": "LLM providers",
     "developerSection": "Developer API tokens",
-    "developerDescription": "Create tokens for programmatic access to KathGPT APIs.",
+    "developerDescription": "Create tokens for programmatic access to KathaGPT APIs.",
     "keyCreated": "API key created",
     "keyNamePlaceholder": "Key name",
     "newKeyLabel": "Your new API key",
@@ -582,7 +582,7 @@
   "poweredBy": "Powered by",
   "trial": {
     "activateTitle": "Activate Your Trial",
-    "activateDescription": "Verify your phone number to receive free credits and start using KathGPT.",
+    "activateDescription": "Verify your phone number to receive free credits and start using KathaGPT.",
     "verifyPhone": "Verify Phone",
     "pilotActive": "Pilot active",
     "trialActive": "Trial active",
@@ -595,16 +595,16 @@
     "contactUs": "Contact us",
     "creditsExhausted": {
       "title": "Credits exhausted",
-      "subtitle": "Upgrade to continue using KathGPT."
+      "subtitle": "Upgrade to continue using KathaGPT."
     },
     "trialExpired": {
       "title": "Trial expired",
-      "subtitle": "Upgrade to continue using KathGPT."
+      "subtitle": "Upgrade to continue using KathaGPT."
     }
   },
   "intro": {
     "welcome": {
-      "title": "Welcome to KathGPT",
+      "title": "Welcome to KathaGPT",
       "content": "Let's take a quick tour of the features!"
     },
     "sidebar": {

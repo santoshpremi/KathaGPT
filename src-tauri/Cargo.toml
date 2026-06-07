@@ -1,24 +1,24 @@
 [package]
-name = "kathgpt-local"
+name = "kathagpt-local"
 version = "0.1.0"
-description = "KathGPT Local Edition — private AI chat on your machine"
-authors = ["KathGPT Contributors"]
+description = "KathaGPT Local Edition — private AI chat on your machine"
+authors = ["KathaGPT Contributors"]
 edition = "2021"
 rust-version = "1.77"
-default-run = "kathgpt-local"
+default-run = "kathagpt-local"
 
 [features]
 default = []
 api-server-cli = []
 
-# Dev-only API server — use [[example]] so Tauri does not bundle it into KathGPT.app
+# Dev-only API server — use [[example]] so Tauri does not bundle it into KathaGPT.app
 [[example]]
 name = "api-server"
 path = "examples/api-server.rs"
 required-features = ["api-server-cli"]
 
 [lib]
-name = "kathgpt_local_lib"
+name = "kathagpt_local_lib"
 crate-type = ["lib", "cdylib", "staticlib"]
 
 [build-dependencies]

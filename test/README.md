@@ -1,4 +1,4 @@
-# KathGPT tests
+# KathaGPT tests
 
 ## E2E (Playwright)
 
