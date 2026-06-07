@@ -1,3 +1,4 @@
+import { DownloadButton } from "./DownloadButton";
 import { SITE } from "../lib/site";
 
 export function Hero() {
@@ -24,13 +25,7 @@ export function Hero() {
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a
-            href="#download"
-            className="inline-flex min-w-[200px] items-center justify-center gap-2 rounded-xl bg-indigo-600 px-8 py-3.5 text-base font-semibold text-white shadow-xl shadow-indigo-600/30 transition hover:bg-indigo-500 hover:shadow-indigo-500/40"
-          >
-            <DownloadIcon className="h-5 w-5" />
-            Download for free
-          </a>
+          <DownloadButton size="lg" showMeta className="min-w-[240px]" />
           <a
             href={`https://github.com/${SITE.githubRepo}`}
             target="_blank"
@@ -78,14 +73,6 @@ export function Hero() {
         </div>
       </div>
     </section>
-  );
-}
-
-function DownloadIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-    </svg>
   );
 }
 

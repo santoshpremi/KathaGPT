@@ -1,9 +1,10 @@
+import { DownloadButton } from "./DownloadButton";
 import { Logo } from "./Logo";
 
 const links = [
   { href: "#tech", label: "Rust" },
   { href: "#features", label: "Features" },
-  { href: "#download", label: "Download" },
+  { href: "#download", label: "All platforms" },
   { href: "#faq", label: "FAQ" },
 ];
 
@@ -23,12 +24,7 @@ export function Header() {
             </a>
           ))}
         </nav>
-        <a
-          href="#download"
-          className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-lg shadow-indigo-600/25 transition hover:bg-indigo-500"
-        >
-          Download
-        </a>
+        <DownloadButton size="sm" />
       </div>
     </header>
   );

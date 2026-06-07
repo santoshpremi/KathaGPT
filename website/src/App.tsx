@@ -12,9 +12,9 @@ export default function App() {
       <Header />
       <main>
         <Hero />
+        <DownloadSection />
         <TechStack />
         <Features />
-        <DownloadSection />
         <FAQ />
       </main>
       <Footer />
