@@ -104,6 +104,8 @@ pnpm tauri:dev          # dev with native window
 pnpm tauri:build        # production installer (.dmg / .msi / .AppImage)
 ```
 
+**macOS install (unsigned build):** Download from [the website](https://santoshpremi.github.io/KathGPT/) or build locally. On first open, if macOS blocks the app, **right-click → Open** (or run `xattr -cr /Applications/KathGPT.app`). Apple notarization requires a paid Developer ID for one-click install without that step.
+
 ---
 
 ## Development

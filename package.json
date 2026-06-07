@@ -14,8 +14,8 @@
     "test:e2e:ui": "playwright test --ui",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
-    "tauri:build": "tauri build",
-    "local:api": "cargo run --manifest-path src-tauri/Cargo.toml --bin api-server",
+    "tauri:build": "rm -f src-tauri/target/release/api-server src-tauri/target/debug/api-server && tauri build",
+    "local:api": "cargo run --manifest-path src-tauri/Cargo.toml --features api-server-cli --bin api-server",
     "website:dev": "pnpm --dir website dev",
     "website:build": "pnpm --dir website build",
     "website:preview": "pnpm --dir website preview"

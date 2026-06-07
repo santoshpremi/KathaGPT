@@ -5,6 +5,16 @@ description = "KathGPT Local Edition — private AI chat on your machine"
 authors = ["KathGPT Contributors"]
 edition = "2021"
 rust-version = "1.77"
+default-run = "kathgpt-local"
+
+[features]
+default = []
+api-server-cli = []
+
+[[bin]]
+name = "api-server"
+path = "src/bin/api-server.rs"
+required-features = ["api-server-cli"]
 
 [lib]
 name = "kathgpt_local_lib"
