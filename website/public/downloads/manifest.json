@@ -1,0 +1,9 @@
+{
+  "version": "0.1.0",
+  "platforms": {
+    "mac-arm": "KathGPT_0.1.0_aarch64.dmg",
+    "mac-intel": null,
+    "windows": null,
+    "linux": null
+  }
+}

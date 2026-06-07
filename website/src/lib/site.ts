@@ -16,6 +16,28 @@ export function assetUrl(path: string): string {
 
 export type PlatformId = "mac-arm" | "mac-intel" | "windows" | "linux";
 
+export interface DownloadManifest {
+  version: string;
+  platforms: Partial<Record<PlatformId, string | null>>;
+}
+
+/** Same-origin installer URL served from this website (GitHub Pages). */
+export function hostedDownloadUrl(filename: string): string {
+  return assetUrl(`downloads/${filename}`);
+}
+
+export async function fetchDownloadManifest(): Promise<DownloadManifest | null> {
+  try {
+    const res = await fetch(assetUrl("downloads/manifest.json"), {
+      cache: "no-cache",
+    });
+    if (!res.ok) return null;
+    return (await res.json()) as DownloadManifest;
+  } catch {
+    return null;
+  }
+}
+
 export interface PlatformDownload {
   id: PlatformId;
   label: string;

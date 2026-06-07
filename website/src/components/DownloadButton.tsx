@@ -12,7 +12,7 @@ export function DownloadButton({
   className = "",
   showMeta = false,
 }: DownloadButtonProps) {
-  const { loading, platformMeta, downloadUrl, isDirectDownload, fileName, fileSize } =
+  const { loading, platformMeta, downloadUrl, isReady, fileName, fileSize } =
     usePrimaryDownload();
 
   const sizeClasses = {
@@ -21,25 +21,39 @@ export function DownloadButton({
     lg: "px-10 py-4 text-lg",
   }[size];
 
-  const label = loading
-    ? "Download"
-    : isDirectDownload
-      ? `Download for ${platformMeta.shortLabel}`
-      : `Download for ${platformMeta.shortLabel}`;
+  if (loading) {
+    return (
+      <span
+        className={`inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600/70 font-semibold text-white opacity-80 ${sizeClasses} ${className}`}
+      >
+        <DownloadIcon className={size === "sm" ? "h-4 w-4" : "h-5 w-5"} />
+        Preparing download…
+      </span>
+    );
+  }
+
+  if (!isReady || !downloadUrl) {
+    return (
+      <span
+        className={`inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-slate-800/80 font-semibold text-slate-400 ${sizeClasses} ${className}`}
+        title={`${platformMeta.label} installer not hosted yet`}
+      >
+        {platformMeta.shortLabel} — coming soon
+      </span>
+    );
+  }
 
   return (
     <div className={className}>
       <a
-        href={loading ? undefined : downloadUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-disabled={loading}
-        className={`inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 font-semibold text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-500 hover:shadow-indigo-500/40 ${sizeClasses} ${loading ? "pointer-events-none opacity-70" : ""}`}
+        href={downloadUrl}
+        download={fileName ?? true}
+        className={`inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 font-semibold text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-500 hover:shadow-indigo-500/40 ${sizeClasses}`}
       >
         <DownloadIcon className={size === "sm" ? "h-4 w-4" : "h-5 w-5"} />
-        {label}
+        Download for {platformMeta.shortLabel}
       </a>
-      {showMeta && isDirectDownload && fileName && (
+      {showMeta && fileName && (
         <p className="mt-2 text-center text-xs text-slate-400">
           {fileName}
           {fileSize ? ` · ${formatBytes(fileSize)}` : ""}
