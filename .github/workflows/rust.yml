@@ -1,0 +1,36 @@
+name: Rust CI
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "src-tauri/**"
+      - "migrations/**"
+      - ".github/workflows/rust.yml"
+  pull_request:
+    paths:
+      - "src-tauri/**"
+      - "migrations/**"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Clippy
+        run: cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
+
+      - name: Build
+        run: cargo build --manifest-path src-tauri/Cargo.toml
+
+      - name: Test
+        run: cargo test --manifest-path src-tauri/Cargo.toml

@@ -1,0 +1,15 @@
+{
+  "translation": {
+    "title": "Bienvenido",
+    "buttons": {
+      "login": "Iniciar sesión",
+      "logout": "Cerrar sesión",
+      "submit": "Enviar"
+    },
+    "navigation": {
+      "home": "Inicio",
+      "about": "Acerca de",
+      "contact": "Contacto"
+    }
+  }
+}

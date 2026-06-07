@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "types": ["vite/client", "node"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@backend/*": ["./src/shared/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@api/*": ["./src/lib/api/*"],
+      "@apiTypes/*": ["./packages/apiTypes/src/*"],
+      "@credits/*": ["./src/shared/util/credits/*"],
+      "@workflow/*": ["./src/shared/api/workflow/*"],
+      "@rag/*": ["./src/shared/api/rag/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "packages/apiTypes/src/**/*",
+    "**/*.ts",
+    "**/*.tsx"
+  ],  
+"ts-node": {
+  "experimentalSpecifierResolution": "node",
+  "experimentalResolver": true,
+  "transpileOnly": true,
+  "esm": true,
+  "logError": true,
+},
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

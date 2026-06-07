@@ -1,0 +1,15 @@
+{
+  "translation": {
+    "title": "Bienvenue",
+    "buttons": {
+      "login": "Connexion",
+      "logout": "Déconnexion",
+      "submit": "Soumettre"
+    },
+    "navigation": {
+      "home": "Accueil",
+      "about": "À propos",
+      "contact": "Contact"
+    }
+  }
+}

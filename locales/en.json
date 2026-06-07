@@ -1,0 +1,640 @@
+{
+  "loading": "Loading...",
+  "back": "Back",
+  "close": "Close",
+  "next": "Next",
+  "skip": "Skip",
+  "open": "Open",
+  "unknown": "Unknown",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "email": "Email",
+  "name": "Name",
+  "save": "Save",
+  "create": "Create",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+  "rename": "Rename",
+  "search": "Search",
+  "input": "Input",
+  "custom": "Custom",
+  "on": "On",
+  "off": "Off",
+  "execute": "Execute",
+  "accept": "Accept",
+  "feedback": "Feedback",
+  "warning": "Warning",
+  "tip": "Tip",
+  "or": "or",
+  "empty": "Empty",
+  "default": "Default",
+  "sources": "Sources",
+  "download": "Download",
+  "regenerate": "Regenerate",
+  "resend": "Resend",
+  "reasoning": "Reasoning",
+  "reasoningProcess": "Reasoning process",
+  "dataSaved": "Data saved successfully",
+  "promptLibrary": {
+    "nav": "Prompt library",
+    "title": "Prompt library",
+    "subtitle": "Learn proven prompting techniques and save reusable prompts for your team.",
+    "newPrompt": "New",
+    "untitled": "Untitled prompt",
+    "categories": {
+      "guides": "Guides",
+      "saved": "Saved"
+    },
+    "created": "Prompt saved",
+    "saved": "Prompt updated",
+    "deleted": "Prompt deleted",
+    "deleteTitle": "Delete prompt?",
+    "deleteMessage": "This prompt will be permanently removed from your library.",
+    "practices": {
+      "title": "10 Best Prompt Practices",
+      "cardTitle": "10 Best Prompt Practices",
+      "cardDescription": "Learn how to write clear, structured prompts that get better answers on the first try.",
+      "intro": "Strong prompts are clear, structured, and repeatable. Use these principles to get better answers on the first try — then save your best prompts below.",
+      "items": {
+        "beSpecific": {
+          "title": "Be specific about the outcome",
+          "body": "State exactly what you want: format, length, audience, and tone. \"Write a 150-word LinkedIn post for HR leaders about async meetings\" beats \"write a post about meetings.\""
+        },
+        "provideContext": {
+          "title": "Provide relevant context",
+          "body": "Include background the model needs: your role, product, constraints, or prior decisions. Context reduces guesswork and hallucinations."
+        },
+        "defineRole": {
+          "title": "Define a role or perspective",
+          "body": "Ask the model to act as a specialist — for example, \"You are a senior product marketer\" or \"You are a patient technical tutor.\" Roles shape vocabulary and depth."
+        },
+        "specifyFormat": {
+          "title": "Specify the output format",
+          "body": "Request bullets, tables, JSON, step lists, or markdown headings when structure matters. Explicit formats make outputs easier to scan and reuse."
+        },
+        "useExamples": {
+          "title": "Use examples when helpful",
+          "body": "Show one or two examples of the style or structure you want. Few-shot examples are especially useful for classification, rewriting, and templates."
+        },
+        "breakDownTasks": {
+          "title": "Break complex work into steps",
+          "body": "For multi-part tasks, numbered steps keep the model focused: research → outline → draft → critique. You can run each step in a follow-up message."
+        },
+        "setConstraints": {
+          "title": "Set constraints and guardrails",
+          "body": "Say what to avoid: jargon, speculation, unsupported claims, or topics outside scope. Constraints improve safety and relevance."
+        },
+        "iterateRefine": {
+          "title": "Iterate and refine",
+          "body": "Treat the first answer as a draft. Ask for shorter versions, stronger hooks, more citations, or a different audience — small follow-ups often beat one giant prompt."
+        },
+        "useVariables": {
+          "title": "Use variables for reusable prompts",
+          "body": "Replace changing details with placeholders like {{topic}} or {{audience}}. Saved variable prompts let you run the same workflow with different inputs."
+        },
+        "reviewOutput": {
+          "title": "Review before you ship",
+          "body": "Check facts, names, numbers, and tone before sharing AI output externally. Prompting improves quality; your judgment ensures it's right."
+        }
+      }
+    },
+    "editor": {
+      "titlePlaceholder": "Prompt title",
+      "contentPlaceholder": "Enter your prompt here",
+      "save": "Save prompt"
+    }
+  },
+  "learnAndExplore": "Learn & Explore",
+  "apps": "Apps",
+  "newChat": "New chat",
+  "lastChats": "Recent chats",
+  "noChats": "No chats yet",
+  "untitledChat": "Untitled chat",
+  "createFirstChat": "Create your first chat",
+  "renameChat": "Rename chat",
+  "chatDeleted": "Chat deleted",
+  "chatsDeleted": "{{count}} chats deleted",
+  "chatDeleteFailed": "Failed to delete chat",
+  "bulkChats": {
+    "selectAll": "Select all",
+    "selectChat": "Select {{name}}",
+    "selectedCount": "{{count}} selected",
+    "deleteSelected": "Delete selected ({{count}})",
+    "clearSelection": "Clear selection",
+    "confirmTitle": "Delete selected chats?",
+    "confirmMessage": "This will permanently delete {{count}} chat(s) and their messages. This cannot be undone.",
+    "confirmDelete": "Delete {{count}} chat(s)"
+  },
+  "chatNotFound": "Chat not found",
+  "chatNotFoundDescription": "This chat does not exist or was removed.",
+  "chatUpdated": "Chat updated",
+  "chatUpdateFailed": "Failed to update chat",
+  "composeMessage": "Compose a message...",
+  "chat": {
+    "greeting": {
+      "morning": "Good morning, {{name}}",
+      "afternoon": "Good afternoon, {{name}}",
+      "evening": "Good evening, {{name}}",
+      "headline": "How can I help you today?",
+      "fallbackName": "there"
+    },
+    "inputPlaceholder": "Write something like: 'Generate 10 ideas for a marketing campaign about...'",
+    "quickActions": {
+      "documents": "Documents",
+      "analyze": "Analyze",
+      "summarize": "Summarize",
+      "email": "Email",
+      "documentsPrompt": "Help me work with my documents. What would you like to do?",
+      "analyzePrompt": "Analyze the following data and provide key insights:",
+      "summarizePrompt": "Summarize the following content concisely:",
+      "emailPrompt": "Draft a professional email about the following topic:"
+    },
+    "inputMenu": {
+      "uploadFiles": "Upload files or images",
+      "knowledgeBase": "Knowledge base",
+      "webSearch": "Web search",
+      "slides": "Slides",
+      "tables": "Tables",
+      "artifactMode": "Artifact mode",
+      "addConnectors": "Add connectors",
+      "comingSoon": "Coming soon in a future update",
+      "hint": "Connect API keys to unlock more tools",
+      "tablesPrompt": "Create a clear table for the following topic:\n\n",
+      "artifactPrompt": "Create an artifact document for the following:\n\n"
+    }
+  },
+  "modelMeta": {
+    "automatic": "Best model"
+  },
+  "modelTier": {
+    "fast": "Fast",
+    "medium": "Medium",
+    "high": "High",
+    "extraHigh": "Extra High"
+  },
+  "modelSelector": {
+    "addKeyForProvider": "Add {{provider}} key",
+    "addModel": "Add model",
+    "noProviders": "Add API keys to unlock more models"
+  },
+  "addModelsModal": {
+    "title": "Add models",
+    "description": "Choose which models appear in the chat picker. Models are loaded live from each provider with a saved API key.",
+    "noProviders": "Add an API key for at least one provider to enable models.",
+    "openApiKeys": "Open API Keys",
+    "searchPlaceholder": "Search models…",
+    "fetchFailed": "Could not load models. Check your API key.",
+    "noSearchResults": "No models match your search.",
+    "modelCount": "{{count}} models available"
+  },
+  "sendMessage": "Send",
+  "editMessage": "Edit message",
+  "copyMarkdown": "Copy markdown",
+  "copyText": "Copy text",
+  "messageCancelled": "Message cancelled",
+  "areYouSure": "Are you sure?",
+  "deletePermanently": "Delete permanently",
+  "aiTools": "AI tools",
+  "workflows": "Workflows",
+  "favorites": "Favorites",
+  "noFavorites": "No favorites yet",
+  "noResults": "No results",
+  "noWorkflows": "No workflows",
+  "personalArea": "Personal",
+  "generateImage": "Image Generator",
+  "imageGenerator": {
+    "title": "Image Generator",
+    "model": "Model",
+    "style": "Style",
+    "prompt": "Prompt",
+    "promptPlaceholder": "Describe the image you want to generate.",
+    "improvePrompt": "Improve prompt",
+    "count": "Number of images: {{count}}",
+    "aspectRatio": "Aspect ratio",
+    "generate": "Generate",
+    "preview": "Image preview",
+    "previewHint": "Your generated images will appear here.",
+    "emptyPreview": "Generated images will show here",
+    "generatedAlt": "Generated image {{index}}",
+    "download": "Download",
+    "history": "History",
+    "noHistory": "No generations yet",
+    "noApiKey": "Add an OpenRouter or OpenAI API key in Settings to use image models.",
+    "modelsLoadFailed": "Your API key is saved, but image models could not be loaded. Restart the dev server (./start-dev.sh) and try again.",
+    "retry": "Retry",
+    "generated": "Image generated",
+    "generateFailed": "Image generation failed",
+    "promptImproved": "Prompt improved",
+    "improveFailed": "Could not improve prompt",
+    "generating": "Generating your image…",
+    "styles": {
+      "none": "No style",
+      "realistic": "Realistic",
+      "minimalist": "Minimalist",
+      "illustration": "Professional illustration",
+      "logo": "Logo design",
+      "product": "Product presentation",
+      "mockup": "Product mockup",
+      "social": "Social media",
+      "stock": "Stock photo",
+      "advertising": "Advertising material",
+      "interior": "Interior design",
+      "memphis": "Memphis style",
+      "ui": "UI mockup"
+    },
+    "aspect": {
+      "square": "Square",
+      "landscape": "Landscape",
+      "portrait": "Portrait"
+    }
+  },
+  "researchAssistant": "Research assistant",
+  "research": {
+    "title": "Research assistant",
+    "subtitle": "Search the web and get cited answers with Perplexity Sonar research models.",
+    "modelLabel": "Research depth",
+    "queryPlaceholder": "What would you like to research?",
+    "search": "Research",
+    "askFollowUp": "Ask follow-up",
+    "newResearch": "New research",
+    "sources": "Sources",
+    "references": "References",
+    "reportLabel": "Research report",
+    "searching": "Searching sources and synthesizing findings…",
+    "noApiKey": "Add a Perplexity or OpenRouter API key in Settings to use online research models.",
+    "openApiKeys": "API keys",
+    "noModels": "No research models available. Save a Perplexity or OpenRouter API key in Settings → API Keys.",
+    "queryFailed": "Research failed",
+    "models": {
+      "sonar": "Quick research (Sonar)",
+      "sonarDeep": "Deep research (Sonar Deep Research)",
+      "sonarHint": "Best for most questions — fast, focused answers with key sources (recommended).",
+      "sonarDeepHint": "Multi-step exhaustive search — slower and longer. Use for complex topics, not simple definitions."
+    },
+    "modelGroups": {
+      "perplexity": "Perplexity",
+      "openrouter": "OpenRouter"
+    },
+    "suggestions": {
+      "aiTrends": "Latest trends in AI agents",
+      "climate": "Impact of renewable energy on climate goals",
+      "productivity": "Best practices for remote team productivity",
+      "cybersecurity": "Common cybersecurity threats in 2025"
+    }
+  },
+  "translateContent": "Translator",
+  "translator": {
+    "title": "Translator",
+    "translateText": "Translate text",
+    "translateFile": "Translate file",
+    "detectLanguage": "Detect language",
+    "glossary": "Glossary",
+    "glossaryNone": "None",
+    "sourcePlaceholder": "Enter text to translate…",
+    "targetPlaceholder": "Translation will appear here",
+    "translating": "Translating…",
+    "alternativesHint": "Select a word to see alternative translations.",
+    "noApiKey": "Add an OpenRouter or OpenAI API key in Settings to use the translator.",
+    "translateFailed": "Translation failed",
+    "fileUploadHint": "Upload a text file to translate",
+    "fileFormats": "Supported: TXT, MD, CSV, PDF (max 50,000 characters)",
+    "chooseFile": "Choose file",
+    "unsupportedFile": "Only .txt, .md, .csv, and .pdf files are supported",
+    "fileReadFailed": "Could not read file",
+    "languages": {
+      "en": "English",
+      "de": "German",
+      "es": "Spanish",
+      "fr": "French",
+      "it": "Italian",
+      "pt": "Portuguese",
+      "nl": "Dutch",
+      "pl": "Polish",
+      "ru": "Russian",
+      "zh": "Chinese",
+      "ja": "Japanese",
+      "ko": "Korean",
+      "ar": "Arabic",
+      "hi": "Hindi",
+      "ne": "Nepali"
+    }
+  },
+  "e-learning": "E-learning",
+  "helpAndFeedback": "Help & feedback",
+  "documentation": "Documentation",
+  "liveChat": "Live chat",
+  "contactSupport": "Contact support",
+  "feedbackAndIdeas": "Feedback & ideas",
+  "additionalResources": "Additional resources",
+  "usageGuidelines": "Usage guidelines",
+  "lastUpdated": "Last updated",
+  "copiedSuccessfully": "Copied",
+  "copiedErrorCode": "Error code copied",
+  "noInternet": "No internet connection",
+  "language": "Language",
+  "workflowModal": {
+    "workflowWizard": {
+      "title": "Create workflow with AI",
+      "description": "Describe what you want the workflow to do.",
+      "placeholder": "e.g. Research a topic and write a summary",
+      "tryMeOut": "Try an example",
+      "create": "Create workflow",
+      "progressTitle": "Generating workflow..."
+    },
+    "manualWorkflow": {
+      "title": "Create manually",
+      "description": "Start from a blank workflow or template.",
+      "custom": "Custom workflow",
+      "customDescription": "Build your own workflow step by step."
+    },
+    "wizardTemplates": {
+      "prosAndCons": "List pros and cons of a decision",
+      "researchAndSummarize": "Research and summarize a topic",
+      "strategyPlanner": "Create a strategy plan",
+      "decisionSupport": "Help me decide between options",
+      "contentRepurposing": "Repurpose content for social media",
+      "marketTrends": "Analyze market trends",
+      "personaCreator": "Create a customer persona",
+      "emailWriter": "Draft a professional email",
+      "ideaRefinement": "Refine and improve an idea"
+    }
+  },
+  "unnamedWorkflow": "Untitled workflow",
+  "createWorkflowFailed": "Failed to create workflow",
+  "createdWorkflow": "Workflow created",
+  "workflowExecuted": "Workflow executed",
+  "workflowDeleted": "Workflow deleted",
+  "workflowMoved": "Workflow moved",
+  "markAsFavorite": "Add to favorites",
+  "removeFromFavorites": "Remove from favorites",
+  "openGuidelines": "Open guidelines",
+  "switchToAnotherModel": "Switch to another model",
+  "switchToLargerModel": "Switch to a larger model",
+  "switchedToModel": "Switched to {{model}}",
+  "bestModel": "Best model",
+  "selectModel": "Select model",
+  "chatSettings": "Chat settings",
+  "textQuality": "Text quality",
+  "speed": "Speed",
+  "moreInfo": "More info",
+  "pointsToNextLevel": "Points to next level",
+  "aiKnowledgePoints": "AI knowledge points",
+  "sidebar": {
+    "allChats": "All chats",
+    "allWorkflows": "All workflows"
+  },
+  "toolHistory": {
+    "title": "History",
+    "newTab": "New tab",
+    "rename": "Rename",
+    "empty": "No history yet",
+    "untitled": "Untitled",
+    "deleted": "Removed from history",
+    "saved": "Saved to history"
+  },
+  "tools": {
+    "meetingTools": {
+      "title": "Meeting tools",
+      "subtitle": "Paste meeting notes, then summarize or extract action items with AI.",
+      "notesLabel": "Meeting notes",
+      "notesPlaceholder": "Paste transcript or notes from your meeting…",
+      "notesRequired": "Add meeting notes first",
+      "summarize": "Summarize",
+      "actionItems": "Extract action items"
+    }
+  },
+  "techSupport": {
+    "title": "Tech support",
+    "analytics": {
+      "title": "Support analytics",
+      "supportRequests": "Support requests",
+      "total": "Total",
+      "problemSolved": "Problems solved",
+      "unknown": "Unknown",
+      "ticketCreated": "Tickets created",
+      "successQuota": "Success rate",
+      "noData": "No data for this period"
+    }
+  },
+  "personalAssistant": {
+    "titleNotPersonal": "Personal assistant"
+  },
+  "common": {
+    "upload": {
+      "files": "Upload files"
+    }
+  },
+  "knowledgeBase": {
+    "automaticallyDetectSource": "Auto-detect source",
+    "automaticSource": "Automatic source",
+    "include": "Include source",
+    "newSource": "New source",
+    "newSourceAvailable": "New source available",
+    "removeDocument": "Remove document",
+    "unselectDataSource": "Unselect data source",
+    "unselectAutomaticSource": "Disable auto-detect",
+    "results": "{{count}} results",
+    "contactAdmin": "Contact your admin to enable sources",
+    "dataSources": {
+      "noSources": "No data sources configured"
+    }
+  },
+  "iterations": {
+    "shorter": {
+      "label": "Shorter",
+      "prompt": "Make this shorter"
+    },
+    "detail": {
+      "label": "More detail",
+      "prompt": "Add more detail"
+    },
+    "improve": {
+      "label": "Improve",
+      "prompt": "Improve this response"
+    },
+    "precise": {
+      "label": "More precise",
+      "prompt": "Make this more precise"
+    },
+    "formal": {
+      "label": "Formal",
+      "prompt": "Make this more formal"
+    },
+    "informal": {
+      "label": "Informal",
+      "prompt": "Make this more informal"
+    }
+  },
+  "warnings": {
+    "messageCreditThreshold": "This message may use a large number of credits.",
+    "chatCreditThreshold": "This chat is using a large number of credits.",
+    "cheaperModel": "Try a cheaper model"
+  },
+  "messageGenerationProgress": {
+    "initializing": "Initializing...",
+    "formulatingQueries": "Formulating queries...",
+    "searchingForInformation": "Searching {{count}} sources...",
+    "generatingResponse": "Generating response..."
+  },
+  "documents": {
+    "documents": "Documents",
+    "error": "Document upload failed",
+    "alreadyUploaded": "Already uploaded",
+    "dropzoneEmpty": "Drop files here or click to upload",
+    "documentGenerationPending": "Generating document...",
+    "generationSuccess": "Document ready"
+  },
+  "helpCenter": {
+    "title": "Help center",
+    "usefulLinks": "Useful links",
+    "organizationContacts": "Organization contacts"
+  },
+  "errors": {
+    "unknown": "An unknown error occurred",
+    "network": "Network error",
+    "outdatedBrowser": "Your browser is outdated",
+    "withCode": "An error occurred",
+    "fileTooLarge": "File exceeds {{size}} MB",
+    "workflowCreationInvalidStructure": "Invalid workflow structure"
+  },
+  "errorDisplay": {
+    "title": "Something went wrong",
+    "helpText": "An unexpected error occurred. You can try again or go back.",
+    "404": {
+      "title": "Page not found",
+      "helpText": "The page you are looking for does not exist or you may not have access."
+    }
+  },
+  "goBack": "Go back",
+  "retry": "Retry",
+  "submitFeedback": "Send feedback",
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile Settings",
+    "tabs": {
+      "metrics": "Metrics"
+    },
+    "apiKeys": "API Keys"
+  },
+  "apiKeysModal": {
+    "title": "API Keys",
+    "description": "Connect LLM providers to power chat. OpenRouter is recommended — it routes to many models with one key. You can also add direct keys for OpenAI, Anthropic, Gemini, or Perplexity.",
+    "providerSection": "LLM providers",
+    "developerSection": "Developer API tokens",
+    "developerDescription": "Create tokens for programmatic access to KathGPT APIs.",
+    "keyCreated": "API key created",
+    "keyNamePlaceholder": "Key name",
+    "newKeyLabel": "Your new API key",
+    "newKeyCopyReminder": "Copy this key now. You won't be able to see it again.",
+    "keySaved": "API key saved",
+    "keyCleared": "API key removed",
+    "needsResave": "Your saved key could not be read (likely after an app update). Paste your API key again and click Save.",
+    "testSuccess": "Connection successful",
+    "testFailed": "Connection failed",
+    "configured": "Configured",
+    "notConfigured": "Not configured",
+    "fromEnv": "From environment",
+    "fromSettings": "Saved in settings",
+    "maskedKey": "Current key",
+    "apiKeyPlaceholder": "Paste API key",
+    "testConnection": "Test",
+    "clearKey": "Remove",
+    "priorityNote": "When OpenRouter is configured, all models route through OpenRouter. Direct provider keys are only used when OpenRouter is not set.",
+    "providers": {
+      "openrouter": {
+        "name": "OpenRouter",
+        "description": "One key for GPT, Claude, Gemini, and more. Recommended."
+      },
+      "openai": {
+        "name": "OpenAI",
+        "description": "Direct access to GPT models."
+      },
+      "anthropic": {
+        "name": "Anthropic",
+        "description": "Direct access to Claude models."
+      },
+      "gemini": {
+        "name": "Google Gemini",
+        "description": "Direct access to Gemini models."
+      },
+      "perplexity": {
+        "name": "Perplexity",
+        "description": "Direct access to Sonar research and online models."
+      }
+    }
+  },
+  "account": "Account",
+  "developer": "Developer",
+  "einstellungen": "Settings",
+  "switchOrganization": "Switch Organization",
+  "poweredBy": "Powered by",
+  "trial": {
+    "activateTitle": "Activate Your Trial",
+    "activateDescription": "Verify your phone number to receive free credits and start using KathGPT.",
+    "verifyPhone": "Verify Phone",
+    "pilotActive": "Pilot active",
+    "trialActive": "Trial active",
+    "daysLeft": "{{count}} day remaining",
+    "daysLeft_plural": "{{count}} days remaining",
+    "promptsSent": "Prompts sent",
+    "minutes": "{{amount}} min",
+    "timeSaved": "Time saved",
+    "workflowsRun": "Workflows run",
+    "contactUs": "Contact us",
+    "creditsExhausted": {
+      "title": "Credits exhausted",
+      "subtitle": "Upgrade to continue using KathGPT."
+    },
+    "trialExpired": {
+      "title": "Trial expired",
+      "subtitle": "Upgrade to continue using KathGPT."
+    }
+  },
+  "intro": {
+    "welcome": {
+      "title": "Welcome to KathGPT",
+      "content": "Let's take a quick tour of the features!"
+    },
+    "sidebar": {
+      "title": "Navigation",
+      "content": "This is your main navigation sidebar"
+    },
+    "firstChat": {
+      "title": "Start a new chat",
+      "content": "Click here to start your first conversation"
+    },
+    "sendMessage": {
+      "title": "Send a message",
+      "content": "Type your message here and press Enter to send"
+    },
+    "workflows": {
+      "title": "Workflows",
+      "content": "Access pre-built workflows for common tasks"
+    },
+    "runWorkflow": {
+      "title": "Run workflow",
+      "content": "Click to run this demo workflow"
+    }
+  },
+  "loadingTexts": {
+    "1": "Preparing your response...",
+    "2": "Analyzing your request...",
+    "3": "Generating content...",
+    "4": "Processing information...",
+    "5": "Thinking...",
+    "6": "Almost ready...",
+    "7": "Finalizing response...",
+    "8": "Just a moment...",
+    "9": "Working on it...",
+    "10": "Nearly there..."
+  },
+  "unexpectedNetworkError": "Network error occurred",
+  "appVersionMismatch": "App version mismatch detected",
+  "updateApp": "Update App",
+  "trpcErrorCodes": {
+    "BAD_REQUEST": "Bad request",
+    "UNAUTHORIZED": "Unauthorized",
+    "UNKNOWN_ERROR": "Unknown error"
+  }
+}

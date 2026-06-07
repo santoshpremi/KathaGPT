@@ -1,0 +1,95 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+website/dist/
+build/
+out/
+
+# Local env & secrets (keep .env.example tracked)
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Sentry
+.env.sentry-build-plugin
+
+# Local dev data
+.data/
+
+# SQLite (local app database)
+*.db
+*.db-shm
+*.db-wal
+
+# Rust / Tauri
+src-tauri/target/
+**/target/
+src-tauri/gen/
+src-tauri/WixTools/
+
+# Generated app icon source
+app-icon.png
+
+# Legacy backend env (removed Node server)
+backend/.env
+
+# Legacy Node stubs (pre–local edition migration)
+api/
+frontend/
+test-server.js
+
+# Generated / vendored assets at repo root (not src/assets)
+/assets
+
+# Test & coverage
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+coverage/
+test/screenshots/
+
+# Tool caches
+node_modules/.vite/
+.vite/
+.turbo/
+.cache/
+*.tsbuildinfo
+
+# Logs & debug
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor / IDE
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Package manager temp files
+_tmp_*
+.pnpm-store/
+
+# Optional local overrides (uncomment if you use them)
+# .vscode/
+# .cursor/

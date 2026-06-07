@@ -1,0 +1,17 @@
+{
+  "de": {
+    "translation": {
+      "title": "Welcome",
+      "buttons": {
+        "login": "Login",
+        "logout": "Logout",
+        "submit": "Submit"
+      },
+      "navigation": {
+        "home": "Home",
+        "about": "About",
+        "contact": "Contact"
+      }
+    }
+  }
+}
