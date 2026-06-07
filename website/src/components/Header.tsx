@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { DownloadButton } from "./DownloadButton";
 import { Logo } from "./Logo";
 import { SITE } from "../lib/site";
 
@@ -41,7 +40,6 @@ export function Header() {
             <GitHubIcon className="h-4 w-4" />
             GitHub
           </a>
-          <DownloadButton size="sm" className="hidden sm:block" />
           <button
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-slate-300 md:hidden"
@@ -69,7 +67,7 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <div className="mt-4 space-y-3">
+          <div className="mt-4">
             <a
               href={`https://github.com/${SITE.githubRepo}`}
               target="_blank"
@@ -80,7 +78,6 @@ export function Header() {
               <GitHubIcon className="h-4 w-4" />
               GitHub
             </a>
-            <DownloadButton size="md" className="w-full" />
           </div>
         </nav>
       )}

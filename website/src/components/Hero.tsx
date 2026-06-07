@@ -25,14 +25,8 @@ export function Hero() {
             {SITE.description}
           </p>
 
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-10 flex justify-center">
             <DownloadButton size="lg" showMeta className="min-w-[260px]" />
-            <a
-              href="#product"
-              className="inline-flex min-w-[200px] items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-8 py-3.5 text-base font-semibold text-white backdrop-blur transition hover:bg-white/10"
-            >
-              Explore features
-            </a>
           </div>
 
           <p className="mt-6 text-sm text-slate-500">
