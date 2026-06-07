@@ -33,4 +33,19 @@
   .surface-card {
     @apply rounded-2xl border border-stone-200 bg-white;
   }
+
+  .animate-fade-in {
+    animation: fade-in 0.35s ease-out;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

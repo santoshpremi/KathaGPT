@@ -12,6 +12,9 @@ export function Footer() {
           <a href="#product" className="hover:text-stone-900">
             Product
           </a>
+          <a href="#providers" className="hover:text-stone-900">
+            Providers
+          </a>
           <a href="#tech" className="hover:text-stone-900">
             Rust
           </a>
