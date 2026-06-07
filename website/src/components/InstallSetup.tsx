@@ -3,12 +3,12 @@ import { assetUrl } from "../lib/site";
 import {
   INSTALL_FILES,
   LINUX_INSTALL,
-  MAC_INSTALL_ARM,
-  MAC_INSTALL_INTEL,
+  MAC_CURL_INSTALL,
   MAC_QUICK_FIX,
+  MAC_SMART_INSTALL,
 } from "../lib/install";
 
-type CopyKey = "arm" | "intel" | "quick" | "linux";
+type CopyKey = "curl" | "smart" | "quick" | "linux";
 
 export function InstallSetup() {
   const [copied, setCopied] = useState<CopyKey | null>(null);
@@ -34,56 +34,75 @@ export function InstallSetup() {
         <div className="mx-auto max-w-3xl text-center">
           <p className="section-label">Install Setup</p>
           <h2 className="section-title mt-3 md:text-5xl">
-            Finish installing KathaGPT
+            Install KathaGPT in seconds
           </h2>
           <p className="section-body mt-4">
-            After your download starts, follow the steps for your platform below.
-            On macOS, don&apos;t double-click the app from the DMG — Apple blocks
-            unsigned downloads until you clear the quarantine flag.
+            Two ways to install on macOS — pick the one that suits you.
+            On macOS, Apple blocks unsigned apps until you clear the quarantine flag;
+            both options handle that automatically.
           </p>
         </div>
 
-        <div className="mx-auto mt-12 max-w-3xl">
-          <div className="rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-950">
-            <strong className="font-medium">Seeing &ldquo;could not verify&rdquo;?</strong>{" "}
-            That dialog is normal for open-source apps without Apple&apos;s paid
-            notarization. Use the install command below — it takes about 10 seconds.
+        <div className="mx-auto mt-10 max-w-3xl space-y-6">
+
+          {/* ── macOS: Option A — curl one-liner ───────────────────────── */}
+          <div id="install-macos-arm" className="surface-card scroll-mt-24 p-6">
+            <div className="flex items-center gap-2">
+              <span className="rounded-full bg-stone-900 px-2.5 py-0.5 text-xs font-semibold text-white">
+                Option A
+              </span>
+              <span className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
+                macOS · Recommended
+              </span>
+            </div>
+            <h3 className="mt-2 text-lg font-semibold text-stone-900">
+              One command — no download needed
+            </h3>
+            <p className="mt-1 text-sm text-stone-600">
+              Detects your chip (Apple Silicon or Intel), downloads the right DMG to a
+              temp folder, installs to <code className="rounded bg-stone-100 px-1 text-xs">/Applications</code>,
+              clears quarantine, and opens the app.
+            </p>
+            <ol className="mt-4 list-inside list-decimal space-y-1.5 text-sm text-stone-600">
+              <li>Open Terminal (Spotlight → type "Terminal").</li>
+              <li>Paste the command below and press Enter.</li>
+              <li>KathaGPT opens automatically when done.</li>
+            </ol>
+            <CopyBlock command={MAC_CURL_INSTALL} copyKey="curl" copied={copied} onCopy={copy} />
           </div>
-        </div>
 
-        <div className="mx-auto mt-10 grid max-w-3xl gap-8">
-          <PlatformGuide
-            id="install-macos-arm"
-            step={1}
-            title="macOS · Apple Silicon (M1–M4)"
-            subtitle={`Downloaded ${INSTALL_FILES["mac-arm"]}? Keep it in ~/Downloads.`}
-            steps={[
-              "Open Terminal (Spotlight → type “Terminal”).",
-              "Paste the command below and press Enter.",
-              "KathaGPT installs to Applications and opens automatically.",
-            ]}
-            command={MAC_INSTALL_ARM}
-            copyKey="arm"
-            copied={copied}
-            onCopy={copy}
-          />
+          {/* ── macOS: Option B — already downloaded ───────────────────── */}
+          <div id="install-macos-intel" className="surface-card scroll-mt-24 p-6">
+            <div className="flex items-center gap-2">
+              <span className="rounded-full bg-stone-200 px-2.5 py-0.5 text-xs font-semibold text-stone-700">
+                Option B
+              </span>
+              <span className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
+                macOS · Already downloaded the DMG?
+              </span>
+            </div>
+            <h3 className="mt-2 text-lg font-semibold text-stone-900">
+              Smart install from your download
+            </h3>
+            <p className="mt-1 text-sm text-stone-600">
+              Works even if the file was saved to Downloads, Desktop, or
+              anywhere else — and handles renamed copies like{" "}
+              <code className="rounded bg-stone-100 px-1 text-xs">KathaGPT_…(2).dmg</code>.
+            </p>
+            <ul className="mt-4 list-inside list-disc space-y-1.5 text-sm text-stone-600">
+              <li>
+                Supports{" "}
+                <strong className="text-stone-800">{INSTALL_FILES["mac-arm"]}</strong>{" "}
+                (Apple Silicon) and{" "}
+                <strong className="text-stone-800">{INSTALL_FILES["mac-intel"]}</strong>{" "}
+                (Intel) — picks the one it finds.
+              </li>
+              <li>Open Terminal, paste the command, press Enter.</li>
+            </ul>
+            <CopyBlock command={MAC_SMART_INSTALL} copyKey="smart" copied={copied} onCopy={copy} />
+          </div>
 
-          <PlatformGuide
-            id="install-macos-intel"
-            step={2}
-            title="macOS · Intel"
-            subtitle={`Downloaded ${INSTALL_FILES["mac-intel"]}? Keep it in ~/Downloads.`}
-            steps={[
-              "Open Terminal.",
-              "Paste the Intel install command below and press Enter.",
-              "Wait for the app to copy, clear quarantine, and launch.",
-            ]}
-            command={MAC_INSTALL_INTEL}
-            copyKey="intel"
-            copied={copied}
-            onCopy={copy}
-          />
-
+          {/* ── macOS quick fix ────────────────────────────────────────── */}
           <div id="install-macos-fix" className="surface-card p-6">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
               macOS · already in Applications?
@@ -92,51 +111,59 @@ export function InstallSetup() {
               Quick fix if the app won&apos;t open
             </h3>
             <p className="mt-2 text-sm text-stone-600">
-              Or right-click <strong className="text-stone-800">KathaGPT.app</strong>{" "}
-              in Applications → <strong className="text-stone-800">Open</strong> →{" "}
+              Or right-click{" "}
+              <strong className="text-stone-800">KathaGPT.app</strong>{" "}
+              in Applications →{" "}
+              <strong className="text-stone-800">Open</strong> →{" "}
               <strong className="text-stone-800">Open</strong> again.
             </p>
-            <CopyBlock
-              command={MAC_QUICK_FIX}
-              copyKey="quick"
-              copied={copied}
-              onCopy={copy}
-            />
+            <CopyBlock command={MAC_QUICK_FIX} copyKey="quick" copied={copied} onCopy={copy} />
           </div>
 
-          <PlatformGuide
-            id="install-linux"
-            step={3}
-            title="Linux · AppImage"
-            subtitle={`Downloaded ${INSTALL_FILES.linux}?`}
-            steps={[
-              "Open Terminal.",
-              "Run the commands below to make the AppImage executable and launch it.",
-              "On first run, your distro may ask you to trust the AppImage — approve it.",
-            ]}
-            command={LINUX_INSTALL}
-            copyKey="linux"
-            copied={copied}
-            onCopy={copy}
-          />
+          {/* ── Linux ──────────────────────────────────────────────────── */}
+          <div id="install-linux" className="surface-card scroll-mt-24 p-6">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
+              Linux · AppImage
+            </p>
+            <h3 className="mt-2 text-lg font-semibold text-stone-900">
+              Linux — {INSTALL_FILES.linux}
+            </h3>
+            <ol className="mt-4 list-inside list-decimal space-y-1.5 text-sm text-stone-600">
+              <li>Open Terminal.</li>
+              <li>Run the commands below to make the AppImage executable and launch it.</li>
+              <li>On first run, your distro may ask you to trust the AppImage — approve it.</li>
+            </ol>
+            <CopyBlock command={LINUX_INSTALL} copyKey="linux" copied={copied} onCopy={copy} />
+          </div>
 
+          {/* ── first launch ───────────────────────────────────────────── */}
           <div className="surface-card p-6">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
-              Step 4 · First launch
+              Final step · First launch
             </p>
             <h3 className="mt-2 text-lg font-semibold text-stone-900">
               Add your API key
             </h3>
             <ol className="mt-4 list-inside list-decimal space-y-2 text-sm text-stone-600">
-              <li>Open KathaGPT and go to <strong className="text-stone-800">Settings → API Keys</strong>.</li>
-              <li>Add an <strong className="text-stone-800">OpenRouter</strong> key (recommended) or connect OpenAI, Anthropic, Google, or Perplexity.</li>
-              <li>Pick a model and start chatting — your history stays in local SQLite on your device.</li>
+              <li>
+                Open KathaGPT and go to{" "}
+                <strong className="text-stone-800">Settings → API Keys</strong>.
+              </li>
+              <li>
+                Add an{" "}
+                <strong className="text-stone-800">OpenRouter</strong>{" "}
+                key (recommended) or connect OpenAI, Anthropic, Google, or Perplexity.
+              </li>
+              <li>
+                Pick a model and start chatting — your history stays in local SQLite
+                on your device.
+              </li>
             </ol>
           </div>
         </div>
 
         <p className="mx-auto mt-10 max-w-3xl text-center text-sm text-stone-500">
-          Prefer a script?{" "}
+          Prefer a standalone script?{" "}
           <a
             href={assetUrl("downloads/install-macos.sh")}
             download="install-macos.sh"
@@ -144,51 +171,13 @@ export function InstallSetup() {
           >
             Download install-macos.sh
           </a>{" "}
-          — place your .dmg in Downloads, then run{" "}
+          — place your .dmg anywhere, then run{" "}
           <code className="rounded bg-stone-200/80 px-1.5 py-0.5 text-xs text-stone-800">
-            chmod +x install-macos.sh && ./install-macos.sh
+            bash install-macos.sh
           </code>
         </p>
       </div>
     </section>
-  );
-}
-
-function PlatformGuide({
-  id,
-  step,
-  title,
-  subtitle,
-  steps,
-  command,
-  copyKey,
-  copied,
-  onCopy,
-}: {
-  id: string;
-  step: number;
-  title: string;
-  subtitle: string;
-  steps: string[];
-  command: string;
-  copyKey: CopyKey;
-  copied: CopyKey | null;
-  onCopy: (text: string, key: CopyKey) => void;
-}) {
-  return (
-    <div id={id} className="surface-card scroll-mt-24 p-6">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-stone-500">
-        Step {step}
-      </p>
-      <h3 className="mt-2 text-lg font-semibold text-stone-900">{title}</h3>
-      <p className="mt-1 text-sm text-stone-600">{subtitle}</p>
-      <ol className="mt-4 list-inside list-decimal space-y-2 text-sm text-stone-600">
-        {steps.map((s) => (
-          <li key={s}>{s}</li>
-        ))}
-      </ol>
-      <CopyBlock command={command} copyKey={copyKey} copied={copied} onCopy={onCopy} />
-    </div>
   );
 }
 

@@ -9,19 +9,11 @@ export const INSTALL_FILES = {
   linux: `KathaGPT_${v}_amd64.AppImage`,
 } as const;
 
-export const MAC_INSTALL_ARM = `hdiutil attach ~/Downloads/${INSTALL_FILES["mac-arm"]} -nobrowse -readonly && \\
-VOL=$(ls -d /Volumes/KathaGPT* | head -1) && \\
-ditto "$VOL/KathaGPT.app" /Applications/KathaGPT.app && \\
-xattr -cr /Applications/KathaGPT.app && \\
-hdiutil detach "$VOL" -quiet && \\
-open /Applications/KathaGPT.app`;
+/** One-line curl installer — downloads, installs, and opens automatically. */
+export const MAC_CURL_INSTALL = `curl -fsSL https://santoshpremi.github.io/KathaGPT/install.sh | bash`;
 
-export const MAC_INSTALL_INTEL = `hdiutil attach ~/Downloads/${INSTALL_FILES["mac-intel"]} -nobrowse -readonly && \\
-VOL=$(ls -d /Volumes/KathaGPT* | head -1) && \\
-ditto "$VOL/KathaGPT.app" /Applications/KathaGPT.app && \\
-xattr -cr /Applications/KathaGPT.app && \\
-hdiutil detach "$VOL" -quiet && \\
-open /Applications/KathaGPT.app`;
+/** Smart find — works even with duplicate downloads or files saved elsewhere. */
+export const MAC_SMART_INSTALL = `bash <(curl -fsSL https://santoshpremi.github.io/KathaGPT/downloads/install-macos.sh)`;
 
 export const MAC_QUICK_FIX =
   "xattr -cr /Applications/KathaGPT.app && open -a KathaGPT";
