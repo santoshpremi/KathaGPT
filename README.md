@@ -275,6 +275,81 @@ Set `VITE_GITHUB_REPO=owner/repo` in `website/.env` (see `website/.env.example`)
 
 ---
 
+## Open Work · Roadmap
+
+High-value areas that would push KathaGPT ahead of competing AI desktop clients.
+
+---
+
+### 1 · Core Killer Feature — Full Local LLM Support
+
+> **Biggest gap right now.** KathaGPT is currently BYOK cloud-only. Adding local model support would dominate the privacy-focused market where competitors like [Jan.ai](https://jan.ai), [LM Studio](https://lmstudio.ai), and [Open WebUI](https://openwebui.com) currently win.
+
+#### What to build
+
+| Task | Detail |
+|------|--------|
+| **Ollama integration** | Auto-detect a running Ollama instance (`http://localhost:11434`); enumerate available models via the Ollama REST API; stream responses through the existing SSE pipeline — no new UI paradigm needed |
+| **llama.cpp via Rust** | For fully embedded inference: evaluate [`llama-rs`](https://github.com/rustformers/llama.cpp-rs), [`candle`](https://github.com/huggingface/candle) (HuggingFace), or a Tauri sidecar wrapping `llama-server` — sidecar is lowest risk to start |
+| **Model manager** | UI to download, quantize (Q4/Q8), and delete local models; hardware detection (VRAM, Apple Neural Engine, CPU cores) to recommend sensible defaults |
+| **Hybrid mode** | Seamlessly route individual messages to either local or cloud models within the same chat thread; useful for cost-sensitive workflows where cheap/fast tasks stay local while complex reasoning hits a cloud frontier model |
+| **Hardware detection** | Read GPU info (Metal on macOS, CUDA/ROCm on Linux/Windows) and surface it in Settings → guide users to the best quant level for their machine |
+
+#### Why this matters
+
+- Users who care most about privacy cannot be served by cloud-only clients at all — this is a complete market segment currently unreachable.
+- Offline capability turns KathaGPT into a tool that works on planes, air-gapped networks, and corporate environments that block outbound LLM traffic.
+- Local model support is the single feature that most separates "chat wrapper" from "serious AI desktop app" in community perception.
+
+---
+
+### 2 · Technical & Performance Upgrades
+
+#### Rust backend
+
+| Improvement | Detail | Why it matters |
+|-------------|--------|----------------|
+| **Context window management** | Track token counts per model, auto-truncate oldest messages when the context limit approaches, expose remaining tokens in the UI | Prevents silent truncation errors and unexpected costs on long conversations |
+| **Token counting** | Implement tiktoken-rs or call provider `/tokenize` endpoints; show live token usage per message and per chat | Power users need this for budget control |
+| **Smart truncation strategies** | Sliding window, summary compression, or pinned-system-prompt modes | Improves response quality on long threads |
+| **Structured error surface** | Map provider error codes (rate limit, context exceeded, invalid key) to user-friendly messages in the UI instead of raw JSON | Reduces support burden |
+
+#### Tauri / native shell
+
+| Improvement | Detail | Why it matters |
+|-------------|--------|----------------|
+| **System tray enhancements** | Quick-compose window from tray, show/hide with a single click, unread indicator | Native app feel; comparable to Raycast / Alfred integrations |
+| **Global hotkeys** | Register a system-wide shortcut (e.g. `⌘⇧Space`) to summon the chat window from any app | One of the most-requested features in competing tools |
+| **Auto-updater** | Tauri's built-in `tauri-plugin-updater` + GitHub Releases JSON feed | Eliminates manual re-download on every release |
+| **Windows / Linux parity** | Test installer flows on Windows (`.msi`) and Linux (`.AppImage`) equivalents of the macOS setup scripts | Needed before any broad release |
+
+#### UI / UX polish
+
+| Improvement | Detail | Why it matters |
+|-------------|--------|----------------|
+| **Dark / light auto-theme** | Follow `prefers-color-scheme`; persist user override in SQLite settings | Expected baseline for any desktop app in 2025 |
+| **Markdown + LaTeX rendering** | Render `$$...$$` and `$...$` inline math (KaTeX or MathJax); already using markdown, this is a one-package add | Essential for research, academic, and STEM users |
+| **Code highlighting + copy** | Syntax highlight code fences (`highlight.js` / `shiki`); one-click copy button per block | High-frequency action in every developer workflow |
+| **Better sidebar** | Collapsible, mobile-like navigation drawer; section headers for Today / This Week / Older in chat history | Reduces visual noise; scales to hundreds of chats |
+
+#### Memory & RAG
+
+| Improvement | Detail | Why it matters |
+|-------------|--------|----------------|
+| **Built-in vector search** | Add [`sqlite-vec`](https://github.com/asg017/sqlite-vec) extension (pure SQLite, no extra service) for semantic search over chat history and uploaded documents | Huge differentiator for power users — no Pinecone/Chroma dependency |
+| **Long-term memory** | Summarise older conversations and store embeddings; surface relevant context automatically when starting a new chat on the same topic | Replaces the manual "start with context" workflow |
+| **Document chat (RAG)** | Upload PDF / text → chunk → embed → retrieve at query time; already have a file extraction endpoint (`/files/extract-text`) to build on | Closes the gap with tools like Notion AI and ChatPDF |
+
+#### Agents & workflows
+
+| Improvement | Detail | Why it matters |
+|-------------|--------|----------------|
+| **Tool calling** | Expose model tool-call results (web search, code execution, file read/write) through the existing workflow engine | Required for any agentic loop |
+| **Multi-step ReAct loops** | Let the Rust backend iterate model → tool → model until a stopping condition; surface intermediate steps in the UI | Turns KathaGPT into a local Cursor/Devin competitor for simple tasks |
+| **Workflow marketplace** | Allow exporting and importing community workflows as JSON; host a small curated gallery on the website | Viral growth mechanism — users share useful automations |
+
+---
+
 ## Contributing
 
 Issues and pull requests are welcome. See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and [SECURITY.md](SECURITY.md).
