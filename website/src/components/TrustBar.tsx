@@ -9,17 +9,14 @@ const badges = [
 
 export function TrustBar() {
   return (
-    <section className="border-b border-stone-200 bg-stone-50 py-5">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3 px-6">
+    <section className="border-b border-stone-200 bg-stone-50 py-6">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-6">
         {badges.map((badge) => (
-          <span
-            key={badge.label}
-            className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-1.5 text-xs text-stone-600 shadow-soft"
-          >
+          <div key={badge.label} className="flex items-center gap-2.5 text-sm">
             <span className="font-medium text-stone-800">{badge.label}</span>
-            <span className="text-stone-300">·</span>
-            <span>{badge.value}</span>
-          </span>
+            <span className="text-stone-400">·</span>
+            <span className="text-stone-500">{badge.value}</span>
+          </div>
         ))}
       </div>
     </section>

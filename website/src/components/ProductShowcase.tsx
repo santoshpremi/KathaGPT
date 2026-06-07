@@ -33,14 +33,12 @@ export function ProductShowcase() {
         </div>
 
         <div className="mt-14 lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-12">
-          <div key={active} className="animate-fade-in">
-            <AppWindow
-              image={feature.image}
-              alt={`KathGPT ${feature.label} screenshot`}
-              className="shadow-product"
-              priority={active === "chat"}
-            />
-          </div>
+          <AppWindow
+            image={feature.image}
+            alt={`KathGPT ${feature.label} screenshot`}
+            className="shadow-product"
+            priority={active === "chat"}
+          />
 
           <FeaturePanel feature={feature} />
         </div>

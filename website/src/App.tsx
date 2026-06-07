@@ -5,9 +5,7 @@ import { Features } from "./components/Features";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
-import { HowItWorks } from "./components/HowItWorks";
 import { ProductShowcase } from "./components/ProductShowcase";
-import { ProvidersSection } from "./components/ProvidersSection";
 import { TechStack } from "./components/TechStack";
 import { TrustBar } from "./components/TrustBar";
 
@@ -19,8 +17,6 @@ export default function App() {
         <Hero />
         <TrustBar />
         <ProductShowcase />
-        <ProvidersSection />
-        <HowItWorks />
         <TechStack />
         <Features />
         <DownloadSection />
