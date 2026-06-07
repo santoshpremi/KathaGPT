@@ -59,7 +59,7 @@ export const PLATFORMS: PlatformDownload[] = [
     label: "macOS (Intel)",
     shortLabel: "Mac · Intel",
     extensions: [".dmg", ".app.tar.gz"],
-    keywords: ["x64", "x86_64", "apple-darwin", "darwin-x86"],
+    keywords: ["x64", "x86_64", "apple-darwin", "darwin-x86", "_x64"],
   },
   {
     id: "windows",
