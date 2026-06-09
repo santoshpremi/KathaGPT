@@ -1,0 +1,126 @@
+# GitHub label definitions for KathaGPT
+# Apply with: gh label import .github/labels.yml
+# Or run: scripts/setup-github.sh
+
+# ---------------------------------------------------------------------------
+# Contributor entry points
+# ---------------------------------------------------------------------------
+- name: "good first issue"
+  color: "7057ff"
+  description: "Good for newcomers — well-scoped with clear instructions"
+
+- name: "help wanted"
+  color: "008672"
+  description: "Extra attention is needed — contributions welcome"
+
+# ---------------------------------------------------------------------------
+# Issue types
+# ---------------------------------------------------------------------------
+- name: "bug"
+  color: "d73a4a"
+  description: "Something isn't working"
+
+- name: "enhancement"
+  color: "a2eeef"
+  description: "New feature or request"
+
+- name: "documentation"
+  color: "0075ca"
+  description: "Improvements or additions to documentation"
+
+- name: "question"
+  color: "d876e3"
+  description: "Further information is requested"
+
+- name: "refactor"
+  color: "fef2c0"
+  description: "Code cleanup or restructuring without behavior change"
+
+- name: "security"
+  color: "ee0701"
+  description: "Security vulnerability or hardening improvement"
+
+- name: "performance"
+  color: "e4e4e4"
+  description: "Speed, memory, or resource usage improvement"
+
+- name: "testing"
+  color: "bfd4f2"
+  description: "Test coverage — unit, integration, or e2e tests"
+
+- name: "accessibility"
+  color: "c5def5"
+  description: "Keyboard navigation, screen reader, contrast improvements"
+
+- name: "i18n"
+  color: "f9d0c4"
+  description: "Translations, locale support, RTL layout"
+
+# ---------------------------------------------------------------------------
+# Codebase areas
+# ---------------------------------------------------------------------------
+- name: "frontend"
+  color: "e4e669"
+  description: "React / TypeScript UI work (src/)"
+
+- name: "rust"
+  color: "f05d23"
+  description: "Rust backend — Axum API, Tauri, sqlx, streaming (src-tauri/)"
+
+- name: "local-llm"
+  color: "0e8a16"
+  description: "Local model download, llama.cpp sidecar, model catalog"
+
+- name: "database"
+  color: "b60205"
+  description: "SQLite schema, migrations, query performance"
+
+- name: "ux"
+  color: "fbca04"
+  description: "User experience — flows, onboarding, discoverability"
+
+- name: "ci-cd"
+  color: "ededed"
+  description: "GitHub Actions workflows, release pipeline, build scripts"
+
+- name: "website"
+  color: "c2e0c6"
+  description: "Marketing landing page in website/"
+
+# ---------------------------------------------------------------------------
+# Platform-specific
+# ---------------------------------------------------------------------------
+- name: "platform:macos"
+  color: "e6eaf8"
+  description: "macOS-specific bug or feature"
+
+- name: "platform:windows"
+  color: "cce0ff"
+  description: "Windows-specific bug or feature"
+
+- name: "platform:linux"
+  color: "d4edda"
+  description: "Linux-specific bug or feature"
+
+# ---------------------------------------------------------------------------
+# Status
+# ---------------------------------------------------------------------------
+- name: "wontfix"
+  color: "ffffff"
+  description: "This will not be worked on"
+
+- name: "duplicate"
+  color: "cfd3d7"
+  description: "This issue or pull request already exists"
+
+- name: "invalid"
+  color: "e4e4e4"
+  description: "This doesn't seem right"
+
+- name: "blocked"
+  color: "b4a8d3"
+  description: "Waiting on a dependency or upstream decision"
+
+- name: "roadmap"
+  color: "f9a825"
+  description: "Tracked in the project roadmap"

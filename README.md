@@ -3,11 +3,26 @@
 **Fast, private AI chat on your machine — powered by Rust.** Run local AI models with no API key, or bring your own for cloud providers. Every conversation stays on your device.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![GitHub](https://img.shields.io/github/stars/santoshpremi/KathaGPT?style=social)](https://github.com/santoshpremi/KathaGPT)
+[![GitHub Stars](https://img.shields.io/github/stars/santoshpremi/KathaGPT?style=social)](https://github.com/santoshpremi/KathaGPT)
+[![GitHub Forks](https://img.shields.io/github/forks/santoshpremi/KathaGPT?style=social)](https://github.com/santoshpremi/KathaGPT/fork)
+[![GitHub Release](https://img.shields.io/github/v/release/santoshpremi/KathaGPT)](https://github.com/santoshpremi/KathaGPT/releases/latest)
+[![GitHub Downloads](https://img.shields.io/github/downloads/santoshpremi/KathaGPT/total)](https://github.com/santoshpremi/KathaGPT/releases)
+[![CI](https://github.com/santoshpremi/KathaGPT/actions/workflows/rust.yml/badge.svg)](https://github.com/santoshpremi/KathaGPT/actions)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+> **[Try it now →](https://santoshpremi.github.io/KathaGPT/)** · [Download latest release](https://github.com/santoshpremi/KathaGPT/releases/latest) · [View demo](#demo)
+
+---
+
+<a id="demo"></a>
+
+![KathaGPT demo — private AI chat with local models, workflows, and tools](docs/demo.gif)
+
+---
 
 | | |
 |---|---|
-| **Version** | 0.1.0 |
+| **Version** | 0.1.1 |
 | **Stack** | React · **Rust (Axum)** · Tauri v2 · SQLite · llama.cpp |
 | **Platforms** | macOS · Windows · Linux |
 | **Repo** | [github.com/santoshpremi/KathaGPT](https://github.com/santoshpremi/KathaGPT) |
@@ -88,6 +103,18 @@ KathaGPT's backend is **100% Rust** — the old Node.js server is gone. One nati
 - **Protected keys** — API keys stored locally, masked in UI. See [SECURITY.md](SECURITY.md).
 - **Native desktop** — One-click `.dmg` / `.msi` / `.AppImage`; no Electron overhead.
 - **Open source** — MIT licensed; inspect, fork, and self-host.
+
+---
+
+## Want to Contribute?
+
+KathaGPT welcomes contributors of all skill levels — whether you write Rust, TypeScript, or just want to improve docs.
+
+- Browse [`good first issue`](https://github.com/santoshpremi/KathaGPT/issues?q=is%3Aopen+label%3A%22good+first+issue%22) for beginner-friendly tasks
+- Read the full [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions
+- [Open a Discussion](https://github.com/santoshpremi/KathaGPT/discussions) to propose ideas
+
+**If KathaGPT is useful to you, please give it a star — it helps others discover the project.**
 
 ### What's included
 
@@ -346,7 +373,11 @@ Set `VITE_GITHUB_REPO=owner/repo` in `website/.env` (see `website/.env.example`)
 
 ## Contributing
 
-Issues and pull requests are welcome. See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and [SECURITY.md](SECURITY.md).
+Issues and pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for dev setup, project structure, and how to submit a PR. See also [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and [SECURITY.md](SECURITY.md).
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=santoshpremi/KathaGPT&type=Date)](https://star-history.com/#santoshpremi/KathaGPT&Date)
 
 ## License
 

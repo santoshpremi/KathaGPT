@@ -90,6 +90,10 @@ Desktop.ini
 _tmp_*
 .pnpm-store/
 
+# Large uncompressed demo recordings (README uses docs/demo.gif)
+docs/demo-original.gif
+docs/Kapture*.gif
+
 # Optional local overrides (uncomment if you use them)
 # .vscode/
 # .cursor/
