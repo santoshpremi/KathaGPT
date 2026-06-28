@@ -1,5 +1,7 @@
 # KathaGPT Local Edition
 
+[English](README.md) | [Español](README.es.md)
+
 **Fast, private AI chat on your machine — powered by Rust.** Run local AI models with no API key, or bring your own for cloud providers. Every conversation stays on your device.
 
 ![KathaGPT demo](docs/demo.gif)
