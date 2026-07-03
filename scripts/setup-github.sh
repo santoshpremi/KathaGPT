@@ -2,7 +2,7 @@
 # setup-github.sh — Run this once after pushing to GitHub to:
 #   1. Import all labels from .github/labels.yml
 #   2. Set repository topics
-#   3. Seed 8 "good first issue" issues (including 3 README translation issues)
+#   3. Seed 9 "good first issue" issues (including 4 README translation issues)
 #
 # Requirements: gh CLI installed and authenticated (gh auth login)
 # Usage: bash scripts/setup-github.sh
@@ -283,6 +283,28 @@ Translate the README into **Chinese (Simplified)**. Add \`README.zh.md\` at the 
 - [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md)"
 
 echo "    Issue 8 (Chinese README) created."
+
+gh issue create \
+  --repo "$REPO" \
+  --title "Translate README to Japanese (README.ja.md)" \
+  --label "good first issue,help wanted,documentation" \
+  --body "## Description
+Translate the README into **Japanese**. Add \`README.ja.md\` at the repo root and link it from the language selector at the top of \`README.md\`.
+
+## Why this is a good first issue
+- No code changes required — pure documentation
+- Perfect for native Japanese speakers
+
+## Acceptance criteria
+- [ ] New file at root: \`README.ja.md\`
+- [ ] Covers at least: intro, Why KathaGPT, Quick Start, and Contributing sections
+- [ ] Language selector at the top of \`README.md\` includes 日本語 linking to \`README.ja.md\`
+- [ ] Keep command examples, model names, provider names, paths, and variable-style UI labels unchanged
+
+## Resources
+- [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md)"
+
+echo "    Issue 9 (Japanese README) created."
 
 # ---------------------------------------------------------------------------
 # Round 2: Codebase-grounded issues
