@@ -7,19 +7,25 @@ cd "$SCRIPT_DIR"
 echo "Starting KathaGPT Development Server..."
 
 # Use Node 20+ (Vite 6 requires crypto.hash, available in Node >= 20.12)
-if [ -s "$HOME/.nvm/nvm.sh" ]; then
+node_meets_minimum() {
+  local major minor
+  major="$(node -p "process.versions.node.split('.')[0]")"
+  minor="$(node -p "process.versions.node.split('.')[1]")"
+  [ "$major" -gt 20 ] || { [ "$major" -eq 20 ] && [ "$minor" -ge 12 ]; }
+}
+
+if ! node_meets_minimum && [ -s "$HOME/.nvm/nvm.sh" ]; then
   # shellcheck source=/dev/null
   source "$HOME/.nvm/nvm.sh"
   if [ -f .nvmrc ]; then
+    nvm install
     nvm use
   fi
 fi
 
-NODE_MAJOR="$(node -p "process.versions.node.split('.')[0]")"
-NODE_MINOR="$(node -p "process.versions.node.split('.')[1]")"
-if [ "$NODE_MAJOR" -lt 20 ] || { [ "$NODE_MAJOR" -eq 20 ] && [ "$NODE_MINOR" -lt 12 ]; }; then
+if ! node_meets_minimum; then
   echo "Error: Node.js >= 20.12 is required (current: $(node -v))."
-  echo "Run: nvm install 20 && nvm use 20"
+  echo "Run: nvm install && nvm use"
   exit 1
 fi
 
