@@ -1,6 +1,6 @@
 # KathaGPT Local Edition
 
-[English](README.md) | **Español**
+[English](README.md) | **Español** | [🇯🇵 日本語](README.ja.md)
 
 **Chat de IA rápido y privado en tu propio equipo, impulsado por Rust.** Ejecuta modelos locales sin claves de API, o conecta tus propias claves para proveedores en la nube. Todas las conversaciones permanecen en tu dispositivo.
 
