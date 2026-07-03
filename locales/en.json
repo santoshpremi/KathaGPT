@@ -409,7 +409,9 @@
   "aiKnowledgePoints": "AI knowledge points",
   "sidebar": {
     "allChats": "All chats",
-    "allWorkflows": "All workflows"
+    "allWorkflows": "All workflows",
+    "chatSearchPlaceholder": "Search chats…",
+    "noChatSearchResults": "No chats matching \"{{query}}\""
   },
   "toolHistory": {
     "title": "History",

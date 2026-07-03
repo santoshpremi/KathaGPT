@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ChatBubbleOutline, History } from "@mui/icons-material";
 import { useNavigate, useParams } from "../../../router";
 import { useTranslation } from "../../../lib/i18n";
@@ -12,12 +12,16 @@ import { ConfirmModal } from "../tree/ConfirmModal";
 import { LeafItem } from "../tree/LeafItem";
 import { LeafItemDropdown } from "../tree/LeafItemDropdown";
 import { RenameChatModal } from "./RenameChatModal";
+import { HighlightMatch } from "./HighlightMatch";
+
 export function ChatsListItem({
   chat,
   isHistoryButton,
+  highlightQuery,
 }: {
   chat?: ChatListItem;
   isHistoryButton?: boolean;
+  highlightQuery?: string;
 }) {
   const { t } = useTranslation();
   const organizationId = useCurrentOrganizationId();
@@ -30,10 +34,14 @@ export function ChatsListItem({
   const [renameModalOpen, setRenameModalOpen] = useState(false);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 
-  let chatName;
+  let chatName: React.ReactNode;
 
   if (chat?.name) {
-    chatName = chat.name;
+    chatName = highlightQuery ? (
+      <HighlightMatch text={chat.name} query={highlightQuery} />
+    ) : (
+      chat.name
+    );
   } else if (isHistoryButton) {
     chatName = (
       <div className="flex items-center gap-1">
@@ -55,7 +63,7 @@ export function ChatsListItem({
           />
         }
         singleLine={true}
-        name={chatName as string}
+        name={chatName}
         endDecorator={
           isHistoryButton ? undefined : (
             <div onClick={(e) => e.stopPropagation()} className="h-[22px]">

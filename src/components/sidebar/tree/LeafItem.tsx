@@ -25,7 +25,7 @@ export function LeafItem({
   singleLine = false,
 }: {
   isSelected: boolean;
-  name: string;
+  name: React.ReactNode;
   onClick?: () => void;
   icon?: React.ReactNode;
   isFolder?: boolean;

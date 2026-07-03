@@ -1,6 +1,7 @@
 import { test, expect } from "./fixtures";
 
 const ORG_ID = "org_cm8yflh26064xmw01zbalts9c";
+const API = process.env.KATHAGPT_API_BASE ?? "http://127.0.0.1:17890/api/local";
 
 test.describe("Sidebar navigation", () => {
   test.beforeEach(async ({ page }) => {
@@ -42,6 +43,30 @@ test.describe("Sidebar navigation", () => {
     await expect(page.getByText("Help center")).toBeVisible({
       timeout: 10_000,
     });
+  });
+
+  test("chat search filters sidebar results", async ({ page, request }) => {
+    const stamp = Date.now();
+    const chatId = `chat_sidebar_search_${stamp}`;
+    const uniqueToken = `sidebarfind${stamp}`;
+
+    await request.post(`${API}/chats`, {
+      data: { id: chatId, name: `Searchable ${uniqueToken} chat` },
+    });
+    const stream = await request.post(`${API}/chats/${chatId}/messages/stream`, {
+      data: { content: `Hello from ${uniqueToken}` },
+      headers: { Accept: "text/event-stream" },
+    });
+    expect(stream.ok()).toBeTruthy();
+    await stream.text();
+
+    const searchInput = page.getByTestId("chat-search-input");
+    await searchInput.fill(uniqueToken);
+    await expect(page.getByText(uniqueToken, { exact: false }).first()).toBeVisible({
+      timeout: 15_000,
+    });
+
+    await request.delete(`${API}/chats/${chatId}`);
   });
 
   test("workflow create button opens modal", async ({ page }) => {

@@ -54,6 +54,24 @@ export function useChatList(limit: number, organizationId: string) {
   });
 }
 
+export function useChatSearch(
+  query: string,
+  limit: number,
+  organizationId: string,
+) {
+  const trimmed = query.trim();
+
+  return useQuery({
+    queryKey: [...CHATS_KEY, "search", trimmed, limit],
+    queryFn: async () => {
+      const chats = await rustChats.listChats(limit, trimmed);
+      return { items: chats.map((c) => toChatListItem(c, organizationId)) };
+    },
+    enabled: trimmed.length > 0,
+    refetchOnWindowFocus: false,
+  });
+}
+
 export function useChat(chatId: string, options?: { enabled?: boolean }) {
   const organizationId = useCurrentOrganizationId();
 

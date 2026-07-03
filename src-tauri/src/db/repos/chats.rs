@@ -13,6 +13,57 @@ pub async fn delete_empty(pool: &SqlitePool) -> anyhow::Result<u64> {
     Ok(result.rows_affected())
 }
 
+fn escape_like_pattern(input: &str) -> String {
+    input
+        .replace('\\', "\\\\")
+        .replace('%', "\\%")
+        .replace('_', "\\_")
+}
+
+pub async fn search(
+    pool: &SqlitePool,
+    query: &str,
+    limit: i64,
+) -> anyhow::Result<Vec<ChatSummary>> {
+    let trimmed = query.trim();
+    if trimmed.is_empty() {
+        return list(pool, limit).await;
+    }
+
+    let pattern = format!("%{}%", escape_like_pattern(trimmed));
+    let rows: Vec<(String, Option<String>, Option<String>, String, String)> = sqlx::query_as(
+        "SELECT DISTINCT c.id, c.name, c.model_override, c.created_at, c.updated_at
+         FROM chats c
+         WHERE c.hidden = 0
+           AND EXISTS (SELECT 1 FROM messages m WHERE m.chat_id = c.id)
+           AND (
+             c.name LIKE ? ESCAPE '\\'
+             OR EXISTS (
+               SELECT 1 FROM messages m2
+               WHERE m2.chat_id = c.id AND m2.content LIKE ? ESCAPE '\\'
+             )
+           )
+         ORDER BY c.updated_at DESC
+         LIMIT ?",
+    )
+    .bind(&pattern)
+    .bind(&pattern)
+    .bind(limit)
+    .fetch_all(pool)
+    .await?;
+
+    Ok(rows
+        .into_iter()
+        .map(|r| ChatSummary {
+            id: r.0,
+            name: r.1,
+            model_override: r.2,
+            created_at: r.3,
+            updated_at: r.4,
+        })
+        .collect())
+}
+
 pub async fn list(pool: &SqlitePool, limit: i64) -> anyhow::Result<Vec<ChatSummary>> {
     let rows: Vec<(String, Option<String>, Option<String>, String, String)> = sqlx::query_as(
         "SELECT c.id, c.name, c.model_override, c.created_at, c.updated_at
@@ -184,6 +235,37 @@ mod tests {
         let chats = list(&pool, 10).await.unwrap();
         assert_eq!(chats.len(), 1);
         assert_eq!(chats[0].id, "chat_test_1");
+    }
+
+    #[tokio::test]
+    async fn search_matches_chat_name_and_message_content() {
+        let pool = test_pool().await;
+        create(&pool, "chat_a", Some("Rust project notes"), None)
+            .await
+            .unwrap();
+        create(&pool, "chat_b", Some("Weekly standup"), None)
+            .await
+            .unwrap();
+
+        sqlx::query(
+            "INSERT INTO messages (id, chat_id, content, created_at, from_ai, response_completed)
+             VALUES ('msg_a', 'chat_a', 'learning axum', datetime('now'), 0, 1),
+                    ('msg_b', 'chat_b', 'discussed rust migration', datetime('now'), 0, 1)",
+        )
+        .execute(&pool)
+        .await
+        .unwrap();
+
+        let by_name = search(&pool, "project", 10).await.unwrap();
+        assert_eq!(by_name.len(), 1);
+        assert_eq!(by_name[0].id, "chat_a");
+
+        let by_content = search(&pool, "migration", 10).await.unwrap();
+        assert_eq!(by_content.len(), 1);
+        assert_eq!(by_content[0].id, "chat_b");
+
+        let none = search(&pool, "nonexistent", 10).await.unwrap();
+        assert!(none.is_empty());
     }
 
     #[tokio::test]

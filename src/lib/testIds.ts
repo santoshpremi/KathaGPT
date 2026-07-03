@@ -16,6 +16,7 @@ export const SIDEBAR_SETTINGS_BUTTON_ID = "sidebar-settings-button";
 export const SUBMIT_MESSAGE_BUTTON_ID = "submit-message-button";
 export const CHAT_INPUT_ID = "chat-input";
 export const ALL_CHATS_BUTTON_ID = "all-chats-button";
+export const CHAT_SEARCH_INPUT_ID = "chat-search-input";
 
 // Artifact
 export const ARTIFACT_CANVAS_ID = "artifact-canvas";

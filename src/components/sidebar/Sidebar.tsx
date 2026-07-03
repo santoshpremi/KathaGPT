@@ -30,6 +30,7 @@ import { SidebarBottomButtons } from "./SidebarBottomButtons";
 import { Link } from "../../router";
 import { SidebarWorkflows } from "./workflows/SidebarWorkflows";
 import { ChatsList } from "./chats/ChatsList";
+import { ChatSearchInput } from "./chats/ChatSearchInput";
 import { cn } from "../../lib/cn";
 import { useNewChat } from "../../lib/hooks/useNewChat";
 
@@ -49,6 +50,7 @@ export function Sidebar({
   const { t } = useTranslation();
 
   const [openHelpCenter, setOpenHelpCenter] = useState(false);
+  const [chatSearchQuery, setChatSearchQuery] = useState("");
 
   const organization = useOrganization();
   const { startNewChat } = useNewChat();
@@ -166,9 +168,20 @@ export function Sidebar({
           )}
         </div>
 
+        <ChatSearchInput
+          value={chatSearchQuery}
+          onChange={setChatSearchQuery}
+          isSidebarOpen={isSidebarOpen}
+        />
+
 <SidebarSectionWithHistory
   isSidebarOpen={isSidebarOpen}
-  content={<ChatsList isSidebarOpen={isSidebarOpen} />}
+  content={
+    <ChatsList
+      isSidebarOpen={isSidebarOpen}
+      searchQuery={chatSearchQuery}
+    />
+  }
   icon={<ChatBubbleOutline />}
   historyPath="/:organizationId/chats"
   params={{ organizationId: organization?.id ?? "" }}

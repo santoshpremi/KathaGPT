@@ -38,6 +38,7 @@ export type { ProviderModel } from "./providerModels";
 export type { OpenRouterModel } from "./openrouterModels";
 export {
   useChatList,
+  useChatSearch,
   useChat,
   useCreateChat,
   useDeleteChat,

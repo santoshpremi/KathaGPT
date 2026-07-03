@@ -1,8 +1,12 @@
 import { rustFetch } from "./client";
 import type { RustChatSummary } from "./types";
 
-export function listChats(limit = 50): Promise<RustChatSummary[]> {
-  return rustFetch(`/chats?limit=${limit}`);
+export function listChats(limit = 50, query?: string): Promise<RustChatSummary[]> {
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (query?.trim()) {
+    params.set("q", query.trim());
+  }
+  return rustFetch(`/chats?${params.toString()}`);
 }
 
 export function getChat(chatId: string): Promise<RustChatSummary> {

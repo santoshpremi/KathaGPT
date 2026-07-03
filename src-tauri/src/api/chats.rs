@@ -15,6 +15,7 @@ use crate::server::AppState;
 struct ListQuery {
     #[serde(default = "default_limit")]
     limit: i64,
+    q: Option<String>,
 }
 
 fn default_limit() -> i64 {
@@ -34,7 +35,13 @@ async fn list_chats(
     State(state): State<AppState>,
     Query(query): Query<ListQuery>,
 ) -> impl IntoResponse {
-    match repo::list(&state.db, query.limit.min(100)).await {
+    let limit = query.limit.min(100);
+    let result = match query.q.as_deref() {
+        Some(q) if !q.trim().is_empty() => repo::search(&state.db, q, limit).await,
+        _ => repo::list(&state.db, limit).await,
+    };
+
+    match result {
         Ok(chats) => (StatusCode::OK, Json(chats)).into_response(),
         Err(err) => (
             StatusCode::INTERNAL_SERVER_ERROR,

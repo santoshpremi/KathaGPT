@@ -125,6 +125,46 @@ test.describe("Rust local API", () => {
     expect(body.chats).toBeDefined();
   });
 
+  test("chat search filters by name and message content", async ({
+    request,
+  }) => {
+    const stamp = Date.now();
+    const chatA = `chat_search_a_${stamp}`;
+    const chatB = `chat_search_b_${stamp}`;
+
+    await request.post(`${API}/chats`, {
+      data: { id: chatA, name: "Project planning notes" },
+    });
+    await request.post(`${API}/chats`, {
+      data: { id: chatB, name: "Weekly standup" },
+    });
+
+    await request.post(`${API}/chats/${chatA}/messages/stream`, {
+      data: { content: "Discussed database migration timeline" },
+      headers: { Accept: "text/event-stream" },
+    });
+    await request.post(`${API}/chats/${chatB}/messages/stream`, {
+      data: { content: "Team updates only" },
+      headers: { Accept: "text/event-stream" },
+    });
+
+    const byName = await request.get(`${API}/chats?q=planning`);
+    expect(byName.ok()).toBeTruthy();
+    const nameResults = await byName.json();
+    expect(nameResults.some((c: { id: string }) => c.id === chatA)).toBeTruthy();
+    expect(nameResults.some((c: { id: string }) => c.id === chatB)).toBeFalsy();
+
+    const byContent = await request.get(`${API}/chats?q=migration`);
+    expect(byContent.ok()).toBeTruthy();
+    const contentResults = await byContent.json();
+    expect(
+      contentResults.some((c: { id: string }) => c.id === chatA),
+    ).toBeTruthy();
+
+    await request.delete(`${API}/chats/${chatA}`);
+    await request.delete(`${API}/chats/${chatB}`);
+  });
+
   test("message stream returns SSE init, delta, and done", async ({
     request,
   }) => {
