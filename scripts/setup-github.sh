@@ -2,7 +2,7 @@
 # setup-github.sh — Run this once after pushing to GitHub to:
 #   1. Import all labels from .github/labels.yml
 #   2. Set repository topics
-#   3. Seed 6 "good first issue" issues
+#   3. Seed 8 "good first issue" issues (including 3 README translation issues)
 #
 # Requirements: gh CLI installed and authenticated (gh auth login)
 # Usage: bash scripts/setup-github.sh
@@ -220,27 +220,69 @@ echo "    Issue 5 created."
 
 gh issue create \
   --repo "$REPO" \
-  --title "Translate README to one additional language (e.g. German, Spanish, or Chinese)" \
+  --title "Translate README to German (README.de.md)" \
   --label "good first issue,help wanted,documentation" \
   --body "## Description
-Translate the README into one other language to make KathaGPT more accessible. A translated README as \`README.de.md\`, \`README.es.md\`, or \`README.zh.md\` with a language switcher note at the top of the main README would be great.
+Translate the README into **German**. Add \`README.de.md\` at the repo root and link it from the language selector at the top of \`README.md\`.
 
 ## Why this is a good first issue
 - No code changes required — pure documentation
-- Perfect for native speakers of any language
-- High impact: GitHub surfaces projects with translated docs to non-English audiences
+- Perfect for native German speakers
 
 ## Acceptance criteria
-- [ ] New file at root: \`README.xx.md\` (where xx is the ISO language code)
+- [ ] New file at root: \`README.de.md\`
 - [ ] Covers at least: intro, Why KathaGPT, Quick Start, and Contributing sections
-- [ ] Main \`README.md\` links to translated versions at the top (e.g. '🇩🇪 Deutsch | 🇪🇸 Español')
+- [ ] Language selector at the top of \`README.md\` includes Deutsch linking to \`README.de.md\`
+- [ ] Keep command examples, model names, provider names, paths, and variable-style UI labels unchanged
 
 ## Resources
 - [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md)"
 
-echo "    Issue 6 created."
+echo "    Issue 6 (German README) created."
 
-echo "    Issue 6 created."
+gh issue create \
+  --repo "$REPO" \
+  --title "Translate README to French (README.fr.md)" \
+  --label "good first issue,help wanted,documentation" \
+  --body "## Description
+Translate the README into **French**. Add \`README.fr.md\` at the repo root and link it from the language selector at the top of \`README.md\`.
+
+## Why this is a good first issue
+- No code changes required — pure documentation
+- Perfect for native French speakers
+
+## Acceptance criteria
+- [ ] New file at root: \`README.fr.md\`
+- [ ] Covers at least: intro, Why KathaGPT, Quick Start, and Contributing sections
+- [ ] Language selector at the top of \`README.md\` includes Français linking to \`README.fr.md\`
+- [ ] Keep command examples, model names, provider names, paths, and variable-style UI labels unchanged
+
+## Resources
+- [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md)"
+
+echo "    Issue 7 (French README) created."
+
+gh issue create \
+  --repo "$REPO" \
+  --title "Translate README to Chinese (README.zh.md)" \
+  --label "good first issue,help wanted,documentation" \
+  --body "## Description
+Translate the README into **Chinese (Simplified)**. Add \`README.zh.md\` at the repo root and link it from the language selector at the top of \`README.md\`.
+
+## Why this is a good first issue
+- No code changes required — pure documentation
+- Perfect for native Chinese speakers
+
+## Acceptance criteria
+- [ ] New file at root: \`README.zh.md\`
+- [ ] Covers at least: intro, Why KathaGPT, Quick Start, and Contributing sections
+- [ ] Language selector at the top of \`README.md\` includes 中文 linking to \`README.zh.md\`
+- [ ] Keep command examples, model names, provider names, paths, and variable-style UI labels unchanged
+
+## Resources
+- [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md)"
+
+echo "    Issue 8 (Chinese README) created."
 
 # ---------------------------------------------------------------------------
 # Round 2: Codebase-grounded issues
