@@ -1,8 +1,10 @@
 pub mod chunk;
 pub mod embed_hash;
 pub mod embedder;
+pub mod fts;
 pub mod index;
 pub mod search;
+pub mod sources;
 
 pub use embed_hash::EMBED_DIM;
 pub use embedder::{

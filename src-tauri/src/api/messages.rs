@@ -21,6 +21,7 @@ use crate::llm::stream::StreamOptions;
 use crate::models::{SendMessageRequest, StreamDeltaEvent, StreamInitEvent};
 use crate::rag;
 use crate::rag::search::{self, RetrievedChunk};
+use crate::rag::sources;
 use crate::server::AppState;
 use crate::tokens;
 
@@ -180,17 +181,7 @@ async fn stream_message(
         }
     }
 
-    let rag_citations: Vec<String> = rag_chunks
-        .iter()
-        .map(|c| {
-            format!(
-                "[{}] {} — {}",
-                c.source_number,
-                c.file_name,
-                c.content.chars().take(120).collect::<String>()
-            )
-        })
-        .collect();
+    let rag_sources = sources::chunks_to_rag_sources(&rag_chunks, &content);
 
     let mut chat_messages: Vec<ChatMessage> = vec![ChatMessage {
         role: "system".to_string(),
@@ -224,12 +215,25 @@ async fn stream_message(
         );
     }
 
+    let rag_citations: Vec<String> = rag_chunks
+        .iter()
+        .map(|c| {
+            format!(
+                "[{}] {} — {}",
+                c.source_number,
+                c.file_name,
+                c.content.chars().take(120).collect::<String>()
+            )
+        })
+        .collect();
+
     let (event_tx, mut event_rx) = mpsc::unbounded_channel::<Result<Event, Infallible>>();
     let pool_bg = pool.clone();
     let chat_id_bg = chat_id.clone();
     let ai_id_bg = ai_message_id.clone();
     let model_bg = generation_model.clone();
     let rag_citations_bg = rag_citations.clone();
+    let rag_sources_bg = rag_sources.clone();
 
     tokio::spawn(async move {
         let mut full_response = String::new();
@@ -283,6 +287,7 @@ async fn stream_message(
             &full_response,
             &model_bg,
             &rag_citations_bg,
+            &rag_sources_bg,
         )
         .await;
 
@@ -309,6 +314,7 @@ async fn stream_message(
         generation_model: generation_model.clone(),
         truncated_count,
         rag_citations,
+        rag_sources,
     };
 
     let sse_stream = stream! {

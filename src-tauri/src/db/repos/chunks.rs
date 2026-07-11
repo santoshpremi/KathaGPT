@@ -14,6 +14,7 @@ pub struct ChunkRecord {
 }
 
 pub async fn delete_for_document(pool: &SqlitePool, document_id: &str) -> anyhow::Result<()> {
+    crate::rag::fts::delete_for_document(pool, document_id).await?;
     sqlx::query("DELETE FROM document_chunks WHERE document_id = ?")
         .bind(document_id)
         .execute(pool)

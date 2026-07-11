@@ -142,6 +142,8 @@ pub struct StreamInitEvent {
     pub truncated_count: usize,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub rag_citations: Vec<String>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub rag_sources: Vec<serde_json::Value>,
 }
 
 fn is_zero(n: &usize) -> bool {

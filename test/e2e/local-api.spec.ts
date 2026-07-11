@@ -278,7 +278,13 @@ test.describe("Rust local API", () => {
     expect(stream.ok()).toBeTruthy();
     const sse = await stream.text();
     expect(sse).toContain("event: init");
-    expect(sse).toMatch(/ragCitations|Aurora|aurora-brief/);
+    expect(sse).toMatch(/ragCitations|ragSources|Aurora|aurora-brief/);
+
+    const messages = await request.get(`${API}/chats/${chatId}/messages`);
+    expect(messages.ok()).toBeTruthy();
+    const msgs = await messages.json();
+    const aiMsg = msgs.find((m: { fromAi: boolean }) => m.fromAi);
+    expect(aiMsg?.ragSources?.length).toBeGreaterThan(0);
 
     await request.delete(`${API}/chats/${chatId}`);
   });

@@ -59,6 +59,7 @@ export type MessageStreamChunk =
       generationModel: string;
       truncatedCount?: number;
       ragCitations?: string[];
+      ragSources?: unknown[];
     }
   | { delta: string; citations: string[] }
   | { streamDone: true };

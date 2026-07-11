@@ -527,6 +527,7 @@ function Interface({
                     ...m,
                     generationModel: chunk.generationModel as Message["generationModel"],
                     id: chunk.aiMessageId,
+                    ragSources: (chunk.ragSources ?? []) as Message["ragSources"],
                   }
                 : m,
             ),

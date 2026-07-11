@@ -81,6 +81,11 @@ function getThoughtProcess(content: string): ThoughtfulContent {
  * @param style Optional CSS styles to apply to the rendered content.
  * @param sources List of available sources for citations.
  */
+function linkifyRagCitationMarkers(content: string, hasSources: boolean): string {
+  if (!hasSources) return content;
+  return content.replace(/\[(\d+)\]/g, ":cite[$1]");
+}
+
 function _MarkdownRenderer({
   content,
   style,
@@ -110,6 +115,8 @@ function _MarkdownRenderer({
   const processedContent = useMemo<ThoughtfulContent>(() => {
     const { content: contentWithoutThoughtProcess, ...thoughtProcess } =
       getThoughtProcess(content);
+    const withCitations = (text: string) =>
+      linkifyRagCitationMarkers(text, (sources?.length ?? 0) > 0);
 
     const markdownStart = "<artifact>";
     const markdownEnd = "</artifact>";
@@ -121,27 +128,28 @@ function _MarkdownRenderer({
     );
 
     if (startIdx !== -1) {
-      // if markdown start and end is found return content without markdown
       if (endIdx !== -1) {
         return {
           ...thoughtProcess,
-          content:
+          content: withCitations(
             contentWithoutThoughtProcess.slice(0, startIdx) +
-            contentWithoutThoughtProcess.slice(endIdx + markdownEnd.length),
+              contentWithoutThoughtProcess.slice(endIdx + markdownEnd.length),
+          ),
         };
       }
-      // if only start is found, return content up to start
       return {
         ...thoughtProcess,
-        content: contentWithoutThoughtProcess.slice(0, startIdx),
+        content: withCitations(
+          contentWithoutThoughtProcess.slice(0, startIdx),
+        ),
       };
     }
 
     return {
       ...thoughtProcess,
-      content: contentWithoutThoughtProcess,
+      content: withCitations(contentWithoutThoughtProcess),
     };
-  }, [content]);
+  }, [content, sources]);
 
   return (
     <div

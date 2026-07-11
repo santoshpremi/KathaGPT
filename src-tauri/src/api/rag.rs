@@ -57,6 +57,7 @@ struct RagStatus {
     total_chunks: i64,
     indexed_documents: usize,
     top_k: usize,
+    search_mode: &'static str,
 }
 
 async fn rag_status(State(state): State<AppState>) -> impl IntoResponse {
@@ -70,6 +71,7 @@ async fn rag_status(State(state): State<AppState>) -> impl IntoResponse {
                     total_chunks,
                     indexed_documents: docs.len(),
                     top_k: search::DEFAULT_TOP_K,
+                    search_mode: "hybrid",
                 }),
             )
                 .into_response()

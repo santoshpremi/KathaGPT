@@ -37,6 +37,7 @@ async fn run_migrations(pool: &SqlitePool) -> anyhow::Result<()> {
     apply_migration_file(pool, 2, include_str!("../../../migrations/002_documents.sql")).await?;
     apply_migration_file(pool, 3, include_str!("../../../migrations/003_rag.sql")).await?;
     apply_migration_file(pool, 4, include_str!("../../../migrations/004_rag_embedder.sql")).await?;
+    apply_migration_file(pool, 5, include_str!("../../../migrations/005_rag_hybrid.sql")).await?;
     info!("SQLite migrations applied");
     Ok(())
 }

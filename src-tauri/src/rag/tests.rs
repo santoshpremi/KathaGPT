@@ -35,6 +35,14 @@ mod integration {
         .await
         .unwrap();
         sqlx::query(
+            "CREATE VIRTUAL TABLE IF NOT EXISTS document_chunks_fts USING fts5(
+                chunk_id UNINDEXED, document_id UNINDEXED, content, tokenize='porter unicode61'
+            )",
+        )
+        .execute(&pool)
+        .await
+        .unwrap();
+        sqlx::query(
             "CREATE INDEX IF NOT EXISTS idx_document_chunks_doc ON document_chunks(document_id)",
         )
         .execute(&pool)

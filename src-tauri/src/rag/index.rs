@@ -4,6 +4,7 @@ use tracing::info;
 use crate::db::repos::chunks::{self, ChunkRecord};
 use crate::rag::chunk;
 use crate::rag::embedder::{self, active_embedder_version};
+use crate::rag::fts;
 use crate::tokens;
 
 pub async fn index_document(pool: &SqlitePool, document_id: &str, text: &str) -> anyhow::Result<usize> {
@@ -38,6 +39,11 @@ pub async fn index_document(pool: &SqlitePool, document_id: &str, text: &str) ->
 
     let count = records.len();
     chunks::insert_batch(pool, &records, &now).await?;
+
+    for record in &records {
+        fts::index_chunks(pool, &record.id, &record.document_id, &record.content).await?;
+    }
+
     info!("Indexed {count} chunks for {document_id} ({})", active_embedder_version());
     Ok(count)
 }

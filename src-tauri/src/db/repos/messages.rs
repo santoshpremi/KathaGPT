@@ -17,10 +17,11 @@ pub async fn list_for_chat(pool: &SqlitePool, chat_id: &str) -> anyhow::Result<V
         Option<String>,
         Option<String>,
         Option<String>,
+        Option<String>,
         i64,
     )> = sqlx::query_as(
         "SELECT id, content, created_at, from_ai, response_completed, generation_model,
-                attachment_ids, citations, cancelled
+                attachment_ids, citations, rag_sources, cancelled
          FROM messages WHERE chat_id = ?
          ORDER BY created_at ASC",
     )
@@ -43,10 +44,11 @@ pub async fn count_for_chat(pool: &SqlitePool, chat_id: &str) -> anyhow::Result<
 pub async fn insert(pool: &SqlitePool, message: &Message) -> anyhow::Result<()> {
     let attachments = serde_json::to_string(&message.attachment_ids)?;
     let citations = serde_json::to_string(&message.citations)?;
+    let rag_sources = serde_json::to_string(&message.rag_sources)?;
     sqlx::query(
         "INSERT INTO messages (id, chat_id, content, from_ai, generation_model, response_completed,
-         cancelled, attachment_ids, citations, error_code, created_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+         cancelled, attachment_ids, citations, rag_sources, error_code, created_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     )
     .bind(&message.id)
     .bind(&message.chat_id)
@@ -57,6 +59,7 @@ pub async fn insert(pool: &SqlitePool, message: &Message) -> anyhow::Result<()> 
     .bind(message.cancelled.unwrap_or(false) as i64)
     .bind(attachments)
     .bind(citations)
+    .bind(rag_sources)
     .bind(&message.error_code)
     .bind(&message.created_at)
     .execute(pool)
@@ -74,6 +77,7 @@ fn row_to_message(
         Option<String>,
         Option<String>,
         Option<String>,
+        Option<String>,
         i64,
     ),
 ) -> Message {
@@ -84,6 +88,11 @@ fn row_to_message(
         .unwrap_or_default();
     let citations: Vec<String> = row
         .7
+        .as_deref()
+        .and_then(|s| serde_json::from_str(s).ok())
+        .unwrap_or_default();
+    let rag_sources: Vec<serde_json::Value> = row
+        .8
         .as_deref()
         .and_then(|s| serde_json::from_str(s).ok())
         .unwrap_or_default();
@@ -102,11 +111,11 @@ fn row_to_message(
         attachment_ids,
         citations,
         artifact_version_id: None,
-        cancelled: Some(row.8 != 0),
+        cancelled: Some(row.9 != 0),
         error_code: None,
         tokens: crate::tokens::estimate_tokens(&row.1),
         output_document_url: None,
-        rag_sources: vec![],
+        rag_sources,
     }
 }
 
@@ -177,6 +186,7 @@ pub async fn insert_ai_message(
     content: &str,
     generation_model: &str,
     citations: &[String],
+    rag_sources: &[serde_json::Value],
 ) -> anyhow::Result<()> {
     let now = chrono::Utc::now().to_rfc3339();
     let message = Message {
@@ -195,7 +205,7 @@ pub async fn insert_ai_message(
         error_code: None,
         tokens: crate::tokens::estimate_tokens(content),
         output_document_url: None,
-        rag_sources: vec![],
+        rag_sources: rag_sources.to_vec(),
     };
     insert(pool, &message).await?;
     super::chats::touch(pool, chat_id).await?;

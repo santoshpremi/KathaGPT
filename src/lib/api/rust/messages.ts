@@ -135,12 +135,14 @@ export async function* streamMessage(
             generationModel: string;
             truncatedCount?: number;
             ragCitations?: string[];
+            ragSources?: unknown[];
           };
           yield {
             aiMessageId: init.aiMessageId,
             generationModel: init.generationModel,
             truncatedCount: init.truncatedCount,
             ragCitations: init.ragCitations,
+            ragSources: init.ragSources,
           };
         } else if (parsed.event === "delta") {
           const delta = JSON.parse(parsed.data) as {
