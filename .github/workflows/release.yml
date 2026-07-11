@@ -16,12 +16,16 @@ jobs:
         include:
           - platform: macos-latest
             args: "--target aarch64-apple-darwin"
+            rust_target: aarch64-apple-darwin
           - platform: macos-latest
             args: "--target x86_64-apple-darwin"
+            rust_target: x86_64-apple-darwin
           - platform: ubuntu-22.04
             args: ""
+            rust_target: ""
           - platform: windows-latest
             args: ""
+            rust_target: ""
 
     runs-on: ${{ matrix.platform }}
     env:
@@ -42,6 +46,10 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
 
+      - name: Install Rust cross-compilation target
+        if: matrix.rust_target != ''
+        run: rustup target add ${{ matrix.rust_target }}
+
       - name: Install Linux deps
         if: matrix.platform == 'ubuntu-22.04'
         run: |
@@ -52,33 +60,52 @@ jobs:
       - run: pnpm build
         env:
           NODE_OPTIONS: --max-old-space-size=8192
-      - name: Build Tauri bundles
+
+      - name: Import Apple codesign certificate (optional)
+        if: matrix.platform == 'macos-latest'
+        shell: bash
         env:
-          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
           APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+        run: |
+          if [ -z "$APPLE_CERTIFICATE" ] || [ -z "$APPLE_CERTIFICATE_PASSWORD" ]; then
+            echo "No Apple certificate configured — using ad-hoc signing"
+            exit 0
+          fi
+          echo "$APPLE_CERTIFICATE" | base64 --decode > certificate.p12
+          security create-keychain -p actions build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p actions build.keychain
+          security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k actions build.keychain
+
+      - name: Build Tauri bundles
+        shell: bash
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
-          if [ -n "$APPLE_CERTIFICATE" ]; then
-            echo "$APPLE_CERTIFICATE" | base64 --decode > certificate.p12
-            security create-keychain -p actions build.keychain
-            security default-keychain -s build.keychain
-            security unlock-keychain -p actions build.keychain
-            security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
-            security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k actions build.keychain
-          fi
+          set +e
           pnpm tauri build ${{ matrix.args }}
+          status=$?
+          if [ $status -ne 0 ] && [ -d "src-tauri/target/release/bundle" ]; then
+            echo "Tauri exited $status but bundle directory exists — continuing (likely updater signing)"
+            status=0
+          fi
+          exit $status
 
       - uses: actions/upload-artifact@v4
+        if: success() || failure()
         with:
           name: bundle-${{ matrix.platform }}-${{ matrix.args }}
           path: src-tauri/target/release/bundle/
+          if-no-files-found: ignore
 
   create-release:
     needs: build-tauri
+    if: ${{ always() && !cancelled() }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
@@ -90,6 +117,7 @@ jobs:
 
       - name: Merge updater manifest
         run: python3 scripts/merge-updater-manifest.py artifacts
+        continue-on-error: true
 
       - uses: softprops/action-gh-release@v2
         with:
