@@ -54,6 +54,6 @@ export interface SendMessageRequest {
 }
 
 export type MessageStreamChunk =
-  | { aiMessageId: string; generationModel: string }
+  | { aiMessageId: string; generationModel: string; truncatedCount?: number }
   | { delta: string; citations: string[] }
   | { streamDone: true };

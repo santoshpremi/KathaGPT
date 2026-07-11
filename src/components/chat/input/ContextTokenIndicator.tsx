@@ -31,7 +31,7 @@ export function ContextTokenIndicator({
   const usedTokens = chatTokens + draftTokens;
   const remaining = Math.max(0, contextWindow - usedTokens);
   const usageRatio = Math.min(1, usedTokens / contextWindow);
-  const isNearLimit = usageRatio >= 0.85;
+  const isNearLimit = usageRatio >= 0.8;
   const isOverLimit = usedTokens > contextWindow;
 
   return (

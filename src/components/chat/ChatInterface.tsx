@@ -1,6 +1,7 @@
 import { Sheet } from "@mui/joy";
 import _ from "lodash";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { twMerge } from "tailwind-merge";
 import { LLM_META, type LlmName } from "@backend/ai/llmMeta";
 
@@ -505,6 +506,13 @@ function Interface({
         if ("aiMessageId" in chunk) {
           aiMessageId.current = chunk.aiMessageId;
           pendingAiMessageIdRef.current = chunk.aiMessageId;
+          if (chunk.truncatedCount && chunk.truncatedCount > 0) {
+            toast.warning(
+              t("contextTokens.truncatedOnSend", {
+                count: chunk.truncatedCount,
+              }),
+            );
+          }
           setTempMessages((currentTempMessages) =>
             currentTempMessages.map((m) =>
               m.fromAi

@@ -565,7 +565,8 @@
     "remaining": "{{used}} / {{limit}} tokens · {{remaining}} remaining",
     "overLimit": "{{used}} / {{limit}} tokens · over context limit",
     "nearLimitHint": "You're close to the context limit. Older messages may be trimmed automatically when you send.",
-    "overLimitHint": "This message exceeds the model context window. Shorten your input or start a new chat."
+    "overLimitHint": "This message exceeds the model context window. Shorten your input or start a new chat.",
+    "truncatedOnSend": "{{count}} older message(s) were trimmed to fit the context window."
   },
   "localModels": {
     "deleteTitle": "Delete local model?",

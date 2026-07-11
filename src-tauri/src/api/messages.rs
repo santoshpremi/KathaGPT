@@ -267,6 +267,7 @@ async fn stream_message(
     let init = StreamInitEvent {
         ai_message_id: ai_message_id.clone(),
         generation_model: generation_model.clone(),
+        truncated_count,
     };
 
     let sse_stream = stream! {

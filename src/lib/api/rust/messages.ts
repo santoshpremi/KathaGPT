@@ -133,10 +133,12 @@ export async function* streamMessage(
           const init = JSON.parse(parsed.data) as {
             aiMessageId: string;
             generationModel: string;
+            truncatedCount?: number;
           };
           yield {
             aiMessageId: init.aiMessageId,
             generationModel: init.generationModel,
+            truncatedCount: init.truncatedCount,
           };
         } else if (parsed.event === "delta") {
           const delta = JSON.parse(parsed.data) as {

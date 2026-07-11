@@ -138,6 +138,12 @@ fn default_language() -> String {
 pub struct StreamInitEvent {
     pub ai_message_id: String,
     pub generation_model: String,
+    #[serde(skip_serializing_if = "is_zero")]
+    pub truncated_count: usize,
+}
+
+fn is_zero(n: &usize) -> bool {
+    *n == 0
 }
 
 #[derive(Debug, Serialize)]
