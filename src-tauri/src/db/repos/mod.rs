@@ -1,5 +1,6 @@
 pub mod artifacts;
 pub mod chats;
+pub mod chunks;
 pub mod documents;
 pub mod data_export;
 pub mod messages;

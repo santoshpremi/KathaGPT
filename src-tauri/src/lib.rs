@@ -3,6 +3,7 @@ mod crypto;
 mod document_text;
 mod file_preview;
 mod quick_compose;
+mod rag;
 mod translate_pdf;
 pub mod config;
 pub mod db;

@@ -206,4 +206,63 @@ test.describe("Rust local API", () => {
 
     await request.delete(`${API}/chats/${chatId}`);
   });
+
+  test("document upload indexes chunks for RAG", async ({ request }) => {
+    const docText =
+      "KathaGPT RAG test document. Q3 revenue increased by 15 percent year over year.";
+    const upload = await request.post(`${API}/documents/upload`, {
+      data: {
+        filename: "rag-test.txt",
+        data: Buffer.from(docText).toString("base64"),
+        mimeType: "text/plain",
+      },
+    });
+    expect(upload.status()).toBe(201);
+    const doc = await upload.json();
+    expect(doc.id).toMatch(/^doc_/);
+
+    const collections = await request.get(`${API}/rag/collections`);
+    expect(collections.ok()).toBeTruthy();
+    const list = await collections.json();
+    expect(list.some((c: { id: string }) => c.id === doc.id)).toBeTruthy();
+  });
+
+  test("message stream with attachment returns RAG citations in init", async ({
+    request,
+  }) => {
+    const docText =
+      "Secret project codename Aurora. Budget allocation is 2.5 million dollars for 2026.";
+    const upload = await request.post(`${API}/documents/upload`, {
+      data: {
+        filename: "aurora-brief.txt",
+        data: Buffer.from(docText).toString("base64"),
+        mimeType: "text/plain",
+      },
+    });
+    expect(upload.status()).toBe(201);
+    const doc = await upload.json();
+
+    const chatId = `chat_rag_${Date.now()}`;
+    const create = await request.post(`${API}/chats`, {
+      data: { id: chatId, name: "RAG test" },
+    });
+    expect(create.status()).toBe(201);
+
+    const stream = await request.post(
+      `${API}/chats/${chatId}/messages/stream`,
+      {
+        data: {
+          content: "What is the project codename and budget?",
+          attachmentIds: [doc.id],
+        },
+        headers: { Accept: "text/event-stream" },
+      },
+    );
+    expect(stream.ok()).toBeTruthy();
+    const sse = await stream.text();
+    expect(sse).toContain("event: init");
+    expect(sse).toMatch(/ragCitations|Aurora|aurora-brief/);
+
+    await request.delete(`${API}/chats/${chatId}`);
+  });
 });

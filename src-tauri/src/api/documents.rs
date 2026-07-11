@@ -102,6 +102,10 @@ async fn upload_document(
         return server_error(&err.to_string());
     }
 
+    if let Err(err) = crate::rag::index::index_document(&state.db, &id, &text).await {
+        tracing::warn!("RAG indexing failed for {id}: {err}");
+    }
+
     (StatusCode::CREATED, Json(record)).into_response()
 }
 

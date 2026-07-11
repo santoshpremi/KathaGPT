@@ -19,6 +19,8 @@ use crate::llm::models::ChatMessage;
 use crate::llm::{router, stream as llm_stream};
 use crate::llm::stream::StreamOptions;
 use crate::models::{SendMessageRequest, StreamDeltaEvent, StreamInitEvent};
+use crate::rag;
+use crate::rag::search::{self, RetrievedChunk};
 use crate::server::AppState;
 use crate::tokens;
 
@@ -148,12 +150,47 @@ async fn stream_message(
     ];
     if has_attachments {
         system_parts.push(
-            "The user attached files for analysis. Provide substantive analysis: what the data/document is, field meanings, distributions/patterns, anomalies, and practical insights. Use markdown headings and bullets. Do not just repeat raw cell values back. If the dataset is tiny, note that briefly and still give useful context.".to_string(),
+            "The user attached files for analysis. Use the retrieved document excerpts below when answering. Cite sources as [1], [2], etc. Provide substantive analysis: what the data/document is, field meanings, patterns, anomalies, and practical insights. Use markdown headings and bullets.".to_string(),
         );
     }
     if let Some(s) = suffix.filter(|s| !s.is_empty()) {
         system_parts.push(s);
     }
+
+    let doc_ids = rag::collect_document_ids(
+        &attachment_ids,
+        history.iter().map(|m| &m.attachment_ids),
+    );
+    let mut rag_chunks: Vec<RetrievedChunk> = Vec::new();
+    if !doc_ids.is_empty() {
+        match search::retrieve(&pool, &content, &doc_ids, search::DEFAULT_TOP_K).await {
+            Ok(chunks) if !chunks.is_empty() => {
+                system_parts.push(search::format_rag_context(&chunks));
+                rag_chunks = chunks;
+            }
+            Ok(_) => {}
+            Err(err) => tracing::warn!("RAG retrieval failed: {err}"),
+        }
+    }
+
+    let mut indexed_doc_ids: std::collections::HashSet<String> = std::collections::HashSet::new();
+    for id in &doc_ids {
+        if rag::is_document_indexed(&pool, id).await.unwrap_or(false) {
+            indexed_doc_ids.insert(id.clone());
+        }
+    }
+
+    let rag_citations: Vec<String> = rag_chunks
+        .iter()
+        .map(|c| {
+            format!(
+                "[{}] {} — {}",
+                c.source_number,
+                c.file_name,
+                c.content.chars().take(120).collect::<String>()
+            )
+        })
+        .collect();
 
     let mut chat_messages: Vec<ChatMessage> = vec![ChatMessage {
         role: "system".to_string(),
@@ -164,7 +201,8 @@ async fn stream_message(
         let llm_content = if msg.from_ai {
             msg.content.clone()
         } else {
-            augment_with_attachments(&pool, &msg.content, &msg.attachment_ids).await
+            augment_with_attachments(&pool, &msg.content, &msg.attachment_ids, &indexed_doc_ids)
+                .await
         };
         chat_messages.push(ChatMessage {
             role: if msg.from_ai {
@@ -191,6 +229,7 @@ async fn stream_message(
     let chat_id_bg = chat_id.clone();
     let ai_id_bg = ai_message_id.clone();
     let model_bg = generation_model.clone();
+    let rag_citations_bg = rag_citations.clone();
 
     tokio::spawn(async move {
         let mut full_response = String::new();
@@ -243,6 +282,7 @@ async fn stream_message(
             &ai_id_bg,
             &full_response,
             &model_bg,
+            &rag_citations_bg,
         )
         .await;
 
@@ -268,6 +308,7 @@ async fn stream_message(
         ai_message_id: ai_message_id.clone(),
         generation_model: generation_model.clone(),
         truncated_count,
+        rag_citations,
     };
 
     let sse_stream = stream! {
@@ -289,6 +330,7 @@ async fn augment_with_attachments(
     pool: &sqlx::SqlitePool,
     content: &str,
     attachment_ids: &[String],
+    indexed_doc_ids: &std::collections::HashSet<String>,
 ) -> String {
     if attachment_ids.is_empty() {
         return content.to_string();
@@ -297,6 +339,9 @@ async fn augment_with_attachments(
     let mut out = content.to_string();
     out.push_str("\n\n[User attached files for analysis]");
     for id in attachment_ids {
+        if indexed_doc_ids.contains(id) {
+            continue;
+        }
         match doc_repo::read_text_for_llm(pool, id).await {
             Ok(Some((name, text))) => {
                 let truncated = document_text::truncate_for_llm(&text, 24_000);

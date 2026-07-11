@@ -353,7 +353,7 @@ The Tauri app checks [GitHub Releases](https://github.com/santoshpremi/KathaGPT/
 | **Local LLM** | RAM detection + recommended picker (done); quant auto-pick (done), delete model UI (done) |
 | **Context** | Token counter, smart truncation, remaining-tokens indicator (done) |
 | **Desktop** | Global hotkey + quick-compose (done); auto-updater (done) |
-| **Memory & RAG** | `sqlite-vec` vector search, document chat (PDF → chunks → embed) |
+| **Memory & RAG** | Document chat MVP (chunk + embed + retrieve on upload); upgrade path: fastembed + sqlite-vec vec0 |
 | **Agents** | Tool calling, multi-step ReAct loops, workflow marketplace |
 
 ---

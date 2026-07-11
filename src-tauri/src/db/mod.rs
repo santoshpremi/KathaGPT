@@ -35,13 +35,12 @@ pub async fn init_pool() -> anyhow::Result<SqlitePool> {
 async fn run_migrations(pool: &SqlitePool) -> anyhow::Result<()> {
     apply_migration_file(pool, 1, include_str!("../../../migrations/001_initial.sql")).await?;
     apply_migration_file(pool, 2, include_str!("../../../migrations/002_documents.sql")).await?;
+    apply_migration_file(pool, 3, include_str!("../../../migrations/003_rag.sql")).await?;
     info!("SQLite migrations applied");
     Ok(())
 }
 
 async fn apply_migration_file(pool: &SqlitePool, version: i64, sql_file: &str) -> anyhow::Result<()> {
-    // Treat "no such table: schema_migrations" as "not yet applied" — happens on a fresh DB
-    // where migration 1 hasn't run yet and the table doesn't exist.
     let applied: Option<i64> =
         sqlx::query_scalar("SELECT version FROM schema_migrations WHERE version = ?")
             .bind(version)
@@ -55,11 +54,11 @@ async fn apply_migration_file(pool: &SqlitePool, version: i64, sql_file: &str) -
     }
 
     for statement in sql_file.split(';') {
-        let sql = statement.trim();
-        if sql.is_empty() || sql.starts_with("--") {
+        let sql = strip_sql_comments(statement);
+        if sql.is_empty() {
             continue;
         }
-        sqlx::query(sql).execute(pool).await?;
+        sqlx::query(&sql).execute(pool).await?;
     }
 
     sqlx::query(
@@ -70,4 +69,15 @@ async fn apply_migration_file(pool: &SqlitePool, version: i64, sql_file: &str) -
     .await?;
 
     Ok(())
+}
+
+/// Remove `--` comment lines so blocks like `-- header\nCREATE TABLE...` still run.
+fn strip_sql_comments(statement: &str) -> String {
+    statement
+        .lines()
+        .filter(|line| !line.trim().starts_with("--"))
+        .collect::<Vec<_>>()
+        .join("\n")
+        .trim()
+        .to_string()
 }

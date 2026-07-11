@@ -135,8 +135,13 @@ export function useUpdateWorkflowDepartment() {
 export function useKnowledgeCollections() {
   return useQuery({
     queryKey: ["rag", "collections"],
-    queryFn: async () => [] as KnowledgeCollection[],
-    staleTime: Infinity,
+    queryFn: async () => {
+      const { rustFetch } = await import("../rust/client");
+      const { ensureRustApiReady } = await import("../rust/init");
+      await ensureRustApiReady();
+      return rustFetch<KnowledgeCollection[]>("/rag/collections");
+    },
+    staleTime: 30_000,
   });
 }
 

@@ -176,6 +176,7 @@ pub async fn insert_ai_message(
     id: &str,
     content: &str,
     generation_model: &str,
+    citations: &[String],
 ) -> anyhow::Result<()> {
     let now = chrono::Utc::now().to_rfc3339();
     let message = Message {
@@ -188,7 +189,7 @@ pub async fn insert_ai_message(
         chat_id: chat_id.to_string(),
         generation_model: Some(generation_model.to_string()),
         attachment_ids: vec![],
-        citations: vec![],
+        citations: citations.to_vec(),
         artifact_version_id: None,
         cancelled: Some(false),
         error_code: None,

@@ -73,7 +73,7 @@ export const LOCAL_PRODUCT_CONFIG = {
   sonar: true,
   academy: false,
   academyOnly: false,
-  enableRag: false,
+  enableRag: true,
   enableRagAcademy: false,
 } as const;
 

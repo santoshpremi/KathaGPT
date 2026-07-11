@@ -8,6 +8,7 @@ pub mod images;
 pub mod messages;
 pub mod model_config;
 pub mod provider_keys;
+pub mod rag;
 pub mod research;
 pub mod translate;
 pub mod user;
@@ -31,5 +32,6 @@ pub fn routes() -> Router<AppState> {
         .merge(research::routes())
         .merge(files::routes())
         .merge(documents::routes())
+        .merge(rag::routes())
         .merge(data::routes())
 }
