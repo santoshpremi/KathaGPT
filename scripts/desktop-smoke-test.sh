@@ -45,8 +45,10 @@ DOC_JSON=$(curl -sf -X POST "$API/documents/upload" \
 DOC_ID=$(echo "$DOC_JSON" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
 echo "  uploaded: $DOC_ID"
 
-echo "==> RAG status (hybrid)"
-curl -sf "$API/rag/status" | python3 -c "import sys,json; d=json.load(sys.stdin); assert d['searchMode']=='hybrid', d; print('  mode:', d['searchMode'], 'chunks:', d['totalChunks'])"
+    echo "==> RAG status (hybrid)"
+    STATUS=$(curl -sf "$API/rag/status")
+    echo "$STATUS" | python3 -c "import sys,json; d=json.load(sys.stdin); assert d['searchMode']=='hybrid', d; print('  mode:', d['searchMode'], 'embedder:', d['embedder'], 'chunks:', d['totalChunks'])"
+    echo "$STATUS" | python3 -c "import sys,json; d=json.load(sys.stdin); assert 'fastembed' in d['embedder'], d"
 
 echo "==> Chat + RAG stream"
 CHAT_ID="chat_smoke_$(date +%s)"

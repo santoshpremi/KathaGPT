@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import type { ComponentProps } from "react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { toast } from "react-toastify";
 import { twMerge } from "tailwind-merge";
 import type {
   Chat,
@@ -67,6 +68,13 @@ interface ChatInputProps extends ComponentProps<typeof Textarea> {
 export type SelectableKnowledgeCollections = (KnowledgeCollection & {
   isNew: boolean;
 })[];
+
+const DOCUMENT_REFERENCE_PATTERN =
+  /\b(this (paper|document|file|pdf|presentation|report|doc)|the (attached|uploaded) (file|document|paper|pdf)?|explain (this|the)|summarize (this|the)|what (is|does) (this|the) (paper|document|file|presentation))\b/i;
+
+function messageImpliesDocumentAttachment(text: string): boolean {
+  return DOCUMENT_REFERENCE_PATTERN.test(text);
+}
 
 export const ChatInput = React.forwardRef(
   (
@@ -166,6 +174,16 @@ export const ChatInput = React.forwardRef(
 
     const send = () => {
       if (input.replace(/\na/g, "").trim() === "") return;
+
+      if (
+        documentIntelligenceEnabled &&
+        attachedDocumentIds.length === 0 &&
+        numLoadingAttachments === 0 &&
+        messageImpliesDocumentAttachment(input)
+      ) {
+        toast.warning(t("documents.attachFirst"));
+        return;
+      }
 
       postMessage({
         content: input.trim(),

@@ -76,6 +76,11 @@ export function DocumentLibraryModal({
             })}
           </Typography>
         )}
+        {status?.needsReindex && (
+          <Typography level="body-sm" textColor="warning.600">
+            {t("contextTokens.embedderUpgraded")}
+          </Typography>
+        )}
         {isLoading && (
           <Typography level="body-sm">{t("loading")}</Typography>
         )}

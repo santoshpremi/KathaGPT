@@ -523,7 +523,8 @@
       "reindex": "Re-index",
       "deleted": "Document removed",
       "reindexed": "Re-indexed {{count}} chunks",
-      "status": "{{embedder}} · {{chunks}} chunks · {{docs}} documents"
+      "status": "{{embedder}} · {{chunks}} chunks · {{docs}} documents",
+      "attachFirst": "Attach a document first — your message refers to a file but nothing is attached."
     }
   },
   "helpCenter": {
@@ -577,7 +578,8 @@
     "nearLimitHint": "You're close to the context limit. Older messages may be trimmed automatically when you send.",
     "overLimitHint": "This message exceeds the model context window. Shorten your input or start a new chat.",
     "truncatedOnSend": "{{count}} older message(s) were trimmed to fit the context window.",
-    "ragCitationsUsed": "Retrieved {{count}} passage(s) from your documents."
+    "ragCitationsUsed": "Retrieved {{count}} passage(s) from your documents.",
+    "embedderUpgraded": "Better embeddings are available. Re-index documents in Library (↻) for improved search."
   },
   "localModels": {
     "deleteTitle": "Delete local model?",

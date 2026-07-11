@@ -1,3 +1,4 @@
+use std::path::PathBuf;
 use std::sync::{Mutex, OnceLock};
 
 use fastembed::{EmbeddingModel, InitOptions, TextEmbedding};
@@ -17,6 +18,27 @@ pub fn active_embedder_version() -> &'static str {
     } else {
         HASH_EMBEDDER_VERSION
     }
+}
+
+/// Load the embedding model early (call from app startup).
+pub fn warmup() {
+    let _ = ensure_model();
+}
+
+fn fastembed_cache_dir() -> PathBuf {
+    let dir = crate::config::app_data_dir()
+        .map(|d| d.join("embeddings"))
+        .unwrap_or_else(|_| std::env::temp_dir().join("kathagpt-embeddings"));
+    if let Err(err) = std::fs::create_dir_all(&dir) {
+        warn!("Could not create embedding cache dir {}: {err}", dir.display());
+    }
+    dir
+}
+
+fn build_init_options() -> InitOptions {
+    InitOptions::new(EmbeddingModel::AllMiniLML6V2)
+        .with_cache_dir(fastembed_cache_dir())
+        .with_show_download_progress(false)
 }
 
 fn fastembed_loaded() -> bool {
@@ -44,7 +66,7 @@ fn model_slot() -> &'static Mutex<Option<TextEmbedding>> {
 fn ensure_model() -> Option<std::sync::MutexGuard<'static, Option<TextEmbedding>>> {
     let mut guard = model_slot().lock().ok()?;
     if guard.is_none() {
-        match TextEmbedding::try_new(InitOptions::new(EmbeddingModel::AllMiniLML6V2)) {
+        match TextEmbedding::try_new(build_init_options()) {
             Ok(model) => {
                 info!("fastembed model loaded ({FASTEMBED_VERSION})");
                 *guard = Some(model);

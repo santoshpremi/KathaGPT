@@ -159,6 +159,9 @@ export function useRagStatus() {
         totalChunks: number;
         indexedDocuments: number;
         topK: number;
+        searchMode?: string;
+        hashChunks?: number;
+        needsReindex?: boolean;
       }>("/rag/status");
     },
     staleTime: 30_000,

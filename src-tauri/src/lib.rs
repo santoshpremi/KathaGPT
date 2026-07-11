@@ -118,6 +118,14 @@ async fn start_backend(handle: &tauri::AppHandle) -> anyhow::Result<()> {
     API_PORT.store(port, Ordering::SeqCst);
     info!("KathaGPT Local backend ready on port {port}");
 
+    tokio::task::spawn_blocking(|| {
+        crate::rag::embedder::warmup();
+        info!(
+            "Embedding engine ready ({})",
+            crate::rag::active_embedder_version()
+        );
+    });
+
     // Pre-warm: if a local model is already downloaded, start llama-server now
     // so the user's first chat message responds without a cold-start delay.
     tokio::spawn(async move {

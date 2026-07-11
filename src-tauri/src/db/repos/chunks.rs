@@ -105,13 +105,25 @@ pub async fn total_chunks(pool: &SqlitePool) -> anyhow::Result<i64> {
     Ok(row.0)
 }
 
-pub async fn list_indexed_documents(pool: &SqlitePool) -> anyhow::Result<Vec<(String, String, i64)>> {
-    let rows: Vec<(String, String, i64)> = sqlx::query_as(
-        "SELECT d.id, d.file_name, COUNT(c.id) as chunk_count
+pub async fn count_by_embedder(pool: &SqlitePool, version: &str) -> anyhow::Result<i64> {
+    let row: (i64,) = sqlx::query_as(
+        "SELECT COUNT(*) FROM document_chunks WHERE embedder_version = ?",
+    )
+    .bind(version)
+    .fetch_one(pool)
+    .await?;
+    Ok(row.0)
+}
+
+pub async fn list_indexed_documents(
+    pool: &SqlitePool,
+) -> anyhow::Result<Vec<(String, String, i64, String)>> {
+    let rows: Vec<(String, String, i64, String)> = sqlx::query_as(
+        "SELECT d.id, d.file_name, COUNT(c.id) as chunk_count, MIN(c.embedder_version)
          FROM documents d
          INNER JOIN document_chunks c ON c.document_id = d.id
          GROUP BY d.id
-         HAVING chunk_count > 0
+         HAVING COUNT(c.id) > 0
          ORDER BY d.created_at DESC",
     )
     .fetch_all(pool)
