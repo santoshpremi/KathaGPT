@@ -138,8 +138,8 @@ export function useKnowledgeCollections() {
   return useQuery({
     queryKey: ["rag", "collections"],
     queryFn: async () => {
-      const { rustFetch } = await import("../rust/client");
-      const { ensureRustApiReady } = await import("../rust/init");
+      const { rustFetch } = await import("./rust/client");
+      const { ensureRustApiReady } = await import("./rust/init");
       await ensureRustApiReady();
       return rustFetch<KnowledgeCollection[]>("/rag/collections");
     },
@@ -151,8 +151,8 @@ export function useRagStatus() {
   return useQuery({
     queryKey: ["rag", "status"],
     queryFn: async () => {
-      const { rustFetch } = await import("../rust/client");
-      const { ensureRustApiReady } = await import("../rust/init");
+      const { rustFetch } = await import("./rust/client");
+      const { ensureRustApiReady } = await import("./rust/init");
       await ensureRustApiReady();
       return rustFetch<{
         embedder: string;
@@ -170,7 +170,7 @@ export function useDeleteDocument() {
   const { t } = useTranslation();
 
   return async (documentId: string) => {
-    const { rustFetch } = await import("../rust/client");
+    const { rustFetch } = await import("./rust/client");
     await rustFetch(`/documents/${documentId}`, { method: "DELETE" });
     void queryClient.invalidateQueries({ queryKey: ["rag"] });
     void queryClient.invalidateQueries({ queryKey: ["document"] });
@@ -183,7 +183,7 @@ export function useReindexDocument() {
   const { t } = useTranslation();
 
   return async (documentId: string) => {
-    const { rustFetch } = await import("../rust/client");
+    const { rustFetch } = await import("./rust/client");
     const result = await rustFetch<{ chunksIndexed: number }>(
       `/documents/${documentId}/reindex`,
       { method: "POST" },
