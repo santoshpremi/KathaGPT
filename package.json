@@ -1,6 +1,6 @@
 {
   "name": "kathagpt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "KathaGPT Local Edition — private AI chat on your machine",
   "main": "src/main.tsx",
   "type": "module",

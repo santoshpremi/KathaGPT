@@ -3,7 +3,7 @@
 # Usage:  curl -fsSL https://santoshpremi.github.io/KathaGPT/install.sh | bash
 set -euo pipefail
 
-VERSION="0.1.0"
+VERSION="0.1.1"
 APP_NAME="KathaGPT.app"
 INSTALL_DIR="/Applications"
 BASE_URL="https://santoshpremi.github.io/KathaGPT/downloads"

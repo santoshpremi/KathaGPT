@@ -11,7 +11,7 @@
 
 | | |
 |---|---|
-| **Version** | 0.1.0 |
+| **Version** | 0.1.1 |
 | **Stack** | React · **Rust (Axum)** · Tauri v2 · SQLite · llama.cpp |
 | **Platforms** | macOS · Windows · Linux |
 | **Repo** | [github.com/santoshpremi/KathaGPT](https://github.com/santoshpremi/KathaGPT) |

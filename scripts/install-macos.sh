@@ -14,7 +14,7 @@ find_dmg() {
     return
   fi
   echo "Place the KathaGPT .dmg in ~/Downloads, or pass the path:" >&2
-  echo "  ./scripts/install-macos.sh ~/Downloads/KathaGPT_0.1.0_aarch64.dmg" >&2
+  echo "  ./scripts/install-macos.sh ~/Downloads/KathaGPT_0.1.1_aarch64.dmg" >&2
   exit 1
 }
 

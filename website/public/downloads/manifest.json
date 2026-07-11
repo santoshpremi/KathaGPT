@@ -1,9 +1,9 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "platforms": {
-    "mac-arm": "KathaGPT_0.1.0_aarch64.dmg",
-    "mac-intel": "KathaGPT_0.1.0_x64.dmg",
-    "windows": "KathaGPT_0.1.0_x64-setup.exe",
-    "linux": "KathaGPT_0.1.0_amd64.AppImage"
+    "mac-arm": "KathaGPT_0.1.1_aarch64.dmg",
+    "mac-intel": null,
+    "windows": null,
+    "linux": null
   }
 }

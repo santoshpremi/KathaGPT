@@ -25,7 +25,7 @@ find_appimage() {
 
   echo "No KathaGPT AppImage found in ~/Downloads, ~/Desktop, or ~." >&2
   echo "Pass the path explicitly:" >&2
-  echo "  bash install-linux.sh ~/path/to/KathaGPT_0.1.0_amd64.AppImage" >&2
+  echo "  bash install-linux.sh ~/path/to/KathaGPT_0.1.1_amd64.AppImage" >&2
   exit 1
 }
 

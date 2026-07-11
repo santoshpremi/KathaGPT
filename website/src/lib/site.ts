@@ -5,7 +5,7 @@ export const SITE = {
     "Run Llama, Mistral, Gemma, Phi and more locally with one click — no API key needed. Or connect OpenRouter, GPT, Claude, Gemini, and Perplexity. Every conversation stays on your device.",
   githubRepo: import.meta.env.VITE_GITHUB_REPO ?? "santoshpremi/KathaGPT",
   license: "MIT",
-  version: "0.1.0",
+  version: "0.1.1",
 } as const;
 
 /** Public asset path — respects Vite base (e.g. /KathaGPT/ on GitHub Pages). */
