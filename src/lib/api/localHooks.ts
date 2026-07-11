@@ -1,5 +1,7 @@
 import type { ApiOrganization } from "@apiTypes/Organization";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 import type { ModelOverride } from "@shared/api/chat/chatTypes";
 import type { Department } from "@shared/api/organization/departmentTypes";
 import type { KnowledgeCollection } from "@shared/api/rag/dataPool/dataPoolTypes";
@@ -143,6 +145,57 @@ export function useKnowledgeCollections() {
     },
     staleTime: 30_000,
   });
+}
+
+export function useRagStatus() {
+  return useQuery({
+    queryKey: ["rag", "status"],
+    queryFn: async () => {
+      const { rustFetch } = await import("../rust/client");
+      const { ensureRustApiReady } = await import("../rust/init");
+      await ensureRustApiReady();
+      return rustFetch<{
+        embedder: string;
+        totalChunks: number;
+        indexedDocuments: number;
+        topK: number;
+      }>("/rag/status");
+    },
+    staleTime: 30_000,
+  });
+}
+
+export function useDeleteDocument() {
+  const queryClient = useQueryClient();
+  const { t } = useTranslation();
+
+  return async (documentId: string) => {
+    const { rustFetch } = await import("../rust/client");
+    await rustFetch(`/documents/${documentId}`, { method: "DELETE" });
+    void queryClient.invalidateQueries({ queryKey: ["rag"] });
+    void queryClient.invalidateQueries({ queryKey: ["document"] });
+    toast.success(t("documents.library.deleted", "Document removed"));
+  };
+}
+
+export function useReindexDocument() {
+  const queryClient = useQueryClient();
+  const { t } = useTranslation();
+
+  return async (documentId: string) => {
+    const { rustFetch } = await import("../rust/client");
+    const result = await rustFetch<{ chunksIndexed: number }>(
+      `/documents/${documentId}/reindex`,
+      { method: "POST" },
+    );
+    void queryClient.invalidateQueries({ queryKey: ["rag"] });
+    toast.success(
+      t("documents.library.reindexed", {
+        count: result.chunksIndexed,
+        defaultValue: "Re-indexed {{count}} chunks",
+      }),
+    );
+  };
 }
 
 export function useUpdateRagMode() {

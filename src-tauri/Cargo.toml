@@ -60,6 +60,7 @@ flate2 = "1"
 tar = "0.4"
 dashmap = "6"
 sysinfo = "0.33"
+fastembed = "4"
 
 [profile.release]
 panic = "abort"

@@ -1,14 +1,20 @@
 pub mod chunk;
-pub mod embed;
+pub mod embed_hash;
+pub mod embedder;
 pub mod index;
 pub mod search;
+
+pub use embed_hash::EMBED_DIM;
+pub use embedder::{
+    active_embedder_version, cosine_similarity, embed_passages_sync, embed_query_sync,
+    embedding_from_bytes, embedding_to_bytes, EMBEDDER_VERSION,
+    FASTEMBED_VERSION, HASH_EMBEDDER_VERSION,
+};
 
 #[cfg(test)]
 mod tests;
 
 use sqlx::SqlitePool;
-
-use crate::db::repos::chunks;
 
 /// Collect unique document IDs from the current message and chat history.
 pub fn collect_document_ids(
@@ -27,5 +33,5 @@ pub fn collect_document_ids(
 }
 
 pub async fn is_document_indexed(pool: &SqlitePool, document_id: &str) -> anyhow::Result<bool> {
-    Ok(chunks::count_for_document(pool, document_id).await? > 0)
+    Ok(crate::db::repos::chunks::count_for_document(pool, document_id).await? > 0)
 }

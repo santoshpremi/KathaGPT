@@ -225,6 +225,23 @@ test.describe("Rust local API", () => {
     expect(collections.ok()).toBeTruthy();
     const list = await collections.json();
     expect(list.some((c: { id: string }) => c.id === doc.id)).toBeTruthy();
+
+    const status = await request.get(`${API}/rag/status`);
+    expect(status.ok()).toBeTruthy();
+    const statusBody = await status.json();
+    expect(statusBody.totalChunks).toBeGreaterThan(0);
+    expect(statusBody.embedder).toBeTruthy();
+
+    const reindex = await request.post(`${API}/documents/${doc.id}/reindex`);
+    expect(reindex.ok()).toBeTruthy();
+    const reindexBody = await reindex.json();
+    expect(reindexBody.chunksIndexed).toBeGreaterThan(0);
+
+    const del = await request.delete(`${API}/documents/${doc.id}`);
+    expect(del.ok()).toBeTruthy();
+    const afterDelete = await request.get(`${API}/rag/collections`);
+    const afterList = await afterDelete.json();
+    expect(afterList.some((c: { id: string }) => c.id === doc.id)).toBeFalsy();
   });
 
   test("message stream with attachment returns RAG citations in init", async ({

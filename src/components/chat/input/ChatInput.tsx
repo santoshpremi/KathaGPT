@@ -32,6 +32,7 @@ import { CHAT_INPUT_ID } from "../../../lib/testIds";
 import { InlineModelSelector } from "./InlineModelSelector";
 import { ChatInputMenu } from "./ChatInputMenu";
 import { ContextTokenIndicator } from "./ContextTokenIndicator";
+import { DocumentLibraryButton } from "./sources/DocumentLibraryModal";
 
 export interface AttachedDocument {
   id: string;
@@ -446,6 +447,9 @@ export const ChatInput = React.forwardRef(
                         onInsertPrompt={(prompt) => setInput(prompt)}
                       />
                     </div>
+                    {documentIntelligenceEnabled && (
+                      <DocumentLibraryButton disabled={isDisabled} />
+                    )}
                     {setModelOverride && (
                       <InlineModelSelector
                         selectedModel={chosenModel}

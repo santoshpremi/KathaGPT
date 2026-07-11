@@ -27,6 +27,7 @@ mod integration {
             "CREATE TABLE IF NOT EXISTS document_chunks (
                 id TEXT PRIMARY KEY, document_id TEXT NOT NULL, chunk_index INTEGER NOT NULL,
                 content TEXT NOT NULL, token_count INTEGER NOT NULL, embedding BLOB NOT NULL,
+                embedder_version TEXT NOT NULL DEFAULT 'hash_v1',
                 created_at TEXT NOT NULL
             )",
         )

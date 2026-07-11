@@ -1,7 +1,7 @@
 use sqlx::SqlitePool;
 
 use crate::db::repos::{chunks, documents as doc_repo};
-use crate::rag::embed::{self, cosine_similarity};
+use crate::rag::embedder::{self, cosine_similarity};
 
 pub const DEFAULT_TOP_K: usize = 6;
 
@@ -31,7 +31,11 @@ pub async fn retrieve(
         return Ok(vec![]);
     }
 
-    let query_vec = embed::embed_text(query);
+    let query_vec = tokio::task::spawn_blocking({
+        let q = query.to_string();
+        move || embedder::embed_query_sync(&q)
+    })
+    .await?;
     let mut scored: Vec<(f32, &chunks::ChunkRecord)> = stored
         .iter()
         .map(|c| (cosine_similarity(&query_vec, &c.embedding), c))

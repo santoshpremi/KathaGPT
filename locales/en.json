@@ -514,7 +514,17 @@
     "alreadyUploaded": "Already uploaded",
     "dropzoneEmpty": "Drop files here or click to upload",
     "documentGenerationPending": "Generating document...",
-    "generationSuccess": "Document ready"
+    "generationSuccess": "Document ready",
+    "library": {
+      "open": "Library",
+      "title": "Document library",
+      "empty": "No indexed documents yet. Upload a file to get started.",
+      "delete": "Delete",
+      "reindex": "Re-index",
+      "deleted": "Document removed",
+      "reindexed": "Re-indexed {{count}} chunks",
+      "status": "{{embedder}} · {{chunks}} chunks · {{docs}} documents"
+    }
   },
   "helpCenter": {
     "title": "Help center",
@@ -566,7 +576,8 @@
     "overLimit": "{{used}} / {{limit}} tokens · over context limit",
     "nearLimitHint": "You're close to the context limit. Older messages may be trimmed automatically when you send.",
     "overLimitHint": "This message exceeds the model context window. Shorten your input or start a new chat.",
-    "truncatedOnSend": "{{count}} older message(s) were trimmed to fit the context window."
+    "truncatedOnSend": "{{count}} older message(s) were trimmed to fit the context window.",
+    "ragCitationsUsed": "Retrieved {{count}} passage(s) from your documents."
   },
   "localModels": {
     "deleteTitle": "Delete local model?",

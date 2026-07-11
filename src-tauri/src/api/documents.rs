@@ -2,7 +2,7 @@ use axum::{
     extract::{Path, State},
     http::StatusCode,
     response::IntoResponse,
-    routing::{get, post},
+    routing::{delete, get, post},
     Json, Router,
 };
 use base64::{engine::general_purpose::STANDARD as B64, Engine};
@@ -10,7 +10,7 @@ use serde::Deserialize;
 use uuid::Uuid;
 
 use crate::config;
-use crate::db::repos::documents as doc_repo;
+use crate::db::repos::{chunks, documents as doc_repo};
 use crate::document_text;
 use crate::server::AppState;
 
@@ -18,6 +18,8 @@ pub fn routes() -> Router<AppState> {
     Router::new()
         .route("/documents/upload", post(upload_document))
         .route("/documents/{document_id}/header", get(get_document_header))
+        .route("/documents/{document_id}/reindex", post(reindex_document))
+        .route("/documents/{document_id}", delete(delete_document))
 }
 
 #[derive(Debug, Deserialize)]
@@ -116,6 +118,57 @@ async fn get_document_header(
     match doc_repo::get(&state.db, &document_id).await {
         Ok(Some(doc)) => (StatusCode::OK, Json(doc)).into_response(),
         Ok(None) => (
+            StatusCode::NOT_FOUND,
+            Json(serde_json::json!({ "error": "Document not found" })),
+        )
+            .into_response(),
+        Err(err) => server_error(&err.to_string()),
+    }
+}
+
+async fn reindex_document(
+    State(state): State<AppState>,
+    Path(document_id): Path<String>,
+) -> impl IntoResponse {
+    match doc_repo::read_text_for_llm(&state.db, &document_id).await {
+        Ok(Some((_name, text))) => match crate::rag::index::index_document(&state.db, &document_id, &text).await {
+            Ok(count) => (
+                StatusCode::OK,
+                Json(serde_json::json!({
+                    "documentId": document_id,
+                    "chunksIndexed": count,
+                    "embedder": crate::rag::active_embedder_version(),
+                })),
+            )
+                .into_response(),
+            Err(err) => server_error(&err.to_string()),
+        },
+        Ok(None) => (
+            StatusCode::NOT_FOUND,
+            Json(serde_json::json!({ "error": "Document not found" })),
+        )
+            .into_response(),
+        Err(err) => server_error(&err.to_string()),
+    }
+}
+
+async fn delete_document(
+    State(state): State<AppState>,
+    Path(document_id): Path<String>,
+) -> impl IntoResponse {
+    let storage_path = chunks::get_storage_path(&state.db, &document_id).await;
+    match chunks::delete_document(&state.db, &document_id).await {
+        Ok(true) => {
+            if let Ok(Some(path)) = storage_path {
+                let _ = std::fs::remove_file(path);
+            }
+            (
+                StatusCode::OK,
+                Json(serde_json::json!({ "deleted": true, "documentId": document_id })),
+            )
+                .into_response()
+        }
+        Ok(false) => (
             StatusCode::NOT_FOUND,
             Json(serde_json::json!({ "error": "Document not found" })),
         )

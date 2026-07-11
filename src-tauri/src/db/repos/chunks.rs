@@ -1,6 +1,6 @@
 use sqlx::SqlitePool;
 
-use crate::rag::embed::{embedding_from_bytes, embedding_to_bytes, EMBED_DIM};
+use crate::rag::{embedding_from_bytes, embedding_to_bytes, EMBED_DIM};
 
 #[derive(Debug, Clone)]
 pub struct ChunkRecord {
@@ -10,6 +10,7 @@ pub struct ChunkRecord {
     pub content: String,
     pub token_count: i64,
     pub embedding: Vec<f32>,
+    pub embedder_version: String,
 }
 
 pub async fn delete_for_document(pool: &SqlitePool, document_id: &str) -> anyhow::Result<()> {
@@ -25,8 +26,8 @@ pub async fn insert_batch(pool: &SqlitePool, chunks: &[ChunkRecord], created_at:
         let blob = embedding_to_bytes(&chunk.embedding);
         sqlx::query(
             "INSERT INTO document_chunks
-             (id, document_id, chunk_index, content, token_count, embedding, created_at)
-             VALUES (?, ?, ?, ?, ?, ?, ?)",
+             (id, document_id, chunk_index, content, token_count, embedding, embedder_version, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
         )
         .bind(&chunk.id)
         .bind(&chunk.document_id)
@@ -34,6 +35,7 @@ pub async fn insert_batch(pool: &SqlitePool, chunks: &[ChunkRecord], created_at:
         .bind(&chunk.content)
         .bind(chunk.token_count)
         .bind(blob)
+        .bind(&chunk.embedder_version)
         .bind(created_at)
         .execute(pool)
         .await?;
@@ -56,12 +58,12 @@ pub async fn list_for_documents(
         .join(", ");
 
     let sql = format!(
-        "SELECT id, document_id, chunk_index, content, token_count, embedding
+        "SELECT id, document_id, chunk_index, content, token_count, embedding, embedder_version
          FROM document_chunks WHERE document_id IN ({placeholders})
          ORDER BY document_id, chunk_index"
     );
 
-    let mut query = sqlx::query_as::<_, (String, String, i64, String, i64, Vec<u8>)>(&sql);
+    let mut query = sqlx::query_as::<_, (String, String, i64, String, i64, Vec<u8>, String)>(&sql);
     for id in document_ids {
         query = query.bind(id);
     }
@@ -69,7 +71,7 @@ pub async fn list_for_documents(
     let rows = query.fetch_all(pool).await?;
     Ok(rows
         .into_iter()
-        .map(|(id, document_id, chunk_index, content, token_count, blob)| {
+        .map(|(id, document_id, chunk_index, content, token_count, blob, embedder_version)| {
             let embedding = embedding_from_bytes(&blob);
             debug_assert_eq!(embedding.len(), EMBED_DIM);
             ChunkRecord {
@@ -79,6 +81,7 @@ pub async fn list_for_documents(
                 content,
                 token_count,
                 embedding,
+                embedder_version,
             }
         })
         .collect())
@@ -94,6 +97,13 @@ pub async fn count_for_document(pool: &SqlitePool, document_id: &str) -> anyhow:
     Ok(row.0)
 }
 
+pub async fn total_chunks(pool: &SqlitePool) -> anyhow::Result<i64> {
+    let row: (i64,) = sqlx::query_as("SELECT COUNT(*) FROM document_chunks")
+        .fetch_one(pool)
+        .await?;
+    Ok(row.0)
+}
+
 pub async fn list_indexed_documents(pool: &SqlitePool) -> anyhow::Result<Vec<(String, String, i64)>> {
     let rows: Vec<(String, String, i64)> = sqlx::query_as(
         "SELECT d.id, d.file_name, COUNT(c.id) as chunk_count
@@ -106,4 +116,22 @@ pub async fn list_indexed_documents(pool: &SqlitePool) -> anyhow::Result<Vec<(St
     .fetch_all(pool)
     .await?;
     Ok(rows)
+}
+
+pub async fn get_storage_path(pool: &SqlitePool, document_id: &str) -> anyhow::Result<Option<String>> {
+    let row: Option<(String,)> =
+        sqlx::query_as("SELECT storage_path FROM documents WHERE id = ?")
+            .bind(document_id)
+            .fetch_optional(pool)
+            .await?;
+    Ok(row.map(|r| r.0))
+}
+
+pub async fn delete_document(pool: &SqlitePool, document_id: &str) -> anyhow::Result<bool> {
+    delete_for_document(pool, document_id).await?;
+    let result = sqlx::query("DELETE FROM documents WHERE id = ?")
+        .bind(document_id)
+        .execute(pool)
+        .await?;
+    Ok(result.rows_affected() > 0)
 }

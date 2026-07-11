@@ -513,6 +513,13 @@ function Interface({
               }),
             );
           }
+          if (chunk.ragCitations && chunk.ragCitations.length > 0) {
+            toast.info(
+              t("contextTokens.ragCitationsUsed", {
+                count: chunk.ragCitations.length,
+              }),
+            );
+          }
           setTempMessages((currentTempMessages) =>
             currentTempMessages.map((m) =>
               m.fromAi
