@@ -348,13 +348,48 @@ The Tauri app checks [GitHub Releases](https://github.com/santoshpremi/KathaGPT/
 
 ## Roadmap
 
-| Area | Next steps |
-|------|-----------|
-| **Local LLM** | RAM detection + recommended picker (done); quant auto-pick (done), delete model UI (done) |
-| **Context** | Token counter, smart truncation, remaining-tokens indicator (done) |
-| **Desktop** | Global hotkey + quick-compose (done); auto-updater (done) |
-| **Memory & RAG** | Document chat MVP (chunk + embed + retrieve on upload); upgrade path: fastembed + sqlite-vec vec0 |
-| **Agents** | Tool calling, multi-step ReAct loops, workflow marketplace |
+**North star:** KathaGPT is a private AI workbench — local models, personal memory, document intelligence, and agents that run entirely on your machine.
+
+### Shipped
+
+| Area | Status |
+|------|--------|
+| **Local LLM** | Curated GGUF catalog, RAM-aware picker, quant auto-pick, delete model UI, llama.cpp sidecar |
+| **Context** | Token counter, smart truncation, remaining-tokens indicator |
+| **Desktop** | Global hotkey, quick-compose, auto-updater (signed releases) |
+| **Document RAG v1** | Upload → chunk → fastembed → hybrid search (vector + FTS/BM25 + RRF) → citations → library / reindex / status |
+
+> Document RAG v1 is shipped. **Memory & RAG** as a full product is still in progress.
+
+### Next
+
+| Priority | Area | What ships |
+|----------|------|------------|
+| **1** | **Personal Memory** | Cross-chat preferences, facts, and project context — not limited to attachments |
+| **2** | **Retrieval quality** | `sqlite-vec` (or equivalent ANN), neural rerank, global knowledge collections |
+| **3** | **Stateful RAG** | Multi-hop retrieve → consolidate → verify → retry for complex questions |
+| **4** | **Local platform** | CUDA/Vulkan acceleration, any-GGUF import, OpenAI-compatible localhost API |
+| **5** | **Agents + MCP** | Permission-gated tool calling and multi-step reasoning on Axum |
+| **6** | **RAG eval harness** | Golden questions, citation accuracy, regression in CI |
+
+### Research
+
+| Direction | Goal |
+|-----------|------|
+| **Associative memory** | Entity graph + multi-hop retrieval over a private document library |
+| **Multimodal documents** | Page-level retrieval for PDFs (tables, figures, layout) |
+| **Workflow marketplace** | Shareable local workflows and reusable agent templates |
+
+### Done criteria — Memory & RAG
+
+Mark **Memory & RAG** complete when all of the following are true:
+
+1. Cross-chat personal memory is available by default
+2. ANN indexing (`sqlite-vec` or equivalent) replaces brute-force cosine search
+3. Reranking is part of the retrieval pipeline
+4. An offline eval suite runs in CI (citation + multi-hop regression)
+
+Until then, **Document RAG v1** remains the shipped baseline.
 
 ---
 
