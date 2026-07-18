@@ -1,8 +1,6 @@
 export const SITE = {
   name: "KathaGPT",
   tagline: "Private AI — local models + cloud, powered by Rust",
-  description:
-    "Run Llama, Mistral, Gemma, Phi and more locally with one click — no API key needed. Or connect OpenRouter, GPT, Claude, Gemini, and Perplexity. Every conversation stays on your device.",
   githubRepo: import.meta.env.VITE_GITHUB_REPO ?? "santoshpremi/KathaGPT",
   license: "MIT",
   version: "0.1.1",
@@ -13,6 +11,48 @@ export function assetUrl(path: string): string {
   const base = import.meta.env.BASE_URL;
   return `${base}${path.replace(/^\//, "")}`;
 }
+
+export type PageBackgroundId = "fable";
+
+export const PAGE_BACKGROUND_IDS: PageBackgroundId[] = ["fable"];
+
+export function isPageBackgroundId(
+  value: string | null,
+): value is PageBackgroundId {
+  return PAGE_BACKGROUND_IDS.includes(value as PageBackgroundId);
+}
+
+/** @deprecated use PageBackgroundId */
+export type HeroVideoId = PageBackgroundId;
+
+export function isHeroVideoId(value: string | null): value is PageBackgroundId {
+  return isPageBackgroundId(value);
+}
+
+export interface PageBackgroundOption {
+  id: PageBackgroundId;
+  label: string;
+  video: string;
+  poster: string;
+}
+
+export const PAGE_BACKGROUNDS: PageBackgroundOption[] = [
+  {
+    id: "fable",
+    label: "Fable",
+    video: assetUrl("hero/hero-fable.mp4"),
+    poster: assetUrl("hero/poster-fable.png"),
+  },
+];
+
+export function getPageBackground(id: PageBackgroundId): PageBackgroundOption {
+  return (
+    PAGE_BACKGROUNDS.find((option) => option.id === id) ?? PAGE_BACKGROUNDS[0]
+  );
+}
+
+/** @deprecated use PAGE_BACKGROUNDS */
+export const HERO_VIDEOS = PAGE_BACKGROUNDS;
 
 export type PlatformId = "mac-arm" | "mac-intel" | "windows" | "linux";
 

@@ -39,7 +39,7 @@ export function InstallSetup() {
   };
 
   return (
-    <section id="install-setup" className="border-b border-stone-900 bg-stone-900/10 py-24 md:py-32">
+    <section id="install-setup" className="border-b border-stone-900/40 bg-black/20 py-24 backdrop-blur-[2px] md:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-3xl text-center">
           <p className="section-label">Install Setup</p>

@@ -35,7 +35,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="border-b border-stone-900 bg-black py-24">
+    <section id="faq" className="border-b border-stone-900/40 bg-black/30 py-24 backdrop-blur-[2px]">
       <div className="mx-auto max-w-3xl px-6">
         <div className="text-center">
           <p className="section-label">FAQ</p>
@@ -49,11 +49,10 @@ export function FAQ() {
             return (
               <div
                 key={item.q}
-                className={`rounded-xl border transition ${
-                  isOpen
-                    ? "border-stone-800 bg-stone-900/40"
-                    : "border-stone-900 bg-black hover:border-stone-800"
-                }`}
+                className={`rounded-xl border transition ${isOpen
+                  ? "border-stone-800 bg-stone-900/40"
+                  : "border-stone-900 bg-black hover:border-stone-800"
+                  }`}
               >
                 <dt>
                   <button

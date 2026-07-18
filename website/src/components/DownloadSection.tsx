@@ -4,7 +4,7 @@ import { SITE } from "../lib/site";
 
 export function DownloadSection() {
   return (
-    <section id="download" className="border-b border-stone-900 bg-stone-900/10 py-20">
+    <section id="download" className="border-b border-stone-900/40 bg-black/25 py-20 backdrop-blur-[2px]">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <p className="section-label">Get started</p>

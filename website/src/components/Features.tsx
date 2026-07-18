@@ -57,7 +57,7 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="border-b border-stone-900 bg-black py-24">
+    <section id="features" className="border-b border-stone-900/40 bg-black/35 py-24 backdrop-blur-[2px]">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <p className="section-label">Why KathaGPT</p>

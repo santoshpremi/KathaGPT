@@ -31,7 +31,7 @@ const stack = [
 
 export function TechStack() {
   return (
-    <section id="tech" className="border-b border-stone-900 bg-stone-900/10 py-24">
+    <section id="tech" className="border-b border-stone-900/40 bg-black/20 py-24 backdrop-blur-[2px]">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-3xl text-center">
           <p className="section-label">Powered by Rust</p>

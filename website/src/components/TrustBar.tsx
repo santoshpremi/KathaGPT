@@ -9,7 +9,7 @@ const badges = [
 
 export function TrustBar() {
   return (
-    <section className="border-b border-stone-900 bg-stone-900/10 py-6">
+    <section className="border-b border-stone-900/40 bg-black/20 py-6 backdrop-blur-[2px]">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-6">
         {badges.map((badge) => (
           <div key={badge.label} className="flex items-center gap-2.5 text-sm">
