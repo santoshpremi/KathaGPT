@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "check:social": "node scripts/check-social-meta.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
