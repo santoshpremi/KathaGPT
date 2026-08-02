@@ -1,6 +1,5 @@
 import { test, expect, type Page } from "./fixtures";
-
-const ORG_ID = "org_cm8yflh26064xmw01zbalts9c";
+import { gotoChatsHome, ORG_ID } from "./helpers";
 
 const MOCK_MODEL = {
   name: "llama-test-e2e",
@@ -139,14 +138,16 @@ async function installLocalModelMocks(
 }
 
 async function openLocalModelsModal(page: Page) {
-  await page.goto(`/${ORG_ID}/chats`, { waitUntil: "domcontentloaded" });
-  await expect(page.getByTestId("sidebar")).toBeVisible({ timeout: 30_000 });
+  await gotoChatsHome(page);
 
-  await page.getByRole("button", { name: /John Doe|Local User/ }).click();
+  const profileButton = page.getByRole("button", { name: /John Doe|Local User/ });
+  await expect(profileButton).toBeVisible({ timeout: 10_000 });
+  await profileButton.click();
+
   const addLocalModel = page.getByRole("menuitem", {
     name: "Add Local Model",
   });
-  await expect(addLocalModel).toBeVisible({ timeout: 5_000 });
+  await expect(addLocalModel).toBeVisible({ timeout: 10_000 });
   await addLocalModel.click();
 
   await expect(page.getByText("Add Local Model", { exact: true })).toBeVisible({

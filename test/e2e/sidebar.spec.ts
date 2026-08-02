@@ -1,14 +1,15 @@
 import { test, expect } from "./fixtures";
-
-const ORG_ID = "org_cm8yflh26064xmw01zbalts9c";
-const API = process.env.KATHAGPT_API_BASE ?? "http://127.0.0.1:17890/api/local";
+import {
+  API,
+  createChatWithMessage,
+  gotoChatsHome,
+  mockStoredOpenRouterKey,
+  ORG_ID,
+} from "./helpers";
 
 test.describe("Sidebar navigation", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`/${ORG_ID}`, { waitUntil: "domcontentloaded" });
-    await expect(page).toHaveURL(new RegExp(`/${ORG_ID}/chats/`), {
-      timeout: 20_000,
-    });
+    await gotoChatsHome(page);
   });
 
   test("prompt library opens prompt library page", async ({ page }) => {
@@ -27,6 +28,9 @@ test.describe("Sidebar navigation", () => {
   });
 
   test("research assistant opens dedicated tool page", async ({ page }) => {
+    await mockStoredOpenRouterKey(page);
+    await gotoChatsHome(page);
+
     await page.getByTestId("research-assistant-sidebar-button").click();
     await expect(page).toHaveURL(
       new RegExp(`/${ORG_ID}/tools/researchAssistant`),
@@ -50,15 +54,14 @@ test.describe("Sidebar navigation", () => {
     const chatId = `chat_sidebar_search_${stamp}`;
     const uniqueToken = `sidebarfind${stamp}`;
 
-    await request.post(`${API}/chats`, {
-      data: { id: chatId, name: `Searchable ${uniqueToken} chat` },
+    await createChatWithMessage(request, {
+      id: chatId,
+      name: `Searchable ${uniqueToken} chat`,
+      content: `Hello from ${uniqueToken}`,
     });
-    const stream = await request.post(`${API}/chats/${chatId}/messages/stream`, {
-      data: { content: `Hello from ${uniqueToken}` },
-      headers: { Accept: "text/event-stream" },
-    });
-    expect(stream.ok()).toBeTruthy();
-    await stream.text();
+
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect(page.getByTestId("sidebar")).toBeVisible({ timeout: 30_000 });
 
     const searchInput = page.getByTestId("chat-search-input");
     await searchInput.fill(uniqueToken);

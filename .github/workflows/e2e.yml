@@ -3,7 +3,25 @@ name: E2E
 on:
   push:
     branches: [main, master]
+    paths:
+      - "src/**"
+      - "src-tauri/**"
+      - "test/e2e/**"
+      - "playwright.config.ts"
+      - "start-dev.sh"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/e2e.yml"
   pull_request:
+    paths:
+      - "src/**"
+      - "src-tauri/**"
+      - "test/e2e/**"
+      - "playwright.config.ts"
+      - "start-dev.sh"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/e2e.yml"
 
 jobs:
   playwright:

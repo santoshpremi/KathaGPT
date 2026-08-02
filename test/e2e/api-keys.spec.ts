@@ -1,12 +1,8 @@
 import { test, expect } from "./fixtures";
-
-const ORG_ID = "org_cm8yflh26064xmw01zbalts9c";
+import { gotoChatsHome } from "./helpers";
 
 test("API keys modal shows all LLM providers", async ({ page }) => {
-  await page.goto(`/${ORG_ID}`, { waitUntil: "domcontentloaded" });
-  await expect(page).toHaveURL(new RegExp(`/${ORG_ID}/chats/`), {
-    timeout: 20_000,
-  });
+  await gotoChatsHome(page);
 
   await page
     .getByRole("button", { name: /Local User|John Doe/ })

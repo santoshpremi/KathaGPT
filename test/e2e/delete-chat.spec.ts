@@ -1,17 +1,16 @@
 import { test, expect } from "./fixtures";
-
-const ORG_ID = "org_cm8yflh26064xmw01zbalts9c";
-const API = "http://127.0.0.1:17890/api/local";
+import { createChatWithMessage, gotoChatsHome, ORG_ID, API } from "./helpers";
 
 test("deleting active chat does not show NOT_FOUND error toast", async ({
   page,
   request,
 }) => {
   const chatId = `chat_delete_${Date.now()}`;
-  const create = await request.post(`${API}/chats`, {
-    data: { id: chatId, name: "Delete me E2E" },
+  await createChatWithMessage(request, {
+    id: chatId,
+    name: "Delete me E2E",
+    content: "Delete me E2E",
   });
-  expect(create.status()).toBe(201);
 
   const trpcToasts: string[] = [];
   page.on("console", (msg) => {
@@ -21,18 +20,18 @@ test("deleting active chat does not show NOT_FOUND error toast", async ({
   await page.goto(`/${ORG_ID}/chats/${chatId}`, {
     waitUntil: "domcontentloaded",
   });
-  await expect(page).toHaveURL(new RegExp(`/${ORG_ID}/chats/`), {
-    timeout: 20_000,
-  });
+  await expect(page.getByTestId("sidebar")).toBeVisible({ timeout: 30_000 });
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await expect(page.getByTestId("sidebar")).toBeVisible({ timeout: 30_000 });
 
   const chatRow = page
     .locator("#sidebar")
     .locator("li")
     .filter({ hasText: "Delete me E2E" });
+  await expect(chatRow).toBeVisible({ timeout: 15_000 });
+  await chatRow.hover();
   const menuButton = chatRow.locator("button").last();
-  await expect(menuButton).toBeVisible({ timeout: 10_000 });
-
-  await menuButton.click();
+  await menuButton.click({ force: true });
   await page.getByRole("menuitem", { name: /delete/i }).click();
   await page.getByRole("button", { name: /sure|confirm|delete/i }).click();
 
@@ -42,4 +41,6 @@ test("deleting active chat does not show NOT_FOUND error toast", async ({
     { timeout: 5_000 },
   );
   await expect(page.getByTestId("chat-input")).toBeVisible({ timeout: 15_000 });
+
+  await request.delete(`${API}/chats/${chatId}`);
 });

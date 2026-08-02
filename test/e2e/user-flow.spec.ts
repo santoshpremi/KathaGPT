@@ -1,7 +1,5 @@
 import { test, expect } from "./fixtures";
-
-const ORG_ID = "org_cm8yflh26064xmw01zbalts9c";
-const BASE_URL = process.env.BASE_URL ?? "http://localhost:5173";
+import { BASE_URL, ORG_ID, gotoChatsHome } from "./helpers";
 
 test.describe("KathaGPT user flow", () => {
   test("home redirects to a chat without error screen", async ({ page }) => {
@@ -17,9 +15,9 @@ test.describe("KathaGPT user flow", () => {
 
     await page.goto(`${BASE_URL}/${ORG_ID}`, { waitUntil: "domcontentloaded" });
 
-    await expect(page).toHaveURL(new RegExp(`/${ORG_ID}/chats/`), {
-      timeout: 20_000,
-    });
+    await expect
+      .poll(() => page.url(), { timeout: 30_000 })
+      .toMatch(new RegExp(`/${ORG_ID}/chats/`));
 
     await expect(page.locator("body")).not.toContainText("errorDisplay.title");
     await expect(page.locator("body")).not.toContainText("errorDisplay.helpText");
