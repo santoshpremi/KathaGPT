@@ -174,7 +174,8 @@ test.describe("Rust local API", () => {
     });
 
     const streamA = await request.post(`${API}/chats/${chatA}/messages/stream`, {
-      data: { content: "Discussed database migration timeline" },
+      // First user message becomes the chat title — keep "planning" in the text.
+      data: { content: "Project planning notes for the migration timeline" },
       headers: { Accept: "text/event-stream" },
     });
     expect(streamA.ok()).toBeTruthy();

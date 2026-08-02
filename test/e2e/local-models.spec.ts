@@ -142,13 +142,20 @@ async function openLocalModelsModal(page: Page) {
 
   const profileButton = page.getByRole("button", { name: /John Doe|Local User/ });
   await expect(profileButton).toBeVisible({ timeout: 10_000 });
-  await profileButton.click();
 
-  const addLocalModel = page.getByRole("menuitem", {
-    name: "Add Local Model",
-  });
-  await expect(addLocalModel).toBeVisible({ timeout: 10_000 });
-  await addLocalModel.click();
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    await profileButton.click();
+    const addLocalModel = page.getByRole("menuitem", {
+      name: "Add Local Model",
+    });
+    try {
+      await expect(addLocalModel).toBeVisible({ timeout: 5_000 });
+      await addLocalModel.click({ timeout: 5_000 });
+      break;
+    } catch {
+      if (attempt === 2) throw new Error("Could not open Add Local Model menu");
+    }
+  }
 
   await expect(page.getByText("Add Local Model", { exact: true })).toBeVisible({
     timeout: 10_000,

@@ -1,5 +1,5 @@
 import { test, expect } from "./fixtures";
-import { createChatWithMessage, gotoChatsHome, ORG_ID, API } from "./helpers";
+import { createChatWithMessage, ORG_ID, API } from "./helpers";
 
 test("deleting active chat does not show NOT_FOUND error toast", async ({
   page,

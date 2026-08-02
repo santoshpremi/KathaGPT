@@ -1,5 +1,5 @@
 import { test, expect } from "./fixtures";
-import { BASE_URL, ORG_ID, gotoChatsHome } from "./helpers";
+import { BASE_URL, ORG_ID } from "./helpers";
 
 test.describe("KathaGPT user flow", () => {
   test("home redirects to a chat without error screen", async ({ page }) => {
